@@ -131,6 +131,15 @@ p,li{text-wrap:pretty}
 .outline li{padding:4px 0 4px .3em;font-size:1.04rem}
 .outline li::marker{color:var(--gray)}
 .body .tk{color:var(--gray);font-size:.92rem;border-left:4px solid var(--c);padding:2px 0 2px 14px;margin:0 0 2em}
+.body .term{text-decoration:underline dotted var(--gray);text-decoration-thickness:1.5px;text-underline-offset:5px;cursor:help}
+.body .term:hover,.body .term:focus-visible,.body .term.on{text-decoration-color:var(--ink);outline:none;background:var(--shade)}
+.tip{position:absolute;z-index:50;max-width:min(22em,calc(100vw - 32px));background:var(--ink);color:#fff;padding:12px 16px 12px 14px;
+  border-left:6px solid var(--tc,#fff);font-size:.9rem;line-height:1.75;box-shadow:0 0 0 1px var(--ink)}
+.tip[hidden]{display:none}
+.tip .tt{font-family:var(--display);font-size:.95rem;margin:0 0 4px}
+.tip p{margin:0}
+.tip a{display:inline-block;margin-top:6px;color:#fff;font-size:.82rem;opacity:.8}
+.tip a:hover{opacity:1}
 .note{max-width:36em;margin:18px 0 0;color:var(--gray);font-size:.92rem}
 .more{max-width:36em;margin-top:56px}
 .more h2{font-size:1rem;margin:0 0 6px}
@@ -1592,7 +1601,89 @@ var GLOSSARY=[
  {t:"コンポジット",d:"複数の素材（レイヤー）を重ねて1つの画に合成すること。その工程全体も指す。",l:"composite-1"},
  {t:"レンダーパス",d:"3DCGで、色・影・反射などを要素ごとに分けて出力した画像。合成で個別に調整できる。",l:"composite-4"},
  {t:"フック",d:"冒頭で観客の注意をつかむ仕掛け。",l:"structure-2"},
- {t:"起承転結",d:"導入・展開・転換・結末の4つで、情報の出し方と流れを組み立てる型。",l:"structure-3"}
+ {t:"起承転結",d:"導入・展開・転換・結末の4つで、情報の出し方と流れを組み立てる型。",l:"structure-3"},
+ {t:"コマ打ち",d:"アニメで、同じ絵を何コマ続けて見せるか。24fpsで2コマ打ちなら、1秒に描く絵は12枚になる。",l:"prep-1"},
+ {t:"解像度",d:"1コマが縦横何個の点（ピクセル）でできているか。1920×1080がフルHD、3840×2160が4K。",l:"prep-2"},
+ {t:"色相",d:"赤、青、緑といった色の種類。明度・彩度と合わせて色の三属性と呼ぶ。",l:"prep-3"},
+ {t:"明度",d:"色の明るさ。",l:"prep-3"},
+ {t:"彩度",d:"色の鮮やかさ。低くすると灰色に近づく。",l:"prep-3"},
+ {t:"色温度",d:"光の色をケルビン（K）で表したもの。数字が低いほどオレンジ寄り、高いほど青寄り。",l:"prep-3"},
+ {t:"ホワイトバランス",d:"光の色温度に合わせて、白を白く写すためのカメラの設定。",l:"prep-3"},
+ {t:"デシベル",a:["dB"],d:"音の大きさを表す単位。編集ソフトでは0dBが上限で、超えると音が割れる。",l:"prep-4"},
+ {t:"周波数",d:"音の高さを決める、空気が1秒に震える回数。単位はHz。数字が大きいほど高い音。",l:"prep-4"},
+ {t:"イコライザー",a:["EQ"],d:"音の高さの帯域ごとに、音量を上げ下げする道具。",l:"prep-4"},
+ {t:"音色",d:"同じ高さ・大きさでも、ピアノと声を聞き分けられる違い。",l:"prep-4"},
+ {t:"リードルーム",d:"人物の視線や動きの先に空ける空間。ルッキングルームとも呼ぶ。",l:"visual-1"},
+ {t:"三分割法",d:"画面を縦横に3等分する線と交点を目安に、被写体を置く構図の型。",l:"visual-1"},
+ {t:"日の丸構図",d:"被写体を画面の真ん中に置く構図。正面からの強さや対称の美しさが出る。",l:"visual-1"},
+ {t:"余白",d:"画面の中で、被写体の周りに何もない空間。置き方で印象が変わる。",l:"visual-1"},
+ {t:"補色",d:"色相環で反対側にある色の組み合わせ。強いコントラストが出る。",l:"visual-3"},
+ {t:"アクセントカラー",d:"全体を少ない色でまとめた中に、1色だけ差す目立つ色。",l:"visual-3"},
+ {t:"三点照明",d:"キーライト（主な光）、フィルライト（影を和らげる光）、リムライト（輪郭を出す光）で組み立てる照明の基本形。",l:"visual-5"},
+ {t:"逆光",d:"被写体の後ろから当たる光。輪郭が光り、被写体が背景から浮き上がる。",l:"visual-5"},
+ {t:"予備動作",d:"動きの前の溜め。ボールを投げる前に腕を引くような動き。",l:"motion-1"},
+ {t:"フォロースルー",d:"動きが止まった後に残る余韻。髪や服が少し遅れて揺れるような動き。",l:"motion-1"},
+ {t:"モーションブラー",d:"速い動きの軌跡をぼかして残す効果。動きを滑らかに見せる。",l:"motion-1"},
+ {t:"イーズイン",d:"止まった状態からゆっくり加速して動き出すこと。ソフトによって呼び方が逆になることがある。",l:"motion-2"},
+ {t:"イーズアウト",d:"減速しながらゆっくり止まること。ソフトによって呼び方が逆になることがある。",l:"motion-2"},
+ {t:"グラフエディタ",d:"動きの値や速度を、時間を横軸にしたグラフで見て調整する画面。",l:"motion-2"},
+ {t:"キーフレーム",d:"ある時点の位置や大きさなどを記録した点。間の動きはソフトが補間する。",l:"motion-2"},
+ {t:"パン",d:"カメラを左右に振る動き。",l:"motion-3"},
+ {t:"チルト",d:"カメラを上下に振る動き。",l:"motion-3"},
+ {t:"ドリー",d:"カメラ自体を前後に動かすこと。ズームと違い、被写体と背景の位置関係が変わる。",l:"motion-3"},
+ {t:"アニメーションの12原則",a:["12原則"],d:"ディズニーのアニメーターたちの動きのコツを、12の原則としてまとめたもの。『The Illusion of Life』（1981年）で紹介された。",l:"motion-4"},
+ {t:"スクワッシュ＆ストレッチ",d:"物が潰れたり伸びたりする変形で、柔らかさや勢いを表す。12原則の一つ。",l:"motion-4"},
+ {t:"BPM",d:"1分間の拍の数。BPM120なら1拍は0.5秒。",l:"sound-2"},
+ {t:"ダッキング",d:"声が鳴っている間だけ、BGMの音量を下げること。",l:"sound-3"},
+ {t:"環境音",d:"風、車、ざわめきなど、その場所で鳴っている音。場所の実在感を作る。",l:"sound-4"},
+ {t:"トーキー",d:"映像と同期した音（セリフや歌）が付いた映画。1920年代後半から広がった。",l:"sound-5"},
+ {t:"ミッキーマウシング",d:"音楽に合わせてキャラクターの動きをぴったり同期させる手法。",l:"sound-5"},
+ {t:"ジャンプカット",d:"同じ構図のまま時間が飛ぶつなぎ。画面が飛んだように見える。",l:"edit-1"},
+ {t:"Jカット",d:"次の場面の音が、映像より先に聞こえ始めるつなぎ方。",l:"edit-1"},
+ {t:"Lカット",d:"前の場面の音が、映像が切り替わった後も残るつなぎ方。",l:"edit-1"},
+ {t:"ディゾルブ",d:"前のカットが消えながら、次のカットが現れるつなぎ。時間の経過や区切りの合図になりやすい。",l:"edit-1"},
+ {t:"マッチカット",d:"似た形や動きでカットをつなぐ方法。",l:"edit-1"},
+ {t:"アクションつなぎ",d:"動きの途中でカットを切り替え、つなぎ目を目立たなくする方法。",l:"edit-1"},
+ {t:"180度ルール",d:"会話する2人を結ぶ想定線（イマジナリーライン）の片側からだけ撮る、という連続性編集のルール。",l:"intro-3"},
+ {t:"30度ルール",d:"同じ被写体を続けて映すとき、カメラの位置を30度以上変える、という連続性編集のルール。",l:"intro-3"},
+ {t:"イマジナリーライン",d:"会話する2人などを結ぶ想定上の線。越えて撮ると左右が入れ替わって見える。",l:"intro-3"},
+ {t:"連続性編集",d:"カットが変わっても時間と空間が続いて見えるよう、つなぎ目を気づかせない編集の考え方。",l:"intro-3"},
+ {t:"クレショフ効果",d:"同じ顔のカットでも、前後に並べるカットによって違う感情に見える現象。",l:"edit-2"},
+ {t:"クロスカッティング",d:"離れた場所で同時に起きている出来事を、交互に見せる編集。",l:"edit-4"},
+ {t:"レイヤー",d:"画面を構成する層。素材ごとに分けて重ねることで、個別に動かしたり調整したりできる。",l:"composite-1"},
+ {t:"描画モード",a:["ブレンドモード"],d:"上のレイヤーを下にどう混ぜるかの設定。スクリーン（明るくする）、乗算（暗くする）など。",l:"composite-1"},
+ {t:"マスク",d:"レイヤーのどこを見せて、どこを隠すかを決める型紙。",l:"composite-2"},
+ {t:"キーイング",d:"色や明るさを手がかりに、素材を自動で切り抜くこと。",l:"composite-2"},
+ {t:"クロマキー",d:"グリーンバックやブルーバックの色だけを抜いて切り抜く方法。",l:"composite-2"},
+ {t:"ロトスコープ",d:"動く被写体に合わせて、マスクの形を1コマずつ描き変える作業。",l:"composite-2"},
+ {t:"トラッキング",d:"映像の中の動きを読み取り、別の素材をその動きに追従させる技術。",l:"composite-3"},
+ {t:"カメラトラッキング",a:["マッチムーブ"],d:"たくさんの点の動きから、撮影したカメラの動きを空間ごと計算する技術。",l:"composite-3"},
+ {t:"グロー",d:"明るい所の周りに光のにじみを足す効果。",l:"composite-5"},
+ {t:"カラーコレクション",d:"素材の色味や明るさを、正しい状態に戻し、そろえる調整。",l:"composite-5"},
+ {t:"カラーグレーディング",d:"作品の雰囲気に合わせて、色の方向を作る調整。",l:"composite-5"},
+ {t:"LUT",d:"色の変換をまとめた設定ファイル。かけるだけで決まった色の調子にできる。",l:"vlog-6"},
+ {t:"ストップトリック",d:"カメラを止めて物を入れ替え、物が一瞬で変わったように見せるトリック撮影。",l:"composite-6"},
+ {t:"二重露光",d:"同じフィルムに2回撮影して、像を重ねる方法。",l:"composite-6"},
+ {t:"三幕構成",d:"話を設定・対立・解決の3つに分けて組み立てる、映画脚本でよく使われる型。",l:"structure-3"},
+ {t:"クライマックス",d:"作品の中で一番盛り上がる所。最後の着地であるオチとは分けて考えられる。",l:"structure-4"},
+ {t:"撮れ高",d:"作品に使える素材がどれだけ撮れたか。",l:"vlog-2"},
+ {t:"ショットリスト",d:"撮りたいショットを、場所や寄り・引きと一緒に書き出したリスト。",l:"vlog-2"},
+ {t:"Bロール",d:"話や主な出来事（Aロール）の間に挟む、風景や手元などの素材。",l:"vlog-3"},
+ {t:"テロップ",d:"画面に重ねて出す文字。発言を読ませたり、強調したりする。",l:"cut-4"},
+ {t:"立ち絵",d:"ゆっくり実況などで、画面の端に表示するキャラクターの絵。",l:"yukkuri-4"},
+ {t:"アセット",d:"作品の中で使う図形、イラスト、文字などの素材。",l:"mg-3"},
+ {t:"アンカーポイント",d:"レイヤーを回転・拡大するときの中心になる点。",l:"mg-3"},
+ {t:"トランジション",d:"場面と場面をつなぐ切り替えの演出。",l:"mg-5"},
+ {t:"モデリング",d:"3DCGで物の形を作る工程。",l:"cg-2"},
+ {t:"マテリアル",d:"3DCGで、物の表面が光をどう返すか（色、つや、金属かどうか）の設定。",l:"cg-3"},
+ {t:"テクスチャ",d:"3DCGの物の表面に貼る画像。模様、汚れ、細かい凹凸を表す。",l:"cg-3"},
+ {t:"UV展開",d:"3DCGの形の表面を平面に開き、テクスチャを貼れるようにする作業。",l:"cg-3"},
+ {t:"リギング",d:"3DCGのキャラクターや物を動かすための骨組みと操作を作る工程。",l:"cg-4"},
+ {t:"ボーン",d:"リギングで形の中に入れる骨。骨が動くと周りの形も動く。",l:"cg-4"},
+ {t:"IK",d:"手先や足先を動かすと、腕や脚全体が自然についてくる仕組み。",l:"cg-4"},
+ {t:"HDRI",d:"周囲の光の情報を含む画像。3DCGで空間全体の光として使う。",l:"cg-6"},
+ {t:"焦点距離",d:"レンズの画角を決める数字。小さいほど広角で遠近感が強く、大きいほど望遠で遠近感が弱い。",l:"cg-6"},
+ {t:"レンダリング",d:"3DCGの空間を画像として書き出す工程。",l:"cg-7"}
 ];
 </script>
 <script>
@@ -1678,19 +1769,72 @@ function viewArticle(a){
   app.innerHTML=h;
   if(a.pub){var bd=document.getElementById("body"),fr=document.getElementById(a.body).content.cloneNode(true);
     if(a.tk&&!fr.querySelector(".tk")){var n=document.createElement("p");n.className="tk";n.textContent="この章は叩き台。要点と流れだけを先に書いた短い本文で、内容は今後見直す。";bd.appendChild(n)}
-    bd.appendChild(fr);}
+    bd.appendChild(fr); linkTerms(bd,a);}
 }
+/* ---------- 用語の吹き出し ---------- */
+var TERMS=[];
+GLOSSARY.forEach(function(g){[g.t].concat(g.a||[]).forEach(function(w){TERMS.push({w:w,g:g})})});
+TERMS.sort(function(x,y){return y.w.length-x.w.length});
+function linkTerms(root){
+  var used={};
+  var walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+    var p=n.parentNode.closest("h2,h3,figure,.pull,.tk,.term,a");
+    return p?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT}});
+  var nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  TERMS.forEach(function(t){
+    if(used[t.g.t])return;
+    for(var i=0;i<nodes.length;i++){
+      var n=nodes[i],k=n.nodeValue.indexOf(t.w);if(k<0)continue;
+      var after=n.splitText(k),rest=after.splitText(t.w.length);
+      var s=document.createElement("span");s.className="term";s.tabIndex=0;s.setAttribute("role","button");
+      s.setAttribute("aria-label",t.w+"：用語の説明");s.dataset.g=GLOSSARY.indexOf(t.g);s.textContent=t.w;
+      after.parentNode.replaceChild(s,after);
+      nodes.splice(i,1,n,rest);used[t.g.t]=1;break;
+    }
+  });
+}
+var tip=document.createElement("div");tip.className="tip";tip.hidden=true;tip.setAttribute("role","tooltip");tip.id="tip";
+document.body.appendChild(tip);
+var tipFor=null,hideT=null;
+function showTip(el){
+  clearTimeout(hideT);
+  if(tipFor&&tipFor!==el)tipFor.classList.remove("on");
+  var g=GLOSSARY[+el.dataset.g],a=BY[g.l];
+  tip.style.setProperty("--tc",a.part.c);
+  tip.innerHTML='<p class="tt">'+esc(g.t)+'</p><p>'+esc(g.d)+'</p>'+(BY[a.id]&&location.hash.slice(1)!==a.id?'<a href="#'+a.id+'">'+a.num+' '+esc(a.title)+'で詳しく</a>':'');
+  tip.hidden=false;tipFor=el;el.classList.add("on");el.setAttribute("aria-describedby","tip");
+  var r=el.getBoundingClientRect(),tw=tip.offsetWidth,th=tip.offsetHeight,vw=document.documentElement.clientWidth;
+  var x=Math.min(Math.max(16,r.left),vw-tw-16),y=r.bottom+8;
+  if(y+th>window.innerHeight&&r.top-th-8>0)y=r.top-th-8;
+  tip.style.left=(x+window.scrollX)+"px";tip.style.top=(y+window.scrollY)+"px";
+}
+function hideTip(){if(!tipFor)return;tip.hidden=true;tipFor.classList.remove("on");tipFor.removeAttribute("aria-describedby");tipFor=null}
+function laterHide(){clearTimeout(hideT);hideT=setTimeout(hideTip,180)}
+var touchy=false,wasOpen=false;document.addEventListener("pointerdown",function(e){touchy=e.pointerType!=="mouse";var t=e.target.closest&&e.target.closest(".term");wasOpen=!!t&&tipFor===t&&!tip.hidden},true);
+document.addEventListener("mouseover",function(e){if(touchy)return;var t=e.target.closest&&e.target.closest(".term");if(t)showTip(t);else if(e.target.closest&&e.target.closest(".tip"))clearTimeout(hideT)});
+document.addEventListener("mouseout",function(e){if(touchy)return;if(e.target.closest&&(e.target.closest(".term")||e.target.closest(".tip")))laterHide()});
+document.addEventListener("focusin",function(e){if(e.target.classList&&e.target.classList.contains("term"))showTip(e.target)});
+document.addEventListener("focusout",function(e){if(e.target.classList&&e.target.classList.contains("term"))laterHide()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")hideTip()});
+document.addEventListener("click",function(e){
+  var t=e.target.closest&&e.target.closest(".term");
+  if(t){if(touchy&&wasOpen)hideTip();else showTip(t);return}
+  if(!(e.target.closest&&e.target.closest(".tip")))hideTip();
+},true);
+addEventListener("resize",hideTip);
+
 function lk(id){var a=BY[id];return '<a class="'+(a.pub?"":"draft")+'" href="#'+a.id+'"><span class="sw" style="background:'+a.part.c+'"></span>'+a.num+' '+esc(a.title)+'</a>'}
 function viewTroubles(){
   app.innerHTML=topBar(null,null)+'<main class="wrap idx"><h1>困りごとから探す</h1><p>理論の順番ではなく、作品で詰まっている症状から章を引く。灰色の章は、まだ章立てだけ。</p>'+
    '<ul class="tr">'+TROUBLES.map(function(t){return '<li><span class="q">'+esc(t.q)+'</span><span class="ls">'+t.l.map(lk).join("")+'</span></li>'}).join("")+'</ul></main>'+FOOT;
 }
 function viewGlossary(){
-  app.innerHTML=topBar(null,null)+'<main class="wrap idx"><h1>用語索引</h1><p>章の中で使う言葉の、最小限の定義。詳しくは各章で扱う。</p>'+
-   '<dl class="gl">'+GLOSSARY.map(function(g){var a=BY[g.l];return '<div><dt>'+esc(g.t)+'</dt><dd>'+esc(g.d)+'<a href="#'+a.id+'">'+a.num+' '+esc(a.title)+'</a></dd></div>'}).join("")+'</dl></main>'+FOOT;
+  app.innerHTML=topBar(null,null)+'<main class="wrap idx"><h1>用語索引</h1><p>章の中で使う言葉の、最小限の定義。章の順に並べている。本文の中で点線の下線が付いた言葉は、カーソルを合わせる（スマホでは押す）と、ここと同じ説明が出る。</p>'+
+   '<dl class="gl">'+GLOSSARY.slice().sort(function(x,y){return BY[x.l].i-BY[y.l].i}).map(function(g){var a=BY[g.l];return '<div><dt>'+esc(g.t)+'</dt><dd>'+esc(g.d)+'<a href="#'+a.id+'">'+a.num+' '+esc(a.title)+'</a></dd></div>'}).join("")+'</dl></main>'+FOOT;
 }
 function route(){go((location.hash||"#top").slice(1))}
 function go(h){
+  hideTip();
   var part=PARTS.filter(function(p){return p.id===h})[0];
   if(BY[h])viewArticle(BY[h]); else if(GBY[h])viewGroup(GBY[h]); else if(part)viewPart(part);
   else if(h==="troubles")viewTroubles(); else if(h==="glossary")viewGlossary(); else viewHome();
