@@ -58,6 +58,12 @@ p,li{text-wrap:pretty}
 .sw{width:.85em;height:.85em;flex-shrink:0;display:inline-block}
 .part h2 a{text-decoration:none}
 .part h2 a:hover{text-decoration:underline}
+.grp{margin-top:28px}
+.grp h3{font-family:var(--display);font-weight:400;font-size:1.2rem;margin:0 0 8px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.grp h3 a{text-decoration:none}.grp h3 a:hover{text-decoration:underline}
+.grp .gk{color:var(--gray);font-family:inherit;font-size:.85rem;margin-right:10px}
+.grp h3 .s{color:var(--gray);font-family:var(--body,inherit);font-size:.88rem}
+.phead .gp{margin:0 0 10px;font-size:.92rem}.phead .gp a{color:inherit}
 .part .desc{margin:0 0 14px;color:var(--gray);font-size:.95rem}
 .chl{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
 .chl a{display:grid;grid-template-columns:3.4em minmax(0,1fr) auto;gap:2px 14px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--line);text-decoration:none}
@@ -384,14 +390,65 @@ var PARTS = [
   {id:"structure-3",title:"起承転結と情報の出し方",sub:"順番で面白さが変わる",summary:"情報をどの順番で出すかで、同じ素材でも面白さが変わる。型としての起承転結と、その応用。",outline:["起承転結を型として使う","情報を小出しにする効果","型を外すときの判断"]},
   {id:"structure-4",title:"オチへの持って行き方",sub:"着地の設計",summary:"笑いでも感動でも、最後の着地が全体の印象を大きく左右する。",outline:["オチとクライマックスの違い","溜めてから放つ","終わり方の型"]}
  ]},
- {id:"genres",name:"応用編",desc:"基礎の6要素が、ジャンルごとにどう姿を変えるか。",articles:[
-  {id:"genre-vlog",title:"Vlog",sub:"日常を撮る",summary:"構図、現場音、退屈させない編集テンポが中心になるジャンル。参考は他のVlogや写真に近い。",outline:["このジャンルで何を魅せるか","重要な軸：構図、現場音、テンポ","作り方の流れ","参考にするもの","詰まりやすい所"]},
-  {id:"genre-moji",title:"文字PV",sub:"文字がグラフィックスになる",summary:"タイポグラフィのデザイン、歌詞と音楽へのタイミング、読ませる速さの調整が中心になるジャンル。",outline:["このジャンルで何を魅せるか","重要な軸：文字、タイミング、合成","作り方の流れ","参考にするもの","詰まりやすい所"]},
-  {id:"genre-mg",title:"モーショングラフィックス",sub:"スタイルフレームが土台",summary:"スタイルフレームのデザインが土台になるジャンル。デザイン・色・イージングの比重が大きい。",outline:["このジャンルで何を魅せるか","重要な軸：デザイン、色、イージング","作り方の流れ","参考にするもの","詰まりやすい所"]},
-  {id:"genre-yukkuri",title:"ゆっくり実況",sub:"声と字幕で整理する",summary:"声と字幕のタイミング、画面レイアウトで情報を整理する力が中心になるジャンル。",outline:["このジャンルで何を魅せるか","重要な軸：音の情報量、レイアウト、構成","作り方の流れ","参考にするもの","詰まりやすい所"]},
-  {id:"genre-mad",title:"音MAD",sub:"音が主役になる",summary:"音が主役で画が従になるジャンル。素材選びと音の編集が中心で、素材と権利の扱いも欠かせない。",outline:["このジャンルで何を魅せるか","重要な軸：音、素材選び、タイミング","作り方の流れ","参考にするもの","素材と権利","詰まりやすい所"]},
-  {id:"genre-cut",title:"切り抜き",sub:"文脈を切り直す",summary:"面白い瞬間を見つけ、文脈を切り直す編集のジャンル。タイトルや見せ方まで含めたキュレーションの技術。",outline:["このジャンルで何を魅せるか","重要な軸：構成、フック、編集","作り方の流れ","タイトルと見せ方","素材と権利","詰まりやすい所"]},
-  {id:"genre-3dcg",title:"3DCG",sub:"すべてを自分で決める",summary:"カメラも照明も空間も自分で決められるジャンル。自由度が高いぶん、構図・色・光の基礎がそのまま問われる。",outline:["このジャンルで何を魅せるか","重要な軸：構図、光、カメラ","作り方の流れ","参考にするもの","詰まりやすい所"]}
+ {id:"genres",name:"応用編",desc:"基礎の6要素が、ジャンルごとにどう姿を変えるか。ジャンルごとに、何を魅せるかと、作る工程を章に分ける。",groups:[
+  {id:"genre-vlog",k:"A",title:"Vlog",sub:"日常を撮る",summary:"構図、現場音、退屈させない編集テンポが中心になるジャンル。参考は他のVlogや写真に近い。",articles:[
+   {id:"vlog-1",title:"Vlogで何を魅せるか",sub:"ジャンルの全体像",summary:"日常のどこを切り取るか。重要な軸と、企画から仕上げまでの流れ、参考にするものをまとめる。",outline:["このジャンルで何を魅せるか","重要な軸：構図、現場音、テンポ","作り方の流れ","参考にするもの"]},
+   {id:"vlog-2",title:"企画と撮れ高",sub:"何を撮りに行くか",summary:"出かける前に、何を見せたい1本なのかを決めておく。撮れ高の考え方と、撮り逃しを減らすメモの作り方。",outline:["撮る前に見せたいものを決める","撮れ高とは何か","ショットリストを作る","詰まりやすい所"]},
+   {id:"vlog-3",title:"撮影：手持ちとBロール",sub:"場面をつなぐ素材を撮る",summary:"手持ち撮影の揺れとの付き合い方と、話や移動の間をつなぐBロールの撮り方。",outline:["手持ちの揺れを抑える・活かす","Bロールを撮る","寄り・引きを撮り分ける","詰まりやすい所"]},
+   {id:"vlog-4",title:"現場音とナレーション",sub:"音で空気を伝える",summary:"現場の音をきれいに録ることと、後から入れるナレーションやBGMとの重ね方。",outline:["現場音を録る","ナレーションを録る","BGMと声のバランス","詰まりやすい所"]},
+   {id:"vlog-5",title:"編集：日常を退屈させない",sub:"テンポとジャンプカット",summary:"何も起きない時間をどう縮めるか。ジャンプカットやBロールでテンポを作る。",outline:["素材を見て使う所を選ぶ","ジャンプカットとテンポ","Bロールで間をつなぐ","詰まりやすい所"]},
+   {id:"vlog-6",title:"色と仕上げ",sub:"作品の空気をそろえる",summary:"撮った日や場所で違う色味をそろえ、1本の空気を作るカラーグレーディング。",outline:["色をそろえる","作品の色を決める","書き出しの設定","詰まりやすい所"]}
+  ]},
+  {id:"genre-moji",k:"B",title:"文字PV",sub:"文字がグラフィックスになる",summary:"タイポグラフィのデザイン、歌詞と音楽へのタイミング、読ませる速さの調整が中心になるジャンル。",articles:[
+   {id:"moji-1",title:"文字PVで何を魅せるか",sub:"ジャンルの全体像",summary:"文字が読まれる情報でもあり、絵でもあるジャンル。重要な軸と制作の流れ、参考にするものをまとめる。",outline:["このジャンルで何を魅せるか","重要な軸：文字、タイミング、合成","作り方の流れ","参考にするもの"]},
+   {id:"moji-2",title:"曲を聴き込み、構成を決める",sub:"どこで何を見せるか",summary:"曲の展開と歌詞の意味から、どこで盛り上げ、どこで引くかを決める。",outline:["曲の展開を書き出す","歌詞から見せたい言葉を選ぶ","全体の構成を決める","詰まりやすい所"]},
+   {id:"moji-3",title:"書体とレイアウト",sub:"止めて読める画面",summary:"曲に合う書体を選び、1画面の中で文字をどう置くか。三分割法などの構図の型も参考にする。",outline:["書体を選ぶ","文字の大きさと強弱","画面の中の置き方（三分割法など）","詰まりやすい所"]},
+   {id:"moji-4",title:"歌詞のタイミング",sub:"読める速さで出す",summary:"歌に合わせて文字を出し入れするタイミングと、読み切れる表示時間の調整。",outline:["歌詞を音に合わせる","読める表示時間","音ハメで強調する","詰まりやすい所"]},
+   {id:"moji-5",title:"文字を動かす",sub:"出し方と消し方",summary:"文字の出し方、消し方、画面の中での動かし方。アニメーションの12原則も参考にする。",outline:["出し方・消し方の型","イージングで動きに表情を付ける","アニメーションの12原則から使えるもの","詰まりやすい所"]},
+   {id:"moji-6",title:"背景と仕上げ",sub:"文字を引き立てる",summary:"文字を読ませたまま画面を豊かにする背景、質感、合成の仕上げ。",outline:["背景の役割","質感とエフェクト","文字を読みやすく保つ","詰まりやすい所"]}
+  ]},
+  {id:"genre-mg",k:"C",title:"モーショングラフィックス",sub:"スタイルフレームが土台",summary:"スタイルフレームのデザインが土台になるジャンル。デザイン・色・イージングの比重が大きい。",articles:[
+   {id:"mg-1",title:"モーショングラフィックスで何を魅せるか",sub:"ジャンルの全体像",summary:"図形と色と動きで情報や気分を伝えるジャンル。重要な軸と制作の流れ、参考にするものをまとめる。",outline:["このジャンルで何を魅せるか","重要な軸：デザイン、色、イージング","作り方の流れ","参考にするもの"]},
+   {id:"mg-2",title:"コンテとスタイルフレーム",sub:"動かす前に止めた絵を決める",summary:"動かす前に、要所の画面を1枚の絵として仕上げておく。全体の流れはコンテで決める。",outline:["コンテで流れを決める","スタイルフレームを作る","構図の型（三分割法など）","詰まりやすい所"]},
+   {id:"mg-3",title:"アセットを作る",sub:"動かしやすく組む",summary:"図形やイラストを、後で動かしやすい形に分けて作る。レイヤーの分け方と名前の付け方。",outline:["動かす単位で分ける","レイヤーを整理する","詰まりやすい所"]},
+   {id:"mg-4",title:"動きを付ける",sub:"イージングとタイミング",summary:"キーフレームの置き方、イージング、動き出しのずらし方。アニメーションの12原則も参考にする。",outline:["キーフレームとイージング","動き出しをずらす","アニメーションの12原則から使えるもの","詰まりやすい所"]},
+   {id:"mg-5",title:"トランジション",sub:"場面をつなぐ動き",summary:"場面と場面を、図形や動きの流れでつなぐ。つなぎ目を見せない工夫。",outline:["形と動きでつなぐ","つなぎの方向をそろえる","詰まりやすい所"]},
+   {id:"mg-6",title:"音と仕上げ",sub:"音ハメと書き出し",summary:"効果音とBGMに動きを合わせ、色と質感を整えて書き出す。",outline:["効果音と音ハメ","色と質感の仕上げ","書き出しの設定","詰まりやすい所"]}
+  ]},
+  {id:"genre-yukkuri",k:"D",title:"ゆっくり実況",sub:"声と字幕で整理する",summary:"声と字幕のタイミング、画面レイアウトで情報を整理する力が中心になるジャンル。",articles:[
+   {id:"yukkuri-1",title:"ゆっくり実況で何を魅せるか",sub:"ジャンルの全体像",summary:"合成音声のキャラクターの掛け合いで、情報や面白さを整理して届けるジャンル。重要な軸と制作の流れ、参考にするものをまとめる。",outline:["このジャンルで何を魅せるか","重要な軸：音の情報量、レイアウト、構成","作り方の流れ","参考にするもの"]},
+   {id:"yukkuri-2",title:"台本を書く",sub:"掛け合いで情報を整理する",summary:"2人の掛け合いで、説明と面白さを両立させる台本の書き方。",outline:["何を伝える回か決める","掛け合いの役割分担","1回のセリフの長さ","詰まりやすい所"]},
+   {id:"yukkuri-3",title:"音声の調整",sub:"聞き取りやすい声にする",summary:"合成音声の読み間違いや抑揚を直し、BGMや効果音と聞き取りやすく混ぜる。",outline:["読みと抑揚を直す","間の取り方","BGM・効果音とのバランス","詰まりやすい所"]},
+   {id:"yukkuri-4",title:"立ち絵と画面レイアウト",sub:"どこに何を置くか",summary:"立ち絵、字幕、本編の画面を、1つの画面にどう配置するか。",outline:["画面の領域を決める","立ち絵の表情と動き","詰まりやすい所"]},
+   {id:"yukkuri-5",title:"字幕とテロップ",sub:"読ませる文字",summary:"セリフ字幕と強調テロップの読みやすさ、色分け、出すタイミング。",outline:["セリフ字幕の読みやすさ","強調テロップ","キャラクターごとの色分け","詰まりやすい所"]},
+   {id:"yukkuri-6",title:"素材の録画と編集",sub:"本編の画面を作る",summary:"ゲームなどの本編素材の録画と、話に合わせた切り方。",outline:["素材を録画する","話に合わせて素材を切る","詰まりやすい所"]}
+  ]},
+  {id:"genre-mad",k:"E",title:"音MAD",sub:"音が主役になる",summary:"音が主役で画が従になるジャンル。素材選びと音の編集が中心で、素材と権利の扱いも欠かせない。",articles:[
+   {id:"mad-1",title:"音MADで何を魅せるか",sub:"ジャンルの全体像",summary:"素材の声や音を楽曲に合わせて組み直すジャンル。重要な軸と制作の流れ、参考にするものをまとめる。",outline:["このジャンルで何を魅せるか","重要な軸：音、素材選び、タイミング","作り方の流れ","参考にするもの"]},
+   {id:"mad-2",title:"素材と曲を選ぶ",sub:"組み合わせが作品を決める",summary:"どの素材をどの曲に乗せるか。素材の音の特徴と、曲との相性の見つけ方。",outline:["素材の音を集める","曲との相性","詰まりやすい所"]},
+   {id:"mad-3",title:"音を切り出して音程を合わせる",sub:"素材を楽器にする",summary:"素材から使える音を切り出し、曲の音程とリズムに合わせる。",outline:["使える音を切り出す","音程を合わせる","リズムに合わせる","詰まりやすい所"]},
+   {id:"mad-4",title:"音に合わせて画を切る",sub:"音と画を同期させる",summary:"鳴った音と同じ瞬間に画を合わせる。反転や繰り返しなど、画の側の演出。",outline:["音と画を同時に切る","反転・繰り返し・拡大","詰まりやすい所"]},
+   {id:"mad-5",title:"ミックスと仕上げ",sub:"曲として聞ける音にする",summary:"音量のバランスと音質をそろえ、曲として最後まで聞ける状態にする。",outline:["音量のバランス","音質をそろえる","詰まりやすい所"]},
+   {id:"mad-6",title:"素材と権利",sub:"投稿する前に確認すること",summary:"他人の映像や曲を素材に使うときに、確認しておくこと。",outline:["素材の権利の基本","投稿先のルールを確認する","迷ったときの判断"]}
+  ]},
+  {id:"genre-cut",k:"F",title:"切り抜き",sub:"文脈を切り直す",summary:"面白い瞬間を見つけ、文脈を切り直す編集のジャンル。タイトルや見せ方まで含めたキュレーションの技術。",articles:[
+   {id:"cut-1",title:"切り抜きで何を魅せるか",sub:"ジャンルの全体像",summary:"長い配信や動画から、面白い瞬間を選び直して届けるジャンル。重要な軸と制作の流れ、参考にするものをまとめる。",outline:["このジャンルで何を魅せるか","重要な軸：構成、フック、編集","作り方の流れ","参考にするもの"]},
+   {id:"cut-2",title:"見どころを見つける",sub:"どこを切り抜くか",summary:"長い元動画から、短くしても面白さが伝わる場面を探す。",outline:["元動画を見て候補を拾う","短くしても伝わるか確かめる","詰まりやすい所"]},
+   {id:"cut-3",title:"文脈を切り直す",sub:"前提を短く伝える",summary:"元動画を見ていない人にも伝わるよう、必要な前提だけを残してつなぎ直す。",outline:["必要な前提を選ぶ","冒頭のフック","間を詰める","詰まりやすい所"]},
+   {id:"cut-4",title:"テロップと効果音",sub:"笑いどころを伝える",summary:"発言を読ませるテロップと、反応を強調する効果音の入れ方と量。",outline:["発言テロップ","強調と効果音","入れすぎない","詰まりやすい所"]},
+   {id:"cut-5",title:"タイトルとサムネイル",sub:"開いてもらう",summary:"一覧の中で選ばれるためのタイトルとサムネイル。中身と食い違わない見せ方。",outline:["タイトルの付け方","サムネイルの作り方","中身と食い違わせない","詰まりやすい所"]},
+   {id:"cut-6",title:"素材と権利",sub:"投稿する前に確認すること",summary:"他人の配信や動画を切り抜くときに確認すること。元の配信者のガイドラインなど。",outline:["切り抜きの権利の基本","配信者のガイドラインを確認する","迷ったときの判断"]}
+  ]},
+  {id:"genre-3dcg",k:"G",title:"3DCG",sub:"すべてを自分で決める",summary:"カメラも照明も空間も自分で決められるジャンル。自由度が高いぶん、構図・色・光の基礎がそのまま問われる。",articles:[
+   {id:"cg-1",title:"3DCGで何を魅せるか",sub:"ジャンルの全体像",summary:"空間、光、カメラをすべて自分で決められるジャンル。重要な軸と、モデリングからコンポジットまでの流れ、参考にするものをまとめる。",outline:["このジャンルで何を魅せるか","重要な軸：構図、光、カメラ","作り方の流れ","参考にするもの"]},
+   {id:"cg-2",title:"モデリング",sub:"形を作る",summary:"カメラに映る所から作る。形の取り方と、細かさをどこまで作り込むかの判断。",outline:["映る所から作る","大きな形から細部へ","作り込む量の判断","詰まりやすい所"]},
+   {id:"cg-3",title:"マテリアルとテクスチャ",sub:"質感を決める",summary:"表面の色、つや、凹凸を決めて、物の素材感を出す。",outline:["色とつや","テクスチャで情報を足す","詰まりやすい所"]},
+   {id:"cg-4",title:"リギング",sub:"動かす仕組みを作る",summary:"キャラクターや物を動かすための骨組みと、動かしやすい操作の作り方。",outline:["骨を入れる","動かしやすい操作を作る","詰まりやすい所"]},
+   {id:"cg-5",title:"アニメーション",sub:"重さと気持ちよさ",summary:"キーフレームとグラフで動きを作る。アニメーションの12原則も参考にする。",outline:["キーフレームとグラフエディタ","重さを感じさせる","アニメーションの12原則から使えるもの","詰まりやすい所"]},
+   {id:"cg-6",title:"ライティングとカメラ",sub:"何を見せるかを照らす",summary:"見せたい所に光を当て、カメラの位置とレンズで構図を決める。三分割法などの構図の型も参考にする。",outline:["見せたい所を照らす","カメラの位置とレンズ","構図の型（三分割法など）","詰まりやすい所"]},
+   {id:"cg-7",title:"レンダリング",sub:"画像として書き出す",summary:"画質と時間の釣り合いを取り、後の合成のためにパスに分けて書き出す。",outline:["画質と時間の釣り合い","パスに分けて書き出す","詰まりやすい所"]},
+   {id:"cg-8",title:"コンポジット",sub:"合成で仕上げる",summary:"書き出したパスを重ねて画を仕上げる。考え方は合成編のレンダーパス合成で扱い、ここでは3DCGの作業の流れに絞る。",outline:["パスを重ねる流れ","色と光を後から整える","実写と合わせる","詰まりやすい所"]}
+  ]}
  ]}
 ];
 var TROUBLES=[
@@ -428,15 +485,17 @@ var COLORS={intro:["#BFBFBF","#000"],prep:["#BFBF00","#000"],visual:["#00BFBF","
 var app=document.getElementById("app");
 function esc(s){return String(s).replace(/[&<>"]/g,function(m){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]})}
 
-var FLAT=[],BY={};
+var FLAT=[],BY={},GBY={};
 PARTS.forEach(function(p,pi){
   p.no=pi; p.label=pi===0?"序論":"第"+pi+"編 "+p.name;
   p.c=COLORS[p.id][0]; p.ci=COLORS[p.id][1];
   var base=p.start===0?0:1;
+  if(p.groups){p.articles=[];p.groups.forEach(function(g){g.part=p;g.label=g.k+" "+g.title;GBY[g.id]=g;
+    g.articles.forEach(function(a,ai){a.group=g;a.n=pi+g.k+"."+(ai+1);p.articles.push(a)})});}
   p.articles.forEach(function(a,ai){
     a.part=p; a.num=a.n||(pi+"."+(ai+base));
     var txt=""; if(a.body){var t=document.getElementById(a.body); if(t)txt=t.content.textContent;}
-    a.index=(p.name+a.num+a.title+a.sub+a.summary+(a.outline||[]).join(" ")+txt).toLowerCase();
+    a.index=(p.name+(a.group?a.group.title:"")+a.num+a.title+a.sub+a.summary+(a.outline||[]).join(" ")+txt).toLowerCase();
     a.i=FLAT.length; FLAT.push(a); BY[a.id]=a;
   });
 });
@@ -445,6 +504,10 @@ var firstHome=true;
 function chRow(a){
   return '<li><a class="'+(a.pub?"pub":"draft")+'" href="#'+a.id+'"><span class="n">'+a.num+'</span><span class="t">'+esc(a.title)+'<span class="s">'+esc(a.sub)+'</span></span><span class="st">'+(a.pub?"本文あり":"章立てのみ")+'</span></a></li>';
 }
+function partList(p){
+  if(!p.groups)return '<ul class="chl">'+p.articles.map(chRow).join("")+'</ul>';
+  return p.groups.map(function(g){return '<div class="grp"><h3><a href="#'+g.id+'"><span class="gk">'+p.no+g.k+'</span>'+esc(g.title)+'</a><span class="s">'+esc(g.sub)+'</span></h3><ul class="chl">'+g.articles.map(chRow).join("")+'</ul></div>'}).join("");
+}
 function topBar(a,p){
   var strip=FLAT.map(function(x){return '<a href="#'+x.id+'" title="'+x.num+' '+esc(x.title)+'" aria-label="'+x.num+' '+esc(x.title)+'" class="'+(x.pub?"pub ":"")+(a&&x===a?"on":"")+'" style="background:'+x.part.c+'"></a>'}).join("");
   return '<div class="top"><div class="wrap row"><a class="home" href="#top">映像とは何か</a><span class="where">'+(p?'<a href="#'+p.id+'">'+esc(p.label)+'</a>':'')+'</span></div><nav class="strip" aria-label="全章">'+strip+'</nav></div>';
@@ -452,7 +515,7 @@ function topBar(a,p){
 var FOOT='<footer><div class="wrap">'+FLAT.length+'章のうち '+FLAT.filter(function(a){return a.pub}).length+'章に本文あり。ほかの章は章立てと概要を先に載せ、本文を順次追加する。</div></footer>';
 
 function viewHome(){
-  var bars=PARTS.map(function(p){return '<a class="bar" href="#'+p.id+'" style="background:'+p.c+';color:'+p.ci+';box-shadow:1px 0 0 '+p.c+';animation-delay:'+(p.no*45)+'ms"><span class="nm">'+esc(p.name)+'</span><span class="ct">'+p.articles.length+'章</span></a>'}).join("");
+  var bars=PARTS.map(function(p){return '<a class="bar" href="#'+p.id+'" style="background:'+p.c+';color:'+p.ci+';box-shadow:1px 0 0 '+p.c+';animation-delay:'+(p.no*45)+'ms"><span class="nm">'+esc(p.name)+'</span><span class="ct">'+(p.groups?p.groups.length+'ジャンル':p.articles.length+'章')+'</span></a>'}).join("");
   var h='<nav class="bars'+(firstHome?" intro":"")+'" aria-label="編">'+bars+'</nav>'+
    '<header class="band"><div class="wrap"><h1>映像とは何か</h1><p>映像研の部員が、作りながら読むための理論書。全ての映像に共通する基礎を編に分け、最後にジャンルごとの応用へ進む。順番に読まなくていい。詰まった所から開いて、1章読んだら閉じていい。</p>'+
    '<div class="tools"><input type="search" id="q" placeholder="章を検索：構図、音ハメ、3DCG" aria-label="章を検索"><a href="#troubles">困りごとから探す</a><a href="#glossary">用語索引</a></div></div></header>'+
@@ -471,15 +534,20 @@ function renderHomeMain(q){
     return;
   }
   m.innerHTML='<section class="thesis"><p class="k">このサイトの定義</p><blockquote>良い映像は、どの要素にも「何を魅せたいか」の意図が設計されている。</blockquote><p class="src"><a href="#intro-1">0.1「映像とは何か」で、この定義にたどり着くまでを読む</a></p></section>'+
-   PARTS.map(function(p){return '<section class="part" id="sec-'+p.id+'"><h2><span class="sw" style="background:'+p.c+'"></span><a href="#'+p.id+'">'+esc(p.label)+'</a></h2><p class="desc">'+esc(p.desc)+'</p><ul class="chl">'+p.articles.map(chRow).join("")+'</ul></section>'}).join("");
+   PARTS.map(function(p){return '<section class="part" id="sec-'+p.id+'"><h2><span class="sw" style="background:'+p.c+'"></span><a href="#'+p.id+'">'+esc(p.label)+'</a></h2><p class="desc">'+esc(p.desc)+'</p>'+partList(p)+'</section>'}).join("");
 }
 function viewPart(p){
   app.innerHTML=topBar(null,null)+'<header class="phead" style="background:'+p.c+';color:'+p.ci+'"><div class="wrap"><h1>'+esc(p.label)+'</h1><p>'+esc(p.desc)+'</p></div></header>'+
-   '<main class="wrap"><div class="part" style="padding-top:40px"><ul class="chl">'+p.articles.map(chRow).join("")+'</ul></div></main>'+FOOT;
+   '<main class="wrap"><div class="part" style="padding-top:40px">'+partList(p)+'</div></main>'+FOOT;
+}
+function viewGroup(g){
+  var p=g.part;
+  app.innerHTML=topBar(null,p)+'<header class="phead" style="background:'+p.c+';color:'+p.ci+'"><div class="wrap"><p class="gp"><a href="#'+p.id+'">'+esc(p.label)+'</a></p><h1>'+esc(g.title)+'</h1><p>'+esc(g.summary)+'</p></div></header>'+
+   '<main class="wrap"><div class="part" style="padding-top:40px"><ul class="chl">'+g.articles.map(chRow).join("")+'</ul></div></main>'+FOOT;
 }
 function viewArticle(a){
   var p=a.part,pv=FLAT[a.i-1],nx=FLAT[a.i+1];
-  var h=topBar(a,p)+'<main class="wrap" style="--c:'+p.c+'"><header class="ahead"><p class="pn"><span class="sw" style="background:'+p.c+'"></span><a href="#'+p.id+'">'+esc(p.label)+'</a><span>'+a.num+'</span></p>'+
+  var h=topBar(a,p)+'<main class="wrap" style="--c:'+p.c+'"><header class="ahead"><p class="pn"><span class="sw" style="background:'+p.c+'"></span><a href="#'+p.id+'">'+esc(p.label)+'</a>'+(a.group?'<a href="#'+a.group.id+'">'+esc(a.group.title)+'</a>':'')+'<span>'+a.num+'</span></p>'+
    '<h1>'+esc(a.title)+'</h1><p class="sub">'+esc(a.sub)+'</p><p class="sum">'+esc(a.summary)+'</p>'+
    '<p class="meta">'+(a.pub?'<b>本文あり</b>　読むのに約'+a.mins+'分':'章立てのみ。本文は執筆中')+'</p></header>';
   if(a.pub){
@@ -505,7 +573,7 @@ function viewGlossary(){
 function route(){go((location.hash||"#top").slice(1))}
 function go(h){
   var part=PARTS.filter(function(p){return p.id===h})[0];
-  if(BY[h])viewArticle(BY[h]); else if(part)viewPart(part);
+  if(BY[h])viewArticle(BY[h]); else if(GBY[h])viewGroup(GBY[h]); else if(part)viewPart(part);
   else if(h==="troubles")viewTroubles(); else if(h==="glossary")viewGlossary(); else viewHome();
   window.scrollTo(0,0);
 }
