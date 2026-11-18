@@ -136,15 +136,18 @@ p,li{text-wrap:pretty}
 .tip{position:absolute;z-index:50;max-width:min(22em,calc(100vw - 32px));background:var(--ink);color:#fff;padding:12px 16px 12px 14px;
   border-left:6px solid var(--tc,#fff);font-size:.9rem;line-height:1.75;box-shadow:0 0 0 1px var(--ink)}
 .tip[hidden]{display:none}
+.tip .im{background:#fff;padding:10px;margin:4px 0 10px;width:min(19em,calc(100vw - 80px))}
+.tip .im svg{display:block;width:100%;height:auto}
+.tip .im svg text{font-family:var(--body);fill:var(--ink)}
 .tip .tt{font-family:var(--display);font-size:.95rem;margin:0 0 4px}
 .tip p{margin:0}
 .tip a{display:inline-block;margin-top:6px;color:#fff;font-size:.82rem;opacity:.8}
 .tip a:hover{opacity:1}
-.body .fig .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:mq-draw 4.5s ease-in-out infinite}
+.tip .im .draw,.body .fig .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:mq-draw 4.5s ease-in-out infinite}
 .body .fig .pop{opacity:0;animation:mq-pop 4.5s ease-in-out infinite}
 @keyframes mq-draw{0%,8%{stroke-dashoffset:1;opacity:1}45%,88%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
 @keyframes mq-pop{0%,44%{opacity:0}52%,88%{opacity:1}100%{opacity:0}}
-@media (prefers-reduced-motion:reduce){.body .fig .draw{animation:none;stroke-dashoffset:0}.body .fig .pop{animation:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.tip .im .draw,.body .fig .draw{animation:none;stroke-dashoffset:0}.body .fig .pop{animation:none;opacity:1}}
 .note{max-width:36em;margin:18px 0 0;color:var(--gray);font-size:.92rem}
 .more{max-width:36em;margin-top:56px}
 .more h2{font-size:1rem;margin:0 0 6px}
@@ -1504,6 +1507,32 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
   <h2>詰まりやすい所</h2>
   <p>合成で調整できるからといって、3DCGの段階の作業を雑にすると、合成で直しきれないことがある。光の向きや形の問題は、3DCGの段階で直しておく。</p>
 </template>
+<template id="tipfig-ngon">
+  <svg viewBox="0 0 360 140" role="img" aria-label="三角ポリゴン、四角ポリゴン、Nゴンを並べた図">
+    <polygon points="22,96 98,96 60,22" fill="#E4DCEC" stroke="#000" stroke-width="2.5" stroke-linejoin="round"/>
+    <polygon points="140,28 216,22 222,98 134,94" fill="#E4DCEC" stroke="#000" stroke-width="2.5" stroke-linejoin="round"/>
+    <polygon points="268,40 304,20 342,38 346,82 306,104 266,86" fill="#F6D9D9" stroke="#BF0000" stroke-width="2.5" stroke-linejoin="round"/>
+    <g fill="#000"><circle cx="22" cy="96" r="4.5"/><circle cx="98" cy="96" r="4.5"/><circle cx="60" cy="22" r="4.5"/><circle cx="140" cy="28" r="4.5"/><circle cx="216" cy="22" r="4.5"/><circle cx="222" cy="98" r="4.5"/><circle cx="134" cy="94" r="4.5"/></g>
+    <g fill="#BF0000"><circle cx="268" cy="40" r="4.5"/><circle cx="304" cy="20" r="4.5"/><circle cx="342" cy="38" r="4.5"/><circle cx="346" cy="82" r="4.5"/><circle cx="306" cy="104" r="4.5"/><circle cx="266" cy="86" r="4.5"/></g>
+    <text x="60" y="128" font-size="16" text-anchor="middle">頂点3</text>
+    <text x="178" y="128" font-size="16" text-anchor="middle">頂点4</text>
+    <text x="306" y="128" font-size="16" text-anchor="middle" style="fill:#BF0000">頂点5以上</text>
+  </svg>
+</template>
+<template id="tipfig-loop">
+  <svg viewBox="0 0 360 150" role="img" aria-label="エッジループがNゴンの所で途切れる様子">
+    <rect x="180" y="55" width="120" height="40" fill="#F6D9D9"/>
+    <g stroke="#000" stroke-width="2" fill="none">
+      <line x1="20" y1="15" x2="340" y2="15"/><line x1="20" y1="55" x2="340" y2="55"/><line x1="20" y1="95" x2="340" y2="95"/><line x1="20" y1="135" x2="340" y2="135"/>
+      <line x1="20" y1="15" x2="20" y2="135"/><line x1="80" y1="15" x2="80" y2="135"/><line x1="120" y1="15" x2="120" y2="135"/><line x1="180" y1="15" x2="180" y2="135"/>
+      <line x1="240" y1="15" x2="240" y2="55"/><line x1="240" y1="95" x2="240" y2="135"/><line x1="300" y1="15" x2="300" y2="135"/><line x1="340" y1="15" x2="340" y2="135"/>
+    </g>
+    <text x="240" y="80" font-size="14" text-anchor="middle" style="fill:#BF0000">Nゴン</text>
+    <line class="draw" pathLength="1" x1="80" y1="15" x2="80" y2="135" stroke="#32006A" stroke-width="6" stroke-linecap="round"/>
+    <line class="draw" pathLength="1" x1="240" y1="15" x2="240" y2="55" stroke="#BF0000" stroke-width="6" stroke-linecap="round"/>
+    <line class="draw" pathLength="1" x1="240" y1="135" x2="240" y2="95" stroke="#BF0000" stroke-width="6" stroke-linecap="round"/>
+  </svg>
+</template>
 <script>
 var PARTS = [
  {id:"intro",name:"序論",desc:"映像とは何かを定義し、このサイトの立場と読み方を決める。",start:0,articles:[
@@ -1721,9 +1750,9 @@ var GLOSSARY=[
  {t:"アセット",d:"作品の中で使う図形、イラスト、文字などの素材。",l:"mg-3"},
  {t:"アンカーポイント",d:"レイヤーを回転・拡大するときの中心になる点。",l:"mg-3"},
  {t:"トランジション",d:"場面と場面をつなぐ切り替えの演出。",l:"mg-5"},
- {t:"ポリゴン",d:"3DCGの形を作る面の一つ一つ。頂点の数で三角ポリゴン、四角ポリゴン、Nゴンと呼び分ける。",l:"cg-2"},
- {t:"Nゴン",d:"頂点が5つ以上ある面。曲げたり滑らかにしたりすると、しわや影の乱れが出やすい。",l:"cg-2"},
- {t:"エッジループ",d:"四角ポリゴンの辺が、縦や横に一続きにつながった線。まとめて選んだり、足して形を締めたりできる。",l:"cg-2"},
+ {t:"ポリゴン",img:"tipfig-ngon",d:"3DCGの形を作る面の一つ一つ。頂点の数で三角ポリゴン、四角ポリゴン、Nゴンと呼び分ける。",l:"cg-2"},
+ {t:"Nゴン",img:"tipfig-ngon",d:"頂点が5つ以上ある面。曲げたり滑らかにしたりすると、しわや影の乱れが出やすい。",l:"cg-2"},
+ {t:"エッジループ",img:"tipfig-loop",d:"四角ポリゴンの辺が、縦や横に一続きにつながった線。まとめて選んだり、足して形を締めたりできる。",l:"cg-2"},
  {t:"サブディビジョン",d:"面を細かく分けて、形を滑らかにすること。四角ポリゴンで組んだモデルほどきれいに分かれる。",l:"cg-2"},
  {t:"モデリング",d:"3DCGで物の形を作る工程。",l:"cg-2"},
  {t:"マテリアル",d:"3DCGで、物の表面が光をどう返すか（色、つや、金属かどうか）の設定。",l:"cg-3"},
@@ -1852,7 +1881,8 @@ function showTip(el){
   if(tipFor&&tipFor!==el)tipFor.classList.remove("on");
   var g=GLOSSARY[+el.dataset.g],a=BY[g.l];
   tip.style.setProperty("--tc",a.part.c);
-  tip.innerHTML='<p class="tt">'+esc(g.t)+'</p><p>'+esc(g.d)+'</p>'+(BY[a.id]&&location.hash.slice(1)!==a.id?'<a href="#'+a.id+'">'+a.num+' '+esc(a.title)+'で詳しく</a>':'');
+  tip.innerHTML='<p class="tt">'+esc(g.t)+'</p>'+(g.img?'<div class="im"></div>':'')+'<p>'+esc(g.d)+'</p>'+(BY[a.id]&&location.hash.slice(1)!==a.id?'<a href="#'+a.id+'">'+a.num+' '+esc(a.title)+'で詳しく</a>':'');
+  if(g.img){var tf=document.getElementById(g.img);if(tf)tip.querySelector(".im").appendChild(tf.content.cloneNode(true))}
   tip.hidden=false;tipFor=el;el.classList.add("on");el.setAttribute("aria-describedby","tip");
   var r=el.getBoundingClientRect(),tw=tip.offsetWidth,th=tip.offsetHeight,vw=document.documentElement.clientWidth;
   var x=Math.min(Math.max(16,r.left),vw-tw-16),y=r.bottom+8;
