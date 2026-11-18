@@ -140,6 +140,11 @@ p,li{text-wrap:pretty}
 .tip p{margin:0}
 .tip a{display:inline-block;margin-top:6px;color:#fff;font-size:.82rem;opacity:.8}
 .tip a:hover{opacity:1}
+.body .fig .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:mq-draw 4.5s ease-in-out infinite}
+.body .fig .pop{opacity:0;animation:mq-pop 4.5s ease-in-out infinite}
+@keyframes mq-draw{0%,8%{stroke-dashoffset:1;opacity:1}45%,88%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes mq-pop{0%,44%{opacity:0}52%,88%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.body .fig .draw{animation:none;stroke-dashoffset:0}.body .fig .pop{animation:none;opacity:1}}
 .note{max-width:36em;margin:18px 0 0;color:var(--gray);font-size:.92rem}
 .more{max-width:36em;margin-top:56px}
 .more h2{font-size:1rem;margin:0 0 6px}
@@ -1376,6 +1381,48 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
   <h2>作り込む量の判断</h2>
   <p>どこまで細かく作るかは、カメラからの距離と、その物が画面の中でどれだけ大事かで決める。主役の物は作り込み、背景の物は簡単な形にとどめる。細かい凹凸は、形で作らずに次の章のテクスチャで表現する方法もある。</p>
 
+  <h2>三角形、四角形、Nゴン</h2>
+  <p>3DCGの形は、ポリゴンと呼ばれる面の集まりでできている。面の角（頂点）が3つなら三角ポリゴン、4つなら四角ポリゴン（クアッド）、5つ以上ならNゴンと呼ぶ。</p>
+  <figure class="fig" aria-label="三角ポリゴン、四角ポリゴン、Nゴンを並べた図">
+    <svg viewBox="0 0 720 250" role="img">
+      <polygon points="60,180 180,180 120,60" fill="#E4DCEC" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="300,70 420,62 428,182 292,176" fill="#E4DCEC" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="542,88 600,58 660,86 668,156 604,190 540,160" fill="#F6D9D9" stroke="#BF0000" stroke-width="3" stroke-linejoin="round"/>
+      <g fill="#000"><circle cx="60" cy="180" r="6"/><circle cx="180" cy="180" r="6"/><circle cx="120" cy="60" r="6"/>
+      <circle cx="300" cy="70" r="6"/><circle cx="420" cy="62" r="6"/><circle cx="428" cy="182" r="6"/><circle cx="292" cy="176" r="6"/></g>
+      <g fill="#BF0000"><circle cx="542" cy="88" r="6"/><circle cx="600" cy="58" r="6"/><circle cx="660" cy="86" r="6"/><circle cx="668" cy="156" r="6"/><circle cx="604" cy="190" r="6"/><circle cx="540" cy="160" r="6"/></g>
+      <text x="120" y="226" font-size="19" text-anchor="middle">三角ポリゴン（頂点3）</text>
+      <text x="360" y="226" font-size="19" text-anchor="middle">四角ポリゴン（頂点4）</text>
+      <text x="604" y="226" font-size="19" text-anchor="middle" style="fill:#BF0000">Nゴン（頂点5以上）</text>
+    </svg>
+    <figcaption><span class="no">図1</span>面の頂点の数で呼び方が変わる。右のNゴンは頂点が6つある。</figcaption>
+  </figure>
+  <p>アニメーションで曲げるモデルや、後で面を細かく分けて滑らかにする（サブディビジョン）モデルでは、四角ポリゴンを中心に組むことが多い。Nゴンがあると、曲げたときや滑らかにしたときに、面にしわや影の乱れが出やすい。ソフトは表示やレンダリングのときにNゴンを内部で三角形に分けるが、その分け方を作り手が決められないからだ。</p>
+  <p>もう一つの理由が、エッジループだ。四角ポリゴンが並んでいると、辺が縦や横に一続きの線としてつながる。この線をまとめて選んだり、線を1本足して形を締めたりできるので、形を直すのが楽になる。Nゴンがあると、このつながりはそこで途切れる。</p>
+  <figure class="fig" aria-label="エッジループがNゴンの所で途切れる様子を示す動く図">
+    <svg viewBox="0 0 640 270" role="img">
+      <rect x="320" y="80" width="160" height="50" fill="#F6D9D9"/>
+      <g stroke="#000" stroke-width="2" fill="none">
+        <line x1="80" y1="30" x2="560" y2="30"/><line x1="80" y1="80" x2="560" y2="80"/><line x1="80" y1="130" x2="560" y2="130"/><line x1="80" y1="180" x2="560" y2="180"/>
+        <line x1="80" y1="30" x2="80" y2="180"/><line x1="160" y1="30" x2="160" y2="180"/><line x1="240" y1="30" x2="240" y2="180"/><line x1="320" y1="30" x2="320" y2="180"/>
+        <line x1="400" y1="30" x2="400" y2="80"/><line x1="400" y1="130" x2="400" y2="180"/>
+        <line x1="480" y1="30" x2="480" y2="180"/><line x1="560" y1="30" x2="560" y2="180"/>
+      </g>
+      <text x="400" y="111" font-size="17" text-anchor="middle" style="fill:#BF0000">Nゴン</text>
+      <line class="draw" pathLength="1" x1="240" y1="30" x2="240" y2="180" stroke="#32006A" stroke-width="7" stroke-linecap="round"/>
+      <line class="draw" pathLength="1" x1="400" y1="30" x2="400" y2="80" stroke="#BF0000" stroke-width="7" stroke-linecap="round"/>
+      <line class="draw" pathLength="1" x1="400" y1="180" x2="400" y2="130" stroke="#BF0000" stroke-width="7" stroke-linecap="round"/>
+      <g class="pop" stroke="#BF0000" stroke-width="4" stroke-linecap="round">
+        <line x1="390" y1="70" x2="410" y2="90"/><line x1="410" y1="70" x2="390" y2="90"/>
+        <line x1="390" y1="120" x2="410" y2="140"/><line x1="410" y1="120" x2="390" y2="140"/>
+      </g>
+      <text x="240" y="216" font-size="18" text-anchor="middle" style="fill:#32006A">四角だけの列：上から下までつながる</text>
+      <text x="420" y="246" font-size="18" text-anchor="middle" style="fill:#BF0000">Nゴンのある列：そこで途切れる</text>
+    </svg>
+    <figcaption><span class="no">図2</span>四角ポリゴンを並べた面に、1か所だけNゴン（四角2つ分をつないだ面、頂点6）を置いた図。紫の線は上から下まで一続きのエッジループとして選べる。赤の線は、Nゴンにぶつかった所で途切れる。</figcaption>
+  </figure>
+  <p>Nゴンを使ってはいけない、というわけでもない。曲げることも滑らかにすることもない平らな面なら、Nゴンのままでも問題が出にくいとされる。どこまで四角にそろえるかも、そのモデルで何を魅せたいか、どう動かすかで決めればいい。</p>
+
   <h2>詰まりやすい所</h2>
   <p>面の向きが裏返っている、面が重なっている、といった形の乱れは、後の工程で表示やレンダリングの不具合になりやすい。作業の区切りごとに、形の乱れがないかを確かめておく。</p>
 </template>
@@ -1567,7 +1614,7 @@ var PARTS = [
   ]},
   {id:"genre-3dcg",k:"G",title:"3DCG",sub:"すべてを自分で決める",summary:"カメラも照明も空間も自分で決められるジャンル。自由度が高いぶん、構図・色・光の基礎がそのまま問われる。",articles:[
    {id:"cg-1",pub:true,tk:true,body:"body-cg-1",mins:1,title:"3DCGで何を魅せるか",sub:"ジャンルの全体像",summary:"空間、光、カメラをすべて自分で決められるジャンル。重要な軸と、モデリングからコンポジットまでの流れ、参考にするものをまとめる。",outline:["このジャンルで何を魅せるか","重要な軸：構図、光、カメラ","作り方の流れ","参考にするもの"]},
-   {id:"cg-2",pub:true,tk:true,body:"body-cg-2",mins:1,title:"モデリング",sub:"形を作る",summary:"カメラに映る所から作る。形の取り方と、細かさをどこまで作り込むかの判断。",outline:["映る所から作る","大きな形から細部へ","作り込む量の判断","詰まりやすい所"]},
+   {id:"cg-2",pub:true,tk:true,body:"body-cg-2",mins:1,title:"モデリング",sub:"形を作る",summary:"カメラに映る所から作る。形の取り方、細かさをどこまで作り込むかの判断、四角ポリゴンとNゴンの違い。",outline:["映る所から作る","大きな形から細部へ","作り込む量の判断","詰まりやすい所"]},
    {id:"cg-3",pub:true,tk:true,body:"body-cg-3",mins:1,title:"マテリアルとテクスチャ",sub:"質感を決める",summary:"表面の色、つや、凹凸を決めて、物の素材感を出す。",outline:["色とつや","テクスチャで情報を足す","詰まりやすい所"]},
    {id:"cg-4",pub:true,tk:true,body:"body-cg-4",mins:1,title:"リギング",sub:"動かす仕組みを作る",summary:"キャラクターや物を動かすための骨組みと、動かしやすい操作の作り方。",outline:["骨を入れる","動かしやすい操作を作る","詰まりやすい所"]},
    {id:"cg-5",pub:true,tk:true,body:"body-cg-5",mins:1,title:"アニメーション",sub:"重さと気持ちよさ",summary:"キーフレームとグラフで動きを作る。アニメーションの12原則も参考にする。",outline:["キーフレームとグラフエディタ","重さを感じさせる","アニメーションの12原則から使えるもの","詰まりやすい所"]},
@@ -1674,6 +1721,10 @@ var GLOSSARY=[
  {t:"アセット",d:"作品の中で使う図形、イラスト、文字などの素材。",l:"mg-3"},
  {t:"アンカーポイント",d:"レイヤーを回転・拡大するときの中心になる点。",l:"mg-3"},
  {t:"トランジション",d:"場面と場面をつなぐ切り替えの演出。",l:"mg-5"},
+ {t:"ポリゴン",d:"3DCGの形を作る面の一つ一つ。頂点の数で三角ポリゴン、四角ポリゴン、Nゴンと呼び分ける。",l:"cg-2"},
+ {t:"Nゴン",d:"頂点が5つ以上ある面。曲げたり滑らかにしたりすると、しわや影の乱れが出やすい。",l:"cg-2"},
+ {t:"エッジループ",d:"四角ポリゴンの辺が、縦や横に一続きにつながった線。まとめて選んだり、足して形を締めたりできる。",l:"cg-2"},
+ {t:"サブディビジョン",d:"面を細かく分けて、形を滑らかにすること。四角ポリゴンで組んだモデルほどきれいに分かれる。",l:"cg-2"},
  {t:"モデリング",d:"3DCGで物の形を作る工程。",l:"cg-2"},
  {t:"マテリアル",d:"3DCGで、物の表面が光をどう返すか（色、つや、金属かどうか）の設定。",l:"cg-3"},
  {t:"テクスチャ",d:"3DCGの物の表面に貼る画像。模様、汚れ、細かい凹凸を表す。",l:"cg-3"},
