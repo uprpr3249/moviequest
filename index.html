@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>映像とは何か — カラーバー版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+<style>
+/* Direction: the SMPTE color-bar test pattern. Each 編 is one bar; its color follows it everywhere.
+   Everything else stays black on white so the bars are the only loud thing. */
+:root{
+  --paper:#FFFFFF; --ink:#000000; --gray:#5C5C5C; --line:#D9D9D9; --shade:#F2F2F2;
+  --display:"Dela Gothic One","Hiragino Sans",sans-serif;
+  --body:"BIZ UDPGothic","Hiragino Sans","Yu Gothic",sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.9;
+  line-break:strict;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+h1,h2,h3{font-weight:400;text-wrap:balance;font-feature-settings:"palt"}
+p,li{text-wrap:pretty}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+
+/* ---------- home: the pattern ---------- */
+.bars{display:flex;height:min(60vh,560px);min-height:300px}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:space-between;align-items:center;
+  padding:18px 0 14px;text-decoration:none;transform-origin:bottom;box-shadow:1px 0 0 currentColor;position:relative}
+.bar .nm{writing-mode:vertical-rl;font-family:var(--display);font-size:clamp(1.05rem,2.6vw,2rem);line-height:1;letter-spacing:.06em}
+.bar .ct{font-size:.78rem;opacity:.85}
+.bar:hover .nm,.bar:focus-visible .nm{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+.bar:focus-visible{outline-offset:-6px}
+@media (prefers-reduced-motion:no-preference){
+  .bars.intro .bar{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+}
+.band{background:var(--ink);color:#fff;padding:34px 0 30px}
+.band .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px 48px;align-items:end}
+.band h1{font-family:var(--display);font-size:clamp(2.6rem,7.5vw,5.4rem);line-height:1.05;margin:0;letter-spacing:.01em}
+.band p{margin:0;font-size:.95rem;line-height:1.85;color:#D6D6D6}
+.band .tools{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;border-top:1px solid #3A3A3A;padding-top:16px}
+.band .tools a{font-size:.92rem;text-decoration:none;border-bottom:2px solid #fff}
+.band .tools a:hover{border-bottom-color:transparent}
+.band input{flex:1 1 220px;max-width:360px;font:inherit;font-size:.92rem;background:#fff;color:#000;border:0;padding:8px 12px;border-radius:0;min-height:40px}
+.band input::placeholder{color:#777}
+
+.thesis{padding:72px 0 8px}
+.thesis p.k{margin:0 0 10px;font-size:.9rem}
+.thesis blockquote{margin:0;font-family:var(--display);font-size:clamp(1.5rem,3.6vw,2.4rem);line-height:1.5;max-width:20em}
+.thesis .src{margin:16px 0 0;font-size:.92rem}
+
+.part{padding-top:72px}
+.part h2{font-family:var(--display);font-size:clamp(1.5rem,3vw,2rem);line-height:1.3;margin:0 0 4px;display:flex;align-items:center;gap:14px}
+.sw{width:.85em;height:.85em;flex-shrink:0;display:inline-block}
+.part h2 a{text-decoration:none}
+.part h2 a:hover{text-decoration:underline}
+.part .desc{margin:0 0 14px;color:var(--gray);font-size:.95rem}
+.chl{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.chl a{display:grid;grid-template-columns:3.4em minmax(0,1fr) auto;gap:2px 14px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.chl .n{color:var(--gray);font-size:.88rem}
+.chl .t{font-size:1.04rem}
+.chl .s{color:var(--gray);font-size:.88rem;font-weight:400;margin-left:.6em}
+.chl .st{font-size:.8rem;color:var(--gray);white-space:nowrap}
+.chl a.draft .t{color:var(--gray)}
+.chl a:hover .t{text-decoration:underline}
+.chl a.pub .st{color:var(--ink)}
+.results{padding-top:48px}
+.results h2{font-family:var(--display);font-size:1.4rem;margin:0 0 12px}
+.empty{color:var(--gray)}
+
+/* ---------- inner pages ---------- */
+.top{position:sticky;top:0;z-index:20;background:var(--paper)}
+.top .row{display:flex;align-items:center;gap:16px;padding:10px 0}
+.top .home{font-family:var(--display);font-size:1.05rem;text-decoration:none}
+.top .where{color:var(--gray);font-size:.88rem;margin-left:auto}
+.top .where a{text-decoration:none}
+.top .where a:hover{text-decoration:underline}
+.strip{display:flex;height:10px;gap:1px;background:var(--paper)}
+.strip a{flex:1;display:block;opacity:.32}
+.strip a.pub{opacity:.7}
+.strip a.on{opacity:1;box-shadow:inset 0 0 0 2px var(--ink);transform:scaleY(1.8);transform-origin:top}
+.strip a:hover{opacity:1}
+
+.phead{color:var(--c-ink)}
+.phead .wrap{padding-top:64px;padding-bottom:28px}
+.phead h1{font-family:var(--display);font-size:clamp(2.4rem,7vw,4.4rem);line-height:1.1;margin:0 0 12px}
+.phead p{margin:0;max-width:34em}
+
+.ahead{padding-top:56px}
+.ahead .pn{font-size:.92rem;display:flex;align-items:center;gap:10px;margin:0 0 14px}
+.ahead .pn a{text-decoration:none}
+.ahead .pn a:hover{text-decoration:underline}
+.ahead h1{font-family:var(--display);font-size:clamp(2.2rem,6.5vw,3.8rem);line-height:1.15;margin:0}
+.ahead .sub{color:#222;font-size:clamp(1.05rem,2.4vw,1.3rem);margin:12px 0 0;line-height:1.55}
+.ahead .sum{color:var(--gray);margin:16px 0 0;max-width:36em;font-size:.98rem}
+.ahead .meta{margin:14px 0 0;font-size:.88rem;color:var(--gray)}
+.ahead .meta b{color:var(--ink)}
+.body{max-width:36em;margin-top:40px}
+.body h2{font-family:var(--display);font-size:clamp(1.3rem,2.6vw,1.6rem);line-height:1.45;margin:2.4em 0 .7em}
+.body h2:first-child{margin-top:0}
+.body p{margin:0 0 1.15em}
+.body strong{font-weight:400;background:linear-gradient(transparent 62%,var(--c) 62%)}
+.body .pull{margin:2.2em 0}
+.body .pull .lab{font-size:.9rem;margin:0 0 8px}
+.body .pull .q{font-family:var(--display);font-size:clamp(1.35rem,3vw,1.75rem);line-height:1.55;margin:0}
+.body .fig{margin:2em 0 2.2em}
+.body .fig svg{display:block;width:100%;height:auto}
+.body .fig svg text{font-family:var(--body);fill:var(--ink)}
+.body .fig figcaption,.body .ref figcaption{margin-top:10px;font-size:.9rem;color:var(--gray);line-height:1.7}
+.body .fig figcaption .no,.body .ref figcaption .no{color:var(--ink);margin-right:.8em}
+.body .ref{margin:2em 0 2.2em}
+.body .ref .frame{position:relative;aspect-ratio:16/9;background:var(--ink)}
+.body .ref .frame{display:block;overflow:hidden;text-decoration:none}
+.body .ref .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.body .ref .frame .play{position:absolute;left:0;bottom:0;background:var(--ink);color:#fff;padding:8px 14px;font-size:.92rem;line-height:1.4}
+.body .ref .frame:hover .play{background:#BF0000}
+.body .ref a{color:var(--gray)}
+.body .ref iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.body .ref .yt{margin-left:.6em}
+.outline{max-width:36em;margin:40px 0 0;padding-left:1.6em}
+.outline li{padding:4px 0 4px .3em;font-size:1.04rem}
+.outline li::marker{color:var(--gray)}
+.note{max-width:36em;margin:18px 0 0;color:var(--gray);font-size:.92rem}
+.more{max-width:36em;margin-top:56px}
+.more h2{font-size:1rem;margin:0 0 6px}
+.prevnext{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:80px 0 0;padding:18px 0 0;border-top:2px solid var(--ink)}
+.prevnext a{text-decoration:none;display:block}
+.prevnext small{display:block;color:var(--gray);font-size:.82rem}
+.prevnext b{font-family:var(--display);font-weight:400;font-size:1.15rem;line-height:1.4}
+.prevnext a:hover b{text-decoration:underline}
+.prevnext .nx{text-align:right}
+
+.idx h1{font-family:var(--display);font-size:clamp(2.2rem,6vw,3.6rem);margin:56px 0 10px;line-height:1.15}
+.idx > p{color:var(--gray);margin:0 0 28px;max-width:36em}
+.tr{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.tr li{padding:14px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr);gap:4px 24px}
+.tr .q{font-size:1.02rem}
+.tr .ls{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:.94rem}
+.tr .ls a{display:inline-flex;align-items:center;gap:7px}
+.tr .ls a .sw{width:.7em;height:.7em}
+.tr .ls a.draft{color:var(--gray)}
+.gl{margin:0;border-top:2px solid var(--ink)}
+.gl div{display:grid;grid-template-columns:12em minmax(0,1fr);gap:4px 24px;padding:14px 0;border-bottom:1px solid var(--line)}
+.gl dt{font-family:var(--display);font-size:1rem}
+.gl dd{margin:0;color:#222;font-size:.95rem}
+.gl dd a{color:var(--gray);font-size:.86rem;margin-left:.4em}
+
+footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);color:var(--gray);font-size:.84rem}
+
+@media (max-width:760px){
+  body{font-size:16px}
+  .band .wrap{grid-template-columns:1fr}
+  .bars{height:52vh}
+  .bar .ct{font-size:.68rem}
+  .chl a{grid-template-columns:2.8em minmax(0,1fr)}
+  .chl .st{grid-column:2}
+  .chl .s{display:block;margin-left:0}
+  .tr li,.gl div{grid-template-columns:1fr}
+  .top .where{display:none}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="body-intro-1">
+  <h2>映像は、静止画の連続である</h2>
+  <p>まず仕組みの話から始める。映像とは、静止画の連続である。フィルムのコマ、動画ファイルのフレーム、パラパラ漫画のページ。形は違っても、止まった絵を高速で切り替えることで「動いて見える」という点は共通している。パラパラ漫画は、1枚1枚はただの絵なのに、めくる速さが上がった瞬間にキャラクターが走り出す。映像の出発点は、静止画の集まりが時間の中で動きに変わる、この仕組みにある。</p>
+  <figure class="ref">
+    <a class="frame" href="https://www.youtube.com/watch?v=heRuLp7CyTM" data-yt="heRuLp7CyTM" target="_blank" rel="noopener" aria-label="The horse in motion (Eadweard Muybridge) 1878を再生"><img src="https://i.ytimg.com/vi/heRuLp7CyTM/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play">▶ 再生</span></a>
+    <figcaption><span class="no">動画1</span>The horse in motion (Eadweard Muybridge) 1878（Channel Stop）。1878年、マイブリッジが走る馬を連続写真で撮り、それを順に切り替えた映像。1枚ずつはただの写真だ。<a class="yt" href="https://www.youtube.com/watch?v=heRuLp7CyTM" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <a class="frame" href="https://www.youtube.com/watch?v=wNU7sXkZmSw" data-yt="wNU7sXkZmSw" target="_blank" rel="noopener" aria-label="Slices of Time: Eadweard Muybridge’s Cinematic Legacyを再生"><img src="https://i.ytimg.com/vi/wNU7sXkZmSw/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play">▶ 再生</span></a>
+    <figcaption><span class="no">動画2</span>Slices of Time: Eadweard Muybridge’s Cinematic Legacy（サンフランシスコ近代美術館）。マイブリッジの連続写真が映画につながるまでの解説。英語。<a class="yt" href="https://www.youtube.com/watch?v=wNU7sXkZmSw" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <p>ただし、これは仕組みの定義にすぎない。監視カメラの映像も名作映画も、仕組みの上ではどちらも静止画の連続だ。この定義だけでは、良い映像とそうでない映像の違いを説明できない。その違いを言葉にすることが、このサイト全体の仕事になる。</p>
+
+  <h2>物差し：どこで止めても、いい絵になる</h2>
+  <p>良い映像を見分ける物差しとして、このサイトでは次の目安を使う。<strong>良い映像は、どこで一時停止しても、いい絵になっている。</strong></p>
+  <p>乱暴な基準に見えるが、使い道は広い。どのコマで止めても絵になっているなら、構図、色、被写体の置き方といった1枚の絵としての設計が、偶然に頼らず作られていることになる。止めるたびに中途半端な絵が出てくる映像は、1コマごとの設計を運に任せていることが多い。</p>
+  <p>作り手にとっても、この物差しはすぐ使える。自分の映像を適当な場所で止めて、そこが1枚の絵として見られるかを確かめる。それだけで、直すべき場所がかなり見えてくる。詳しい使い方は画編で扱う。</p>
+  <figure class="ref">
+    <a class="frame" href="https://www.youtube.com/watch?v=8U-gCTEYxCA" data-yt="8U-gCTEYxCA" target="_blank" rel="noopener" aria-label="isshin REEL 2022を再生"><img src="https://i.ytimg.com/vi/8U-gCTEYxCA/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play">▶ 再生</span></a>
+    <figcaption><span class="no">動画3</span>isshin REEL 2022（isshin）。好きな所で一時停止してみてほしい。どこで止めても1枚の絵として成り立っている。詳しくは画編で扱う。<a class="yt" href="https://www.youtube.com/watch?v=8U-gCTEYxCA" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>物差しの限界</h2>
+  <p>この物差しには限界がある。止めると崩れて見えるのに、動かすと気持ちいいコマがあるからだ。速い動きの途中のブレた絵、着地の直前で歪んだポーズ、カメラが大きく振れた瞬間の流れた背景。どれも静止画としては崩れている。それでも前後の流れの中では、その崩れが速さや勢いを生んでいる。1コマの完成度では測れない良さが、映像にはある。</p>
+
+  <h2>定義を更新する</h2>
+  <p>仕組みとしての定義、止めてもいい絵という物差し、その限界。この3つを踏まえて、このサイトでは良い映像をこう定義する。</p>
+  <div class="pull">
+    <p class="lab">このサイトの定義</p>
+    <p class="q">良い映像は、どの要素にも「何を魅せたいか」の意図が設計されている。</p>
+  </div>
+  <p>大事なのは「どの要素にも」の部分だ。ジャンルによって、要素の重みは変わる。画が主役の作品もあれば、音が主役の作品もある。重みが小さいことと、意図がないことは別の話だ。脇役の要素が「なんとなく」「初期設定のまま」になっている映像は、見る人に小さな引っかかりを残しやすい。目立たない要素にまで理由が通っている映像は、全体として強くなる。</p>
+  <p>偶然撮れた一瞬が良い、という反論もあるだろう。それでも、その一瞬を残し、その位置に置くと決めたのは作り手だ。意図は撮影の瞬間だけでなく、選ぶことと並べることにも宿る。</p>
+  <p>ここで言う要素とは、本編を構成する6つ、画・動き・音・編集・合成・構成のことだ。良い映像の条件をこの6つに分け、1つずつ言葉にしていく。それがこのサイトのやり方である。</p>
+</template>
+<template id="body-intro-3">
+  <h2>このサイトの立場：定義は物差しとして置く</h2>
+  <p>0.1で、このサイトは良い映像をこう定義した。「良い映像は、どの要素にも『何を魅せたいか』の意図が設計されている。」この定義は、守るべき決まりとして置いたものではない。作品を見るとき、作るときに当てて測る物差しとして置いている。</p>
+  <p>このサイトは「こう撮れ」「こう切れ」と指示しない。構図にも色にも編集にも、たくさんの型や定石がある。それらは紹介するが、使うかどうかは作り手が決める。判断の基準として最後に残るのは、その選択が「何を魅せたいか」に役立っているかどうかだ。作り手の自由を土台にするこの立場は、音楽理論の学習サイトSoundQuestの立ち位置に倣っている。</p>
+  <p>ただ、映像の世界には反対側の考え方もある。決まった型やルールを先に覚え、それに沿って作る考え方だ。このサイトの立場をはっきりさせるために、ここでは型やルールで考える例を3つ見ておく。</p>
+
+  <h2>例1：連続性編集のルール</h2>
+  <p>撮影と編集の現場で広く共有されている基本のルールに、180度ルールと30度ルールがある。</p>
+  <p>180度ルールは、2人の会話のような場面で、2人を結ぶ想定線（イマジナリーライン）の片側からだけ撮る、というものだ。線を越えて反対側から撮ると、画面の中で2人の左右が入れ替わり、見る人は誰がどちらを向いているのか一瞬分からなくなる。30度ルールは、同じ被写体を続けて映すとき、カメラの位置を30度以上変える、というものだ。角度の変化が小さいと、つなぎ目がジャンプカット（画面が飛んだように見えるつなぎ）に見えやすい。</p>
+  <figure class="fig" aria-label="180度ルールの図：上から見た2人とカメラの位置">
+    <svg viewBox="0 0 600 345" role="img">
+      <rect x="0" y="0" width="600" height="165" fill="#F2F2F2"/>
+      <text x="16" y="28" font-size="19">この側からなら、どこから撮ってもいい</text>
+      <line x1="0" y1="165" x2="600" y2="165" stroke="#BF0000" stroke-width="3" stroke-dasharray="10 7"/>
+      <text x="16" y="194" font-size="18" style="fill:#BF0000">イマジナリーライン</text>
+      <circle cx="220" cy="165" r="24" fill="#000"/><text x="220" y="171" font-size="20" text-anchor="middle" style="fill:#fff">A</text>
+      <circle cx="380" cy="165" r="24" fill="#000"/><text x="380" y="171" font-size="20" text-anchor="middle" style="fill:#fff">B</text>
+      <g transform="translate(130,70) rotate(35)"><rect x="-18" y="-12" width="36" height="24" fill="#000"/><polygon points="18,-8 32,-14 32,14 18,8" fill="#000"/></g>
+      <text x="86" y="122" font-size="18">カメラ1</text>
+      <g transform="translate(470,70) rotate(145)"><rect x="-18" y="-12" width="36" height="24" fill="#000"/><polygon points="18,-8 32,-14 32,14 18,8" fill="#000"/></g>
+      <text x="436" y="122" font-size="18">カメラ2</text>
+      <g transform="translate(300,258) rotate(-90)"><rect x="-18" y="-12" width="36" height="24" fill="#fff" stroke="#BF0000" stroke-width="2.5"/><polygon points="18,-8 32,-14 32,14 18,8" fill="#fff" stroke="#BF0000" stroke-width="2.5"/></g>
+      <line x1="280" y1="238" x2="320" y2="278" stroke="#BF0000" stroke-width="3"/><line x1="320" y1="238" x2="280" y2="278" stroke="#BF0000" stroke-width="3"/>
+      <text x="300" y="330" font-size="18" text-anchor="middle" style="fill:#BF0000">線を越えると、AとBの左右が入れ替わる</text>
+    </svg>
+    <figcaption><span class="no">図1</span>180度ルールを上から見た図。カメラ1とカメラ2はどちらもAを左、Bを右に映す。線の反対側に置いたカメラでは、AとBの左右が逆になる。</figcaption>
+  </figure>
+  <p>どちらも、見る人が空間と動きの向きを見失わないためのルールだ。ドラマやCMの現場では、スタッフ同士の共通の前提になっている。映像の仕事に就きたい人は、まずここから覚えることになるだろう。詳しくは編集編で扱う。</p>
+  <figure class="ref">
+    <a class="frame" href="https://www.youtube.com/watch?v=mJ0j74PCk04" data-yt="mJ0j74PCk04" target="_blank" rel="noopener" aria-label="イマジナリーラインの基本を再生"><img src="https://i.ytimg.com/vi/mJ0j74PCk04/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play">▶ 再生</span></a>
+    <figcaption><span class="no">動画1</span>イマジナリーラインの基本（VideoAlpha Channel）。日本語の解説。<a class="yt" href="https://www.youtube.com/watch?v=mJ0j74PCk04" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <a class="frame" href="https://www.youtube.com/watch?v=T1UKpzlSU2Q" data-yt="T1UKpzlSU2Q" target="_blank" rel="noopener" aria-label="映画撮影の基本 イマジナリーラインを初心者にも分かりやすく解説！を再生"><img src="https://i.ytimg.com/vi/T1UKpzlSU2Q/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play">▶ 再生</span></a>
+    <figcaption><span class="no">動画2</span>映画撮影の基本 イマジナリーラインを初心者にも分かりやすく解説！（ハト先生の映像スクール【1年7組】）。日本語の解説。<a class="yt" href="https://www.youtube.com/watch?v=T1UKpzlSU2Q" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <a class="frame" href="https://www.youtube.com/watch?v=iW0bKUfvH2c" data-yt="iW0bKUfvH2c" target="_blank" rel="noopener" aria-label="The 180 Degree Rule in Film (and How to Break The Line)を再生"><img src="https://i.ytimg.com/vi/iW0bKUfvH2c/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play">▶ 再生</span></a>
+    <figcaption><span class="no">動画3</span>The 180 Degree Rule in Film (and How to Break The Line)（StudioBinder）。ルールの説明に加えて、映画があえて線を越える例も紹介している。英語。<a class="yt" href="https://www.youtube.com/watch?v=iW0bKUfvH2c" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>例2：ウォルター・マーチの6つのルール</h2>
+  <p>映画編集者のウォルター・マーチは、著書『In the Blink of an Eye』(1995)で、理想のカットが満たす6つの条件を挙げ、それぞれに重みを付けた。</p>
+  <figure class="fig" aria-label="ウォルター・マーチの6つのルールの重み">
+    <svg viewBox="0 0 600 330" role="img">
+      <text x="0" y="24" font-size="18" style="fill:#000">感情</text>
+      <rect x="0" y="32" width="510" height="16" fill="#000"/>
+      <text x="520" y="46" font-size="19" style="fill:#000">51%</text>
+      <text x="0" y="76" font-size="18" style="fill:#000">物語</text>
+      <rect x="0" y="84" width="230" height="16" fill="#BFBFBF"/>
+      <text x="240" y="98" font-size="19" style="fill:#000">23%</text>
+      <text x="0" y="128" font-size="18" style="fill:#000">リズム</text>
+      <rect x="0" y="136" width="100" height="16" fill="#BFBFBF"/>
+      <text x="110" y="150" font-size="19" style="fill:#000">10%</text>
+      <text x="0" y="180" font-size="18" style="fill:#000">視線の流れ</text>
+      <rect x="0" y="188" width="70" height="16" fill="#BFBFBF"/>
+      <text x="80" y="202" font-size="19" style="fill:#000">7%</text>
+      <text x="0" y="232" font-size="18" style="fill:#BF0000">画面上の左右の位置関係（180度ルール）</text>
+      <rect x="0" y="240" width="50" height="16" fill="#BF0000"/>
+      <text x="60" y="254" font-size="19" style="fill:#BF0000">5%</text>
+      <text x="0" y="284" font-size="18" style="fill:#000">3次元空間の連続性</text>
+      <rect x="0" y="292" width="40" height="16" fill="#BFBFBF"/>
+      <text x="50" y="306" font-size="19" style="fill:#000">4%</text>
+    </svg>
+    <figcaption><span class="no">図2</span>マーチが6つの条件に付けた重み。一番上の感情だけで半分を超える。赤は、例1の180度ルールにあたる条件。</figcaption>
+  </figure>
+  <p>5%の「画面上の左右の位置関係」は、例1の180度ルールのことだ。ルールを体系立てて並べた本人が、現場で最も知られた型の重みを小さくし、その瞬間の感情を半分以上の重みで一番上に置いている。型を大事にする立場の中にも、最後に優先されるのは見る人に何を感じさせたいか、という考え方がある。このサイトの定義とも重なる部分だ。</p>
+  <figure class="ref">
+    <a class="frame" href="https://www.youtube.com/watch?v=s49Al2CMfTI" data-yt="s49Al2CMfTI" target="_blank" rel="noopener" aria-label="Walter Murch - The six criteria of film editingを再生"><img src="https://i.ytimg.com/vi/s49Al2CMfTI/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play">▶ 再生</span></a>
+    <figcaption><span class="no">動画4</span>Walter Murch - The six criteria of film editing（Web of Stories）。マーチ本人が6つの基準について語るインタビュー。約6分、英語。<a class="yt" href="https://www.youtube.com/watch?v=s49Al2CMfTI" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>例3：ドグマ95</h2>
+  <p>1995年3月13日、デンマークの映画監督ラース・フォン・トリアーとトマス・ヴィンターベアは、パリで「ドグマ95」という映画運動を発表した。2人は「純潔の誓い」と呼ぶ10か条を自分たちに課した。撮影はロケのみでセットを持ち込まない、カメラは手持ち、映像と別に音を作らない、ジャンル映画は撮らない、監督の名前をクレジットしない、といった内容だ。</p>
+  <figure class="ref">
+    <a class="frame" href="https://www.youtube.com/watch?v=lZg46C_wAUY" data-yt="lZg46C_wAUY" target="_blank" rel="noopener" aria-label="Festen (1998) - Trailer HQ - DK Versionを再生"><img src="https://i.ytimg.com/vi/lZg46C_wAUY/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play">▶ 再生</span></a>
+    <figcaption><span class="no">動画5</span>Festen (1998) - Trailer HQ - DK Version（Nimbus Film）。『セレブレーション』の予告編。制作会社による公開。手持ちカメラとロケ撮影の質感が分かる。<a class="yt" href="https://www.youtube.com/watch?v=lZg46C_wAUY" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <p>ここでのルールは、誰かに守らされるものとして作られてはいない。豪華なセットや後付けの音楽に頼らない映画を撮るために、作り手が自分から選んだ縛りだ。ルールそのものが、一つの流派の主張になっている。しかも、作った本人たちも完全には守れていない。ヴィンターベアは『セレブレーション』の撮影中に窓を覆った（小道具と照明を足した）と告白しており、トリアーも『イディオッツ』で音楽を使っている。運動は2005年に終わった。</p>
+
+  <h2>型とどう付き合うか</h2>
+  <p>3つの例を並べると、型やルールの正体が見えてくる。どの型も、誰かが「見る人に何を伝えたいか」を考えた末に残した答えだ。180度ルールは「空間を迷わせない」ための答えで、ドグマ95は「飾りに頼らない」ための答えだった。</p>
+  <p>だから、このサイトは型を否定しない。型は、先人が出した答えの集まりとして役に立つ。特に仕事で映像を作る場合、型は人と人をつなぐ共通言語になる。監督やクライアントと話すとき、「ここは線を越えてもいいですか」と言えるのは、全員が同じ型を知っているからだ。</p>
+  <p>型を破るのも自由だ。ただ、破るときは、破ることで何を魅せたいのかを説明できるようにしておきたい。理由のある崩しと、知らずに崩れたものは、見る人には違って見えることが多い。型を知ったうえで、使うか破るかを自分で選ぶ。それがこのサイトの勧める付き合い方である。</p>
+</template>
+<script>
+var PARTS = [
+ {id:"intro",name:"序論",desc:"映像とは何かを定義し、このサイトの立場と読み方を決める。",start:0,articles:[
+  {id:"intro-0",n:"0.0",title:"凡例",sub:"このサイトの読み方",summary:"記事の構成、例に出す動画の見方、表記の約束ごと。最初にここを読めば、ほかの記事はどこから開いてもいい。",outline:["1記事1テーマの約束","記事の構成：定義、例、練習","例に出す動画・作品の見方","章立てだけの記事について"]},
+  {id:"intro-1",n:"0.1",title:"映像とは何か",sub:"静止画の連続から、意図の設計へ",pub:true,body:"body-intro-1",mins:7,summary:"映像は静止画の連続である、という仕組みの定義から出発する。「どこで止めてもいい絵になる」という物差しとその限界を経て、このサイトの中心となる定義にたどり着く。",further:["visual-1","motion-1","intro-3"]},
+  {id:"intro-2a",n:"0.2a",title:"映像の歴史（通史）前半",sub:"フィルムの時代",summary:"映画の誕生から、編集とモンタージュの発見、サイレントの完成、音と初期アニメまで。全体をつかむための通史で、手法ごとの歴史は各編で掘り下げる。",outline:["映像の誕生：カメラ固定・ワンショットの時代","編集とモンタージュの発見","サイレントの完成：チャップリン","トーキーと音同期アニメ：ミッキー","カラーの普及まで"]},
+  {id:"intro-2b",n:"0.2b",title:"映像の歴史（通史）後半",sub:"デジタルとネットの時代",summary:"テレビとビデオの大衆化、CGとデジタル編集、ネット動画、スマホと縦型ショートまで。部員が作っているジャンルの源流をたどる。",outline:["テレビとビデオの大衆化","CGとデジタル編集：個人でも作れる時代へ","ネット動画の誕生：YouTube、ニコニコ","スマホと縦型ショートの流行"]},
+  {id:"intro-3",n:"0.3",title:"映像理論の流派",sub:"このサイトの立場",pub:true,body:"body-intro-3",mins:5,summary:"このサイトは型を強制せず、中心の定義を物差しとして使う。対比として、連続性編集のルール、ウォルター・マーチの6つのルール、ドグマ95という型やルールで考える例を見て、型との付き合い方を決める。",outline:["このサイトの立場：定義は物差しとして置く","例1：連続性編集のルール","例2：ウォルター・マーチの6つのルール","例3：ドグマ95","型とどう付き合うか"],further:["intro-1","edit-1","intro-4"]},
+  {id:"intro-4",n:"0.4",title:"映像理論を学ぶ意味",sub:"理論が制作に効く理由",summary:"「なんか良い／なんかダサい」を言葉にできると、自分で直せるようになり、部員同士で具体的にレビューし合える。",outline:["「なんか」を言葉にすると直せる","レビューが感想から指摘に変わる","他人の作品から学べる量が増える"]},
+  {id:"intro-5",n:"0.5",title:"学ぶかどうか、学び方を決める",sub:"詰まった所から開いていい",summary:"全編を順番に読む必要はない。詰まった所から開き、1記事で区切っていい。編と章に分けたのは、一度に抱える量を減らし、自分のペースで進めるため。",outline:["全部を一度に理解しなくていい理由","詰まった所から読む","1記事で区切る","困りごと索引の使い方"]},
+  {id:"intro-6",n:"0.6",title:"ゴールとプランを練る",sub:"ジャンル別の読む順番",summary:"作るジャンルに合わせた読む順番の例。基礎を一通り通る道と、応用編から逆引きする道。",outline:["ゴールは「作れるようになる」側に置く","ジャンル別の読む順番の例","応用編から基礎へ逆引きする"]}
+ ]},
+ {id:"prep",name:"準備編",desc:"本編を読むための前提知識と、用語の土台。",articles:[
+  {id:"prep-1",title:"コマとfps",sub:"映像の時間の最小単位",summary:"1秒に何枚の絵を見せるか。fpsの違いが、動きの見え方と作品の質感をどう変えるか。",outline:["コマ（フレーム）とは何か","fpsの数字と見え方の違い","アニメの「○コマ打ち」との関係"]},
+  {id:"prep-2",title:"解像度とアスペクト比",sub:"画面の大きさと形",summary:"16:9、4:3、シネマスコープ、縦型の9:16まで。画面の形が構図の前提になる。",outline:["解像度と画質の関係","アスペクト比の種類と印象","縦型（9:16）の前提条件"]},
+  {id:"prep-3",title:"色と光の最低限",sub:"画編と合成編のための約束ごと",summary:"色相・明度・彩度と、光の向き。画編と合成編を読むのに必要な最小限だけを押さえる。",outline:["色の三属性","光の向きと影の出方","色温度"]},
+  {id:"prep-4",title:"音の最低限",sub:"音を言葉で扱うために",summary:"音量、音の高さ、音色。音編を読むための前提をそろえる。",outline:["音量（デシベル）の感覚","音の高さと周波数","音色とは何か"]},
+  {id:"prep-5",title:"ソフトと機材",sub:"道具の全体像",summary:"編集ソフト、モーショングラフィックス、3DCGなど、部員が使っている道具の全体像を共有する。操作手順は扱わない。",outline:["編集ソフトの役割","合成ソフトの役割","3DCGソフトの役割","機材より先に決めること"]}
+ ]},
+ {id:"visual",name:"画編",desc:"構図・デザイン・色・文字・光。止めてもいい絵を作る。",articles:[
+  {id:"visual-1",title:"構図",sub:"止めてもいい絵は、どう作るか",summary:"画面の中に何をどこに置くか。止めた1コマがそのままポスターになる映像は、構図とデザインの設計から生まれる。",outline:["視線はどこへ行くか","余白と被写体の置き方","三分割などの型と、その崩し方","作例：isshin『REEL 2022』の1コマ"]},
+  {id:"visual-2",title:"デザインとスタイルフレーム",sub:"動き出す前の1枚絵",summary:"isshinはインタビューで、モーショングラフィックスはグラフィックス(デザイン)が8割、モーションが2割だと語っている。動き出す前の1枚絵の設計が、作品の土台になる。",outline:["スタイルフレームとは何か","isshinの「グラフィックス8割、モーション2割」：制作の作業量と重要度の話","レイアウトと階層：何を一番見せるか","質感と素材感の統一"]},
+  {id:"visual-3",title:"色",sub:"配色と色の役割",summary:"色は情報を運ぶ。配色の型と、色が雰囲気や読み分けにどう働くか。",outline:["配色の型：同系、補色、アクセント","色で情報を分ける","作品全体の色の統一感"]},
+  {id:"visual-4",title:"文字とタイポグラフィ",sub:"読ませる速度まで含めて",summary:"字幕、歌詞、タイトル。文字は画の一部で、読ませる速度までがデザインの対象になる。文字PVの土台。",outline:["フォントの性格と選び方","大きさ・太さ・配置","読ませる速さの設計"]},
+  {id:"visual-5",title:"光とライティング",sub:"立体感と空気を作る",summary:"実写にも3DCGにも共通する画の基礎。光の向きと質が、被写体の立体感と空気を決める。",outline:["順光・逆光・サイド光","硬い光と柔らかい光","3DCGでのライティング"]}
+ ]},
+ {id:"motion",name:"動き編",desc:"モーション・イージング・カメラワーク。映像でしか味わえない快感を扱う。",articles:[
+  {id:"motion-1",title:"動きの設計",sub:"止めると崩れるのに、なぜ気持ちいいのか",summary:"序論1で置いた物差しの、その先。ブレや歪みも含めて、動きそのものを設計する考え方。",outline:["動きの気持ちよさは何で決まるか","予備動作とフォロースルー","止めると崩れるコマの役割"]},
+  {id:"motion-2",title:"イージング",sub:"速度の設計",summary:"等速の動きは機械に見える。加速と減速の付け方が、重さ・勢い・感情を左右する。",outline:["イーズイン、イーズアウト","グラフで速度を読む","重さと勢いの表現"]},
+  {id:"motion-3",title:"カメラワーク",sub:"カメラが動く理由",summary:"パン、ズーム、ドリー、固定。カメラの動き自体が見る人に情報を渡す。実写でも3DCGでも、意図を持って選ぶ。",outline:["固定で見せる強さ","パン・チルト・ズームの意味","3DCGの自由なカメラの落とし穴"]},
+  {id:"motion-4",title:"歴史：動きの原則",sub:"初期アニメから",summary:"初期アニメの時代に、動きを気持ちよく見せる原則がどう言語化されたか。",outline:["初期アニメと音同期の工夫","動きの原則が生まれた背景","原則は今のモーション制作にどう生きるか"]}
+ ]},
+ {id:"sound",name:"音編",desc:"タイミング・情報量・雰囲気。音は映像のジャンルまで書き換える。",articles:[
+  {id:"sound-1",title:"音が映像の読み方を変える",sub:"隕石×ドリフの実験",summary:"隕石衝突の映像にドリフのBGMを付けると、恐怖がコメディに反転する。画が同じでも、音が雰囲気、情報の読み方、タイミングの感じ方を変える。",outline:["同じ画、違う音","雰囲気の反転","情報の読み方：笑っていい場面の合図","タイミングの感じ方"]},
+  {id:"sound-2",title:"タイミングと音ハメ",sub:"拍に合わせる、外す",summary:"音の拍に動きとカットを合わせる技術。決まると、画と音が一体のものとして見えてくる。",outline:["拍を取る、合わせる","合わせる場所と外す場所","音ハメとジャンルの関係"]},
+  {id:"sound-3",title:"音の情報量",sub:"聞き取りやすさの設計",summary:"同時に鳴らせる音には限りがある。声・BGM・効果音の優先順位と、聞き取りやすさの設計。",outline:["音のレイヤーと優先順位","声が聞き取りにくくなる原因","あえて音を減らす判断"]},
+  {id:"sound-4",title:"雰囲気と沈黙",sub:"鳴っていない時間",summary:"環境音と沈黙も設計の対象になる。何も鳴っていない時間に、何を感じさせたいか。",outline:["環境音が作る場所の実在感","沈黙の使い方","ジャンルごとの音の優先順位"]},
+  {id:"sound-5",title:"歴史：トーキーと音同期",sub:"音が付いた瞬間",summary:"映画に音が付いた時代と、音と動きを同期させる技術の発展。現代の音ハメへのつながり。",outline:["サイレントからトーキーへ","音同期アニメの発明","同期の技術と現代の音ハメ"]}
+ ]},
+ {id:"edit",name:"編集編",desc:"カット単位の時間設計。つなぐことで意味とテンポが生まれる。",articles:[
+  {id:"edit-1",title:"カットとつなぎ",sub:"どこで切り、どうつなぐか",summary:"切る位置とつなぎ方。継ぎ目を見せるか消すかを、意図を持って選ぶ。",outline:["カットとは何を切ることか","つなぎの種類","継ぎ目を見せる、消す"]},
+  {id:"edit-2",title:"モンタージュ",sub:"並べると意味が生まれる",summary:"単独では意味の薄いカット同士が、並ぶことで新しい意味を持つ。編集の発見の核心。",outline:["並びが意味を作る仕組み","対比と連想","切り抜き・MADへのつながり"]},
+  {id:"edit-3",title:"テンポを作る",sub:"退屈さの正体",summary:"退屈さの正体は、カットの長さと情報の出し方にある。テンポを設計として組み立てる方法。",outline:["カットの長さと情報量","間（ま）の使い方","ジャンルごとの適正テンポ"]},
+  {id:"edit-4",title:"歴史：編集の発見",sub:"ワンショットからモンタージュへ",summary:"カメラ固定・ワンショットの時代から、つなぐことが発明され、手法として広がるまで。",outline:["ワンショットの時代","編集の発見","モンタージュ理論の広がり"]}
+ ]},
+ {id:"composite",name:"合成編",desc:"レイヤーを重ね、素材から画を作り、仕上げる。",articles:[
+  {id:"composite-1",title:"コンポジット",sub:"レイヤーで画を考える",summary:"素材を重ねて画を作る。文字PV、モーショングラフィックス、3DCG、音MADに共通する中心技術の入口。",outline:["レイヤー構造で画を考える","描画モードの基礎","合成が浮くとき何が起きているか"]},
+  {id:"composite-2",title:"マスクとキーイング",sub:"切り抜く、はめ込む",summary:"切り抜く、抜く、はめ込む。合成の精度を決める切り分けの技術。",outline:["マスクの考え方","クロマキーとルミナンスキー","境界の処理で自然さが決まる"]},
+  {id:"composite-3",title:"トラッキング",sub:"動きに追従させる",summary:"動く対象に素材を追従させる。カメラの動きと被写体の動き、両方への付け方。",outline:["ポイントトラッキング","カメラトラッキング","ずれる原因と直し方"]},
+  {id:"composite-4",title:"レンダーパス合成",sub:"3DCGを合成で仕上げる",summary:"3DCGはパスに分けて出力し、合成で画を仕上げる。その工程の考え方。",outline:["レンダーパスとは何か","パス合成で調整できること","仕上げとしてのコンポジット"]},
+  {id:"composite-5",title:"仕上げ",sub:"グロー・ブラー・カラー調整",summary:"最後の数パーセントで全体が締まる。エフェクトと色の最終調整に理由を持たせる。",outline:["グローとブラーの役割","全体の色をそろえる","やりすぎの見分け方"]},
+  {id:"composite-6",title:"歴史：トリック撮影",sub:"メリエスから",summary:"合成の起源は映画の最初期、メリエスのトリック撮影にある。そこから現代のコンポジットまでの系譜。",outline:["トリック撮影の発明","二重露光とコマ撮りの工夫","現代のコンポジットへの系譜"]}
+ ]},
+ {id:"structure",name:"構成編",desc:"作品全体の時間設計。何を、どの順番で見せるか。",articles:[
+  {id:"structure-1",title:"何を魅せるか決める",sub:"構成の出発点",summary:"構成は、作品の魅せたいものを1つに決めることから始まる。編集がカット単位の設計なら、構成は全体の設計。",outline:["魅せたいものを1文で言う","盛る要素と捨てる要素","ジャンルごとの魅せ方"]},
+  {id:"structure-2",title:"フック",sub:"最初の数秒",summary:"見始めてもらえなければ構成は始まらない。冒頭で何を見せれば人は残るのか。縦型ショートで特に鋭くなった問題。",outline:["フックの役割","最初に見せるのは一番いい所か","ジャンル別のフックの型"]},
+  {id:"structure-3",title:"起承転結と情報の出し方",sub:"順番で面白さが変わる",summary:"情報をどの順番で出すかで、同じ素材でも面白さが変わる。型としての起承転結と、その応用。",outline:["起承転結を型として使う","情報を小出しにする効果","型を外すときの判断"]},
+  {id:"structure-4",title:"オチへの持って行き方",sub:"着地の設計",summary:"笑いでも感動でも、最後の着地が全体の印象を大きく左右する。",outline:["オチとクライマックスの違い","溜めてから放つ","終わり方の型"]}
+ ]},
+ {id:"genres",name:"応用編",desc:"基礎の6要素が、ジャンルごとにどう姿を変えるか。",articles:[
+  {id:"genre-vlog",title:"Vlog",sub:"日常を撮る",summary:"構図、現場音、退屈させない編集テンポが中心になるジャンル。参考は他のVlogや写真に近い。",outline:["このジャンルで何を魅せるか","重要な軸：構図、現場音、テンポ","作り方の流れ","参考にするもの","詰まりやすい所"]},
+  {id:"genre-moji",title:"文字PV",sub:"文字がグラフィックスになる",summary:"タイポグラフィのデザイン、歌詞と音楽へのタイミング、読ませる速さの調整が中心になるジャンル。",outline:["このジャンルで何を魅せるか","重要な軸：文字、タイミング、合成","作り方の流れ","参考にするもの","詰まりやすい所"]},
+  {id:"genre-mg",title:"モーショングラフィックス",sub:"スタイルフレームが土台",summary:"スタイルフレームのデザインが土台になるジャンル。デザイン・色・イージングの比重が大きい。",outline:["このジャンルで何を魅せるか","重要な軸：デザイン、色、イージング","作り方の流れ","参考にするもの","詰まりやすい所"]},
+  {id:"genre-yukkuri",title:"ゆっくり実況",sub:"声と字幕で整理する",summary:"声と字幕のタイミング、画面レイアウトで情報を整理する力が中心になるジャンル。",outline:["このジャンルで何を魅せるか","重要な軸：音の情報量、レイアウト、構成","作り方の流れ","参考にするもの","詰まりやすい所"]},
+  {id:"genre-mad",title:"音MAD",sub:"音が主役になる",summary:"音が主役で画が従になるジャンル。素材選びと音の編集が中心で、素材と権利の扱いも欠かせない。",outline:["このジャンルで何を魅せるか","重要な軸：音、素材選び、タイミング","作り方の流れ","参考にするもの","素材と権利","詰まりやすい所"]},
+  {id:"genre-cut",title:"切り抜き",sub:"文脈を切り直す",summary:"面白い瞬間を見つけ、文脈を切り直す編集のジャンル。タイトルや見せ方まで含めたキュレーションの技術。",outline:["このジャンルで何を魅せるか","重要な軸：構成、フック、編集","作り方の流れ","タイトルと見せ方","素材と権利","詰まりやすい所"]},
+  {id:"genre-3dcg",title:"3DCG",sub:"すべてを自分で決める",summary:"カメラも照明も空間も自分で決められるジャンル。自由度が高いぶん、構図・色・光の基礎がそのまま問われる。",outline:["このジャンルで何を魅せるか","重要な軸：構図、光、カメラ","作り方の流れ","参考にするもの","詰まりやすい所"]}
+ ]}
+];
+var TROUBLES=[
+ {q:"なんか安っぽく見える",l:["visual-1","visual-3"]},
+ {q:"止めると絵になっていない",l:["intro-1","visual-2"]},
+ {q:"なんか退屈に感じる",l:["edit-3","structure-2"]},
+ {q:"最後まで見てもらえない",l:["structure-2","structure-3"]},
+ {q:"うるさい、声が聞き取りにくい",l:["sound-3","sound-4"]},
+ {q:"動きがカクカクする",l:["motion-2","prep-1"]},
+ {q:"合成が浮いて見える",l:["composite-1","composite-2"]},
+ {q:"字幕が読みにくい",l:["visual-4"]},
+ {q:"何から作ればいいか分からない",l:["structure-1","intro-6"]},
+ {q:"音と画がバラバラに感じる",l:["sound-2","sound-1"]}
+];
+var GLOSSARY=[
+ {t:"静止画の連続",d:"映像の仕組みを指す言い方。止まった絵（コマ）を高速で切り替えることで、動いて見える。",l:"intro-1"},
+ {t:"魅せたいもの",d:"その映像で観客に一番見せたい、感じさせたい核。良い映像は、どの要素にもこれへの意図が設計されている。",l:"intro-1"},
+ {t:"fps",d:"frames per second。1秒間に何枚のコマを見せるか。動きの滑らかさと質感に関わる。",l:"prep-1"},
+ {t:"アスペクト比",d:"画面の縦横比。16:9、4:3、縦型の9:16など。構図の前提条件になる。",l:"prep-2"},
+ {t:"スタイルフレーム",d:"モーショングラフィックスで、動き出す前の完成形の1枚絵。",l:"visual-2"},
+ {t:"イージング",d:"動きの加速・減速の付け方。速度の変化が重さや勢いを表す。",l:"motion-2"},
+ {t:"音ハメ",d:"音楽の拍や音のタイミングに、動きやカットを合わせること。",l:"sound-2"},
+ {t:"モンタージュ",d:"カットを並べることで、個々のカットになかった意味を生む編集の考え方。",l:"edit-2"},
+ {t:"コンポジット",d:"複数の素材（レイヤー）を重ねて1つの画に合成すること。その工程全体も指す。",l:"composite-1"},
+ {t:"レンダーパス",d:"3DCGで、色・影・反射などを要素ごとに分けて出力した画像。合成で個別に調整できる。",l:"composite-4"},
+ {t:"フック",d:"冒頭で観客の注意をつかむ仕掛け。",l:"structure-2"},
+ {t:"起承転結",d:"導入・展開・転換・結末の4つで、情報の出し方と流れを組み立てる型。",l:"structure-3"}
+];
+</script>
+<script>
+(function(){
+var COLORS={intro:["#BFBFBF","#000"],prep:["#BFBF00","#000"],visual:["#00BFBF","#000"],motion:["#00BF00","#000"],
+  sound:["#BF00BF","#fff"],edit:["#BF0000","#fff"],composite:["#0000BF","#fff"],structure:["#00214C","#fff"],genres:["#32006A","#fff"]};
+var app=document.getElementById("app");
+function esc(s){return String(s).replace(/[&<>"]/g,function(m){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]})}
+
+var FLAT=[],BY={};
+PARTS.forEach(function(p,pi){
+  p.no=pi; p.label=pi===0?"序論":"第"+pi+"編 "+p.name;
+  p.c=COLORS[p.id][0]; p.ci=COLORS[p.id][1];
+  var base=p.start===0?0:1;
+  p.articles.forEach(function(a,ai){
+    a.part=p; a.num=a.n||(pi+"."+(ai+base));
+    var txt=""; if(a.body){var t=document.getElementById(a.body); if(t)txt=t.content.textContent;}
+    a.index=(p.name+a.num+a.title+a.sub+a.summary+(a.outline||[]).join(" ")+txt).toLowerCase();
+    a.i=FLAT.length; FLAT.push(a); BY[a.id]=a;
+  });
+});
+var firstHome=true;
+
+function chRow(a){
+  return '<li><a class="'+(a.pub?"pub":"draft")+'" href="#'+a.id+'"><span class="n">'+a.num+'</span><span class="t">'+esc(a.title)+'<span class="s">'+esc(a.sub)+'</span></span><span class="st">'+(a.pub?"本文あり":"章立てのみ")+'</span></a></li>';
+}
+function topBar(a,p){
+  var strip=FLAT.map(function(x){return '<a href="#'+x.id+'" title="'+x.num+' '+esc(x.title)+'" aria-label="'+x.num+' '+esc(x.title)+'" class="'+(x.pub?"pub ":"")+(a&&x===a?"on":"")+'" style="background:'+x.part.c+'"></a>'}).join("");
+  return '<div class="top"><div class="wrap row"><a class="home" href="#top">映像とは何か</a><span class="where">'+(p?'<a href="#'+p.id+'">'+esc(p.label)+'</a>':'')+'</span></div><nav class="strip" aria-label="全章">'+strip+'</nav></div>';
+}
+var FOOT='<footer><div class="wrap">'+FLAT.length+'章のうち '+FLAT.filter(function(a){return a.pub}).length+'章に本文あり。ほかの章は章立てと概要を先に載せ、本文を順次追加する。</div></footer>';
+
+function viewHome(){
+  var bars=PARTS.map(function(p){return '<a class="bar" href="#'+p.id+'" style="background:'+p.c+';color:'+p.ci+';box-shadow:1px 0 0 '+p.c+';animation-delay:'+(p.no*45)+'ms"><span class="nm">'+esc(p.name)+'</span><span class="ct">'+p.articles.length+'章</span></a>'}).join("");
+  var h='<nav class="bars'+(firstHome?" intro":"")+'" aria-label="編">'+bars+'</nav>'+
+   '<header class="band"><div class="wrap"><h1>映像とは何か</h1><p>映像研の部員が、作りながら読むための理論書。全ての映像に共通する基礎を編に分け、最後にジャンルごとの応用へ進む。順番に読まなくていい。詰まった所から開いて、1章読んだら閉じていい。</p>'+
+   '<div class="tools"><input type="search" id="q" placeholder="章を検索：構図、音ハメ、3DCG" aria-label="章を検索"><a href="#troubles">困りごとから探す</a><a href="#glossary">用語索引</a></div></div></header>'+
+   '<main class="wrap" id="homeMain"></main>'+FOOT;
+  app.innerHTML=h; firstHome=false;
+  renderHomeMain("");
+  var q=document.getElementById("q");
+  q.addEventListener("input",function(){renderHomeMain(q.value.trim().toLowerCase())});
+}
+function renderHomeMain(q){
+  var m=document.getElementById("homeMain");
+  if(q){
+    var hits=FLAT.filter(function(a){return a.index.indexOf(q)!==-1});
+    m.innerHTML='<section class="results"><h2>'+(hits.length?hits.length+"章が該当":"該当する章はない")+'</h2>'+
+     (hits.length?'<ul class="chl">'+hits.map(chRow).join("")+'</ul>':'<p class="empty">別の言葉で探すか、<a href="#troubles">困りごとから探す</a>。</p>')+'</section>';
+    return;
+  }
+  m.innerHTML='<section class="thesis"><p class="k">このサイトの定義</p><blockquote>良い映像は、どの要素にも「何を魅せたいか」の意図が設計されている。</blockquote><p class="src"><a href="#intro-1">0.1「映像とは何か」で、この定義にたどり着くまでを読む</a></p></section>'+
+   PARTS.map(function(p){return '<section class="part" id="sec-'+p.id+'"><h2><span class="sw" style="background:'+p.c+'"></span><a href="#'+p.id+'">'+esc(p.label)+'</a></h2><p class="desc">'+esc(p.desc)+'</p><ul class="chl">'+p.articles.map(chRow).join("")+'</ul></section>'}).join("");
+}
+function viewPart(p){
+  app.innerHTML=topBar(null,null)+'<header class="phead" style="background:'+p.c+';color:'+p.ci+'"><div class="wrap"><h1>'+esc(p.label)+'</h1><p>'+esc(p.desc)+'</p></div></header>'+
+   '<main class="wrap"><div class="part" style="padding-top:40px"><ul class="chl">'+p.articles.map(chRow).join("")+'</ul></div></main>'+FOOT;
+}
+function viewArticle(a){
+  var p=a.part,pv=FLAT[a.i-1],nx=FLAT[a.i+1];
+  var h=topBar(a,p)+'<main class="wrap" style="--c:'+p.c+'"><header class="ahead"><p class="pn"><span class="sw" style="background:'+p.c+'"></span><a href="#'+p.id+'">'+esc(p.label)+'</a><span>'+a.num+'</span></p>'+
+   '<h1>'+esc(a.title)+'</h1><p class="sub">'+esc(a.sub)+'</p><p class="sum">'+esc(a.summary)+'</p>'+
+   '<p class="meta">'+(a.pub?'<b>本文あり</b>　読むのに約'+a.mins+'分':'章立てのみ。本文は執筆中')+'</p></header>';
+  if(a.pub){
+    h+='<article class="body" id="body"></article>';
+    if(a.further)h+='<section class="more"><h2>続けて読む</h2><ul class="chl">'+a.further.map(function(id){return chRow(BY[id])}).join("")+'</ul></section>';
+  }else{
+    h+='<ol class="outline">'+a.outline.map(function(o){return '<li>'+esc(o)+'</li>'}).join("")+'</ol><p class="note">章立てと概要から、読みたい内容の当たりを付けられる。</p>';
+  }
+  h+='<nav class="prevnext" aria-label="前後の章">'+(pv?'<a href="#'+pv.id+'"><small>前の章　'+pv.num+'</small><b>'+esc(pv.title)+'</b></a>':'<span></span>')+
+     (nx?'<a class="nx" href="#'+nx.id+'"><small>次の章　'+nx.num+'</small><b>'+esc(nx.title)+'</b></a>':'<span></span>')+'</nav></main>'+FOOT;
+  app.innerHTML=h;
+  if(a.pub)document.getElementById("body").appendChild(document.getElementById(a.body).content.cloneNode(true));
+}
+function lk(id){var a=BY[id];return '<a class="'+(a.pub?"":"draft")+'" href="#'+a.id+'"><span class="sw" style="background:'+a.part.c+'"></span>'+a.num+' '+esc(a.title)+'</a>'}
+function viewTroubles(){
+  app.innerHTML=topBar(null,null)+'<main class="wrap idx"><h1>困りごとから探す</h1><p>理論の順番ではなく、作品で詰まっている症状から章を引く。灰色の章は、まだ章立てだけ。</p>'+
+   '<ul class="tr">'+TROUBLES.map(function(t){return '<li><span class="q">'+esc(t.q)+'</span><span class="ls">'+t.l.map(lk).join("")+'</span></li>'}).join("")+'</ul></main>'+FOOT;
+}
+function viewGlossary(){
+  app.innerHTML=topBar(null,null)+'<main class="wrap idx"><h1>用語索引</h1><p>章の中で使う言葉の、最小限の定義。詳しくは各章で扱う。</p>'+
+   '<dl class="gl">'+GLOSSARY.map(function(g){var a=BY[g.l];return '<div><dt>'+esc(g.t)+'</dt><dd>'+esc(g.d)+'<a href="#'+a.id+'">'+a.num+' '+esc(a.title)+'</a></dd></div>'}).join("")+'</dl></main>'+FOOT;
+}
+function route(){go((location.hash||"#top").slice(1))}
+function go(h){
+  var part=PARTS.filter(function(p){return p.id===h})[0];
+  if(BY[h])viewArticle(BY[h]); else if(part)viewPart(part);
+  else if(h==="troubles")viewTroubles(); else if(h==="glossary")viewGlossary(); else viewHome();
+  window.scrollTo(0,0);
+}
+addEventListener("hashchange",route);
+addEventListener("popstate",route);
+/* 参考動画：サムネイルを押すと、その場でYouTubeプレーヤーに差し替えて再生する */
+document.addEventListener("click",function(e){
+  var f=e.target.closest?e.target.closest("a.frame[data-yt]"):null; if(!f)return;
+  e.preventDefault();
+  var box=document.createElement("div"); box.className="frame";
+  var ifr=document.createElement("iframe");
+  ifr.src="https://www.youtube-nocookie.com/embed/"+f.getAttribute("data-yt")+"?autoplay=1&rel=0";
+  ifr.title=f.getAttribute("aria-label");
+  ifr.allow="autoplay; encrypted-media; picture-in-picture; fullscreen"; ifr.allowFullscreen=true;
+  ifr.referrerPolicy="strict-origin-when-cross-origin";
+  box.appendChild(ifr); f.replaceWith(box);
+});
+/* プレビュー画面などハッシュ移動が効かない環境でも、サイト内リンクで画面を切り替える */
+document.addEventListener("click",function(e){
+  if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+  var a=e.target.closest?e.target.closest('a[href^="#"]'):null; if(!a)return;
+  var h=a.getAttribute("href").slice(1)||"top";
+  e.preventDefault(); go(h);
+  try{history.pushState(null,"","#"+h)}catch(err){}
+});
+route();
+})();
+</script>
+</body>
+</html>
