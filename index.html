@@ -2287,6 +2287,12 @@ var IC={play:'<svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg>',pause:
   vol:'<svg viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3z"/><path d="M15 8.5a5 5 0 0 1 0 7" stroke="#fff" stroke-width="2" fill="none"/></svg>',
   mute:'<svg viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3z"/><path d="M15 9l6 6M21 9l-6 6" stroke="#fff" stroke-width="2"/></svg>',
   full:'<svg viewBox="0 0 24 24"><path d="M3 3h7v2H5v5H3zM14 3h7v7h-2V5h-5zM3 14h2v5h5v2H3zM19 14h2v7h-7v-2h5z"/></svg>'};
+/* 音量と消音は全動画で共有し、ページを移っても覚えておく */
+var VOL={v:100,m:false};
+try{var sv=JSON.parse(localStorage.getItem("mq-vol")||"null");if(sv&&typeof sv.v==="number"){VOL.v=Math.max(0,Math.min(100,sv.v));VOL.m=!!sv.m}}catch(e){}
+function volSave(){try{localStorage.setItem("mq-vol",JSON.stringify(VOL))}catch(e){}}
+function volApply(f){ytArgs(f,"setVolume",[VOL.v]);ytCmd(f,VOL.m?"mute":"unMute");var ui=f._ui;if(ui&&document.activeElement!==ui.vol)ui.vol.value=VOL.m?0:VOL.v}
+function volAll(){[].forEach.call(document.querySelectorAll('iframe[src*="youtube.com/embed/"]'),function(x){if(x.dataset.ready)volApply(x);else if(x._ui)x._ui.vol.value=VOL.m?0:VOL.v})}
 function fmt(t){t=Math.max(0,Math.floor(t||0));return Math.floor(t/60)+":"+("0"+t%60).slice(-2)}
 function setupVideos(root){
   [].forEach.call(root.querySelectorAll('iframe[src*="youtube.com/embed/"]'),function(f,i){
@@ -2300,7 +2306,7 @@ function setupVideos(root){
       '<input class="seek" type="range" min="0" max="1000" value="0" step="1" aria-label="再生位置">'+
       '<span class="tm">0:00 / 0:00</span>'+
       '<button class="mu" type="button" aria-label="消音">'+IC.vol+'</button>'+
-      '<input class="vol" type="range" min="0" max="100" value="100" aria-label="音量">'+
+      '<input class="vol" type="range" min="0" max="100" value="'+(VOL.m?0:VOL.v)+'" aria-label="音量">'+
       '<button class="fs" type="button" aria-label="全画面">'+IC.full+'</button>'+
       '<a class="go" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v='+id+'">YouTube ↗</a>';
     box.appendChild(c);
@@ -2311,8 +2317,8 @@ function setupVideos(root){
     ui.pp.addEventListener("click",toggle);
     ui.seek.addEventListener("input",function(){ui.drag=true;ui.tm.textContent=fmt(ui.seek.value/1000*ui.dur)+" / "+fmt(ui.dur)});
     ui.seek.addEventListener("change",function(){ui.drag=false;ytArgs(f,"seekTo",[ui.seek.value/1000*ui.dur,true])});
-    ui.vol.addEventListener("input",function(){ytArgs(f,"setVolume",[+ui.vol.value]);if(+ui.vol.value>0&&ui.muted)ytCmd(f,"unMute")});
-    ui.mu.addEventListener("click",function(){ytCmd(f,ui.muted?"unMute":"mute")});
+    ui.vol.addEventListener("input",function(){VOL.v=+ui.vol.value;if(VOL.v>0)VOL.m=false;volSave();volAll()});
+    ui.mu.addEventListener("click",function(){VOL.m=!ui.muted;if(!VOL.m&&VOL.v===0)VOL.v=50;volSave();volAll()});
     var fsb=c.querySelector(".fs");
     function fsToggle(){if(document.fullscreenElement)document.exitFullscreen();else if(box.requestFullscreen)box.requestFullscreen()}
     if(!box.requestFullscreen)fsb.style.display="none"; else fsb.addEventListener("click",fsToggle);
@@ -2345,10 +2351,10 @@ addEventListener("message",function(e){
   var fs=document.querySelectorAll('iframe[src*="youtube.com/embed/"]'),src=null;
   for(var i=0;i<fs.length;i++)if(fs[i].contentWindow===e.source){src=fs[i];break}
   if(!src)return;
-  if(d.event==="initialDelivery"||d.event==="onReady")src.dataset.ready="1";
+  if((d.event==="initialDelivery"||d.event==="onReady")&&!src.dataset.ready){src.dataset.ready="1";volApply(src)}
   if(d.info)ytInfo(src,d.info);
   var st=d.info&&d.info.playerState; if(st===undefined)return;
-  if(st===1){src.dataset.playing="1";for(var j=0;j<fs.length;j++)if(fs[j]!==src&&fs[j].dataset.playing)ytCmd(fs[j],"pauseVideo")}
+  if(st===1){if(!src.dataset.playing)volApply(src);src.dataset.playing="1";for(var j=0;j<fs.length;j++)if(fs[j]!==src&&fs[j].dataset.playing)ytCmd(fs[j],"pauseVideo")}
   else if(st===2||st===0)delete src.dataset.playing;
 });
 
