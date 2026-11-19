@@ -183,6 +183,14 @@ p,li{text-wrap:pretty}
 @keyframes mq-draw{0%,8%{stroke-dashoffset:1;opacity:1}45%,88%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
 @keyframes mq-pop{0%,44%{opacity:0}52%,88%{opacity:1}100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.tip .im .draw,.body .fig .draw{animation:none;stroke-dashoffset:0}.body .fig .pop{animation:none;opacity:1}}
+.body .fig .mv-in{opacity:0;animation:mv-in 4s ease-out infinite}
+.body .fig .mv-d1{animation-delay:.25s}.body .fig .mv-d2{animation-delay:.5s}.body .fig .mv-d3{animation-delay:.75s}
+@keyframes mv-in{0%{opacity:0;transform:translateX(-40px)}18%,80%{opacity:1;transform:translateX(0)}92%,100%{opacity:0;transform:translateX(0)}}
+.body .fig .mv-ez{animation:mv-ez 3.2s infinite}
+.body .fig .mv-lin{animation-timing-function:linear}.body .fig .mv-heavy{animation-timing-function:cubic-bezier(.75,0,.95,.6)}
+.body .fig .mv-light{animation-timing-function:cubic-bezier(.1,.8,.3,1)}.body .fig .mv-bounce{animation-timing-function:cubic-bezier(.3,1.7,.5,1)}
+@keyframes mv-ez{0%,15%{transform:translateX(0)}65%,100%{transform:translateX(480px)}}
+@media (prefers-reduced-motion:reduce){.body .fig .mv-in{animation:none;opacity:1}.body .fig .mv-ez{animation:none;transform:translateX(480px)}}
 .note{max-width:36em;margin:18px 0 0;color:var(--gray);font-size:.92rem}
 .more{max-width:36em;margin-top:56px}
 .more h2{font-size:1rem;margin:0 0 6px}
@@ -1340,58 +1348,368 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
   <p>1つの画面に、暖かい光と冷たい光を同時に入れると、対比が生まれる。夕暮れの青い窓の外と、電球のついた暖かい部屋の中を一緒に写すと、外の寒さと中の温かさの両方が伝わる。2.3の補色の考え方を、光で作っていると言える。</p>
 </template>
 <template id="body-motion-1">
-  <h2>動きの気持ちよさは何で決まるか</h2>
-  <p>0.1で、止めると崩れて見えるのに、動かすと気持ちいいコマがあると書いた。動き編は、その先を扱う。動きの気持ちよさは、1コマの絵の良さとは別の所、つまりコマとコマの間の変化から生まれる。</p>
-  <p>このサイトでは、動きの気持ちよさを、速さの変化、方向、タイミングの3つで考える。どこで速くなり、どこで止まるか。どちらへ向かうか。何と同時に起きるか。この3つに意図が通っている動きは、見ていて迷いがない。</p>
+  <h2>動きは、コマとコマの間で生まれる</h2>
+  <p>映像は静止画の連続だと、<a href="#intro-1">0.1</a>で書いた。1枚ずつの絵の良さは画編で扱った。動き編が扱うのは、その絵と絵の間、つまり1コマ目から2コマ目へ、何がどれだけ変わるかだ。同じ絵を並べても、変化の付け方しだいで、動きは重くも軽くも、気持ちよくもぎこちなくもなる。</p>
+  <p>0.1では、止めると崩れて見えるのに、動かすと気持ちいいコマがあることも書いた。それが起きるのは、気持ちよさが1枚の中ではなく、変化のほうにあるからだ。この章では、その変化をどう設計するかを考える。</p>
+
+  <h2>動きを3つに分けて考える</h2>
+  <p>このサイトでは、動きを次の3つに分けて考える。</p>
+  <ol>
+    <li>速さの変化：どこで速くなり、どこで遅くなり、どこで止まるか。次の章「<a href="#motion-2">イージング</a>」で詳しく扱う。</li>
+    <li>方向と軌道：どちらへ向かい、どんな線を描いて動くか。</li>
+    <li>タイミング：何コマかけて動くか。何と同時に、何より後に動くか。</li>
+  </ol>
+  <p>動きがぎこちないと感じたら、この3つのどれがずれているかを探すと、直す場所が見つけやすい。3つすべてに「何を魅せたいか」からの理由がある動きは、見ていて迷いがない。</p>
+
+  <h2>軌道は弧を描く</h2>
+  <p>腕を振る、首を振る、ボールを投げる。生き物の動きや、投げた物の動きは、ほとんどが関節や重力のせいで弧を描く。2点の間をまっすぐ結んで動かすと、機械が動いているように見えやすい。アニメーションの12原則でも、弧（アーク）は原則の一つに数えられている（12原則は「<a href="#motion-4">歴史：動きの原則</a>」で一覧にしている）。</p>
+  <figure class="fig" aria-label="同じ2点の間を、左は直線で、右は弧を描いて移動する玉の軌跡を、コマごとの位置で比べた図">
+    <svg viewBox="0 0 720 230" role="img">
+      <g fill="#00BF00">
+        <circle cx="50" cy="170" r="12" opacity=".25"/><circle cx="105" cy="148" r="12" opacity=".35"/><circle cx="160" cy="126" r="12" opacity=".45"/><circle cx="215" cy="104" r="12" opacity=".6"/><circle cx="270" cy="82" r="12" opacity=".75"/><circle cx="325" cy="60" r="12"/>
+        <circle cx="400" cy="170" r="12" opacity=".25"/><circle cx="430" cy="110" r="12" opacity=".35"/><circle cx="480" cy="70" r="12" opacity=".45"/><circle cx="540" cy="50" r="12" opacity=".6"/><circle cx="610" cy="48" r="12" opacity=".75"/><circle cx="675" cy="60" r="12"/>
+      </g>
+      <g fill="none" stroke="#D9D9D9" stroke-width="2"><line x1="50" y1="170" x2="325" y2="60"/><path d="M400 170 Q440 50 675 60"/></g>
+      <g font-size="16" text-anchor="middle"><text x="190" y="218">直線：まっすぐ結ぶ</text><text x="540" y="218">弧：曲線を描く</text></g>
+    </svg>
+    <figcaption><span class="no">図1</span>薄い玉ほど前のコマ。同じ始点と終点でも、弧を描くと、投げた物や振った手のような自然さが出る。直線は、レールの上を動く機械のような印象になる。</figcaption>
+  </figure>
+  <p>まっすぐな動きが悪いわけではない。文字が画面の端から滑り込む、図形がグリッドに沿って並び替わる。機械らしさや整然とした感じを魅せたいときは、直線を選べばいい。大事なのは、直線か弧かを、魅せたい印象から選ぶことだ。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/I1_tZ9LhJD4?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="7. Arcs - 12 Principles of Animation" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画1</span>7. Arcs - 12 Principles of Animation（AlanBeckerTutorials）。弧を描く動きと、まっすぐな動きの違いを、短いアニメで見せる（英語）。<a class="yt" href="https://www.youtube.com/watch?v=I1_tZ9LhJD4" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/50TejFhV_78?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="Animation Tutorial - How to Train Your Eye to See Arcs and Spacing" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画2</span>Animation Tutorial - How to Train Your Eye to See Arcs and Spacing（Tom Engelhardt Animation）。動きの中の弧と、コマごとの間隔を見る目の鍛え方（英語）。<a class="yt" href="https://www.youtube.com/watch?v=50TejFhV_78" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
 
   <h2>予備動作とフォロースルー</h2>
-  <p>ボールを投げる前には腕を後ろへ引く。止まった後も、髪や服は少し遅れて揺れる。動きの前の溜めを予備動作、後の余韻をフォロースルーと呼ぶ。どちらもアニメーションの12原則に含まれている考え方だ（12原則については「歴史：動きの原則」で扱う）。</p>
-  <p>予備動作があると、見る人は次に何が起きるかを一瞬早く察知でき、動きを見逃しにくい。フォロースルーがあると、物に重さや柔らかさが感じられる。モーショングラフィックスの図形にも、同じ考え方が使える。</p>
+  <p>ボールを投げる前には、腕を一度後ろへ引く。止まった後も、髪や服は少し遅れて揺れる。動きの前の溜めを予備動作、止まった後の余韻をフォロースルーと呼ぶ。</p>
+  <p>予備動作があると、見る人は次に何が起きるかを一瞬早く察知でき、動きを見逃しにくい。溜めが長いほど、その後の動きは強く、速く感じられる。フォロースルーがあると、物に重さや柔らかさが感じられ、動きがぷつりと切れずに収まる。</p>
+  <figure class="fig" aria-label="四角形が右へ動く前に少し左へ下がり、右へ大きく動いて、止まる位置を少し行き過ぎてから戻る様子を、コマごとの位置で示した図">
+    <svg viewBox="0 0 720 200" role="img">
+      <line x1="30" y1="120" x2="690" y2="120" stroke="#D9D9D9" stroke-width="2"/>
+      <g fill="#00BF00">
+        <rect x="120" y="80" width="40" height="40" fill="none" stroke="#00BF00" stroke-width="2"/><rect x="70" y="80" width="40" height="40" opacity=".55"/>
+        <rect x="200" y="80" width="40" height="40" opacity=".3"/><rect x="340" y="80" width="40" height="40" opacity=".4"/><rect x="480" y="80" width="40" height="40" opacity=".5"/>
+        <rect x="620" y="80" width="40" height="40" opacity=".45"/><rect x="580" y="80" width="40" height="40"/>
+      </g>
+      <g stroke="#000" stroke-width="2" fill="none"><path d="M70 150 L70 160 L160 160 L160 150"/><path d="M190 150 L190 160 L530 160 L530 150"/><path d="M570 150 L570 160 L660 160 L660 150"/></g>
+      <g font-size="15" text-anchor="middle"><text x="115" y="184">予備動作（溜め）</text><text x="360" y="184">本体の動き</text><text x="610" y="184">フォロースルー</text></g>
+      <path d="M140 50 L80 50 M80 50 L88 44 M80 50 L88 56" stroke="#5C5C5C" stroke-width="2" fill="none"/>
+      <path d="M220 50 L560 50 M560 50 L552 44 M560 50 L552 56" stroke="#5C5C5C" stroke-width="2" fill="none"/>
+    </svg>
+    <figcaption><span class="no">図2</span>右へ動く前に一度左へ下がり（予備動作）、止まる位置を少し行き過ぎてから戻る（フォロースルー）。枠だけの四角が動き出す前の位置。どちらも数コマで十分に伝わる。</figcaption>
+  </figure>
+  <p>1つの物の中でも、部分ごとに止まる時間をずらすと、さらに柔らかく見える。人が走って止まったとき、体が止まっても、髪や腕は少し遅れて止まる。モーショングラフィックスでも、四角形が止まった後に、中の文字や付属の線が数コマ遅れて止まるようにすると、1つの物としてのまとまりと重さが出る。</p>
+
+  <h2>動きの主役を1つにする</h2>
+  <p><a href="#visual-1">2.1</a>で、1つの画面に主役を1つ決めると書いた。動きにも同じことが言える。目は、止まっているものより動いているものに引かれる。画面の中で同時にたくさんのものが動くと、どれを見ればいいか分からなくなる。</p>
+  <p>たくさんの要素を出すときは、出す順番を決めて、動き出しを少しずつずらす。ずらす順番が、見てほしい順番になる。</p>
+  <figure class="fig" aria-label="3本の棒が同時に出てくる場合と、少しずつずれて出てくる場合を並べた動く図">
+    <svg viewBox="0 0 720 220" role="img">
+      <g fill="#00BF00">
+        <rect class="mv-in" x="40" y="40" width="260" height="30"/><rect class="mv-in" x="40" y="90" width="260" height="30"/><rect class="mv-in" x="40" y="140" width="260" height="30"/>
+        <rect class="mv-in mv-d1" x="420" y="40" width="260" height="30"/><rect class="mv-in mv-d2" x="420" y="90" width="260" height="30"/><rect class="mv-in mv-d3" x="420" y="140" width="260" height="30"/>
+      </g>
+      <g font-size="16" text-anchor="middle"><text x="170" y="210">同時に出る</text><text x="550" y="210">少しずつずらす</text></g>
+    </svg>
+    <figcaption><span class="no">図3</span>左は3本が一度に出るので、どれから見ればいいかの手がかりがない。右は上から順に出るので、目が上から下へ運ばれる。動きを減らす設定にしている場合は、出そろった形だけを表示している。</figcaption>
+  </figure>
+  <p>止まっている時間も、動きの一部だ。全部が動き続けていると、どこが大事な動きか分からなくなる。大事な動きの前後に、何も動かない時間を少し置くと、その動きが際立つ。</p>
 
   <h2>止めると崩れるコマの役割</h2>
-  <p>速い動きを表すために、アニメではブレた絵や、極端に引き伸ばした絵を1コマだけ入れることがある。モーショングラフィックスでも、モーションブラーで動きの軌跡を残す。止めて見ると崩れているが、流れの中では速さとして感じられる。</p>
+  <p>速い動きを表すために、アニメでは、ブレた絵や、極端に引き伸ばした絵を1コマだけ入れることがある。止めて見ると崩れているが、流れの中では速さとして感じられる。実写のカメラでも、シャッターが開いている間に被写体が動けば、その軌跡がブレとして写る。モーショングラフィックスや3DCGでは、このブレを計算で付けるモーションブラーがある。</p>
+  <figure class="fig" aria-label="左から右へ動く玉のコマの並びで、真ん中の最も速いコマだけが横に長く引き伸ばされている図">
+    <svg viewBox="0 0 720 160" role="img">
+      <g fill="#00BF00">
+        <circle cx="60" cy="70" r="26" opacity=".35"/><circle cx="130" cy="70" r="26" opacity=".5"/>
+        <ellipse cx="300" cy="70" rx="110" ry="18" opacity=".75"/>
+        <circle cx="560" cy="70" r="26" opacity=".85"/><circle cx="640" cy="70" r="26"/>
+      </g>
+      <text x="300" y="140" font-size="16" text-anchor="middle">一番速いコマだけ、引き伸ばした形にする</text>
+    </svg>
+    <figcaption><span class="no">図4</span>このコマだけを止めて見ると、玉には見えない。前後のコマと続けて見ると、一瞬で大きく動いた速さとして受け取られる。</figcaption>
+  </figure>
   <p>大事なのは、崩れが偶然ではなく、速さを伝えるために置かれていることだ。0.1の定義に照らせば、崩れたコマにも「何を魅せたいか」の意図が設計されている状態である。</p>
+
+  <h2>実写では、撮る前に動きを決める</h2>
+  <p>実写やVlogでは、被写体の動きを後から作り直すことは難しい。そのぶん、撮る前に動きを決めておく。人がどちらから画面に入り、どちらへ歩いて、どこで止まるか。手前から奥へ歩くのか、横切るのか。画面の外から入ってくるのか、最初から画面の中にいるのか。</p>
+  <p>同じ「歩く」でも、画面の端から入って中央で止まれば、そこに着いたことが伝わる。画面の中を横切って反対側へ抜ければ、通り過ぎていく途中の一場面に見える。動きの方向と、止まる位置を決めることは、実写での動きの設計になる。カメラ自体の動きは、3.3の「<a href="#motion-3">カメラワーク</a>」で扱う。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/myEGCd7r3OM?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="スマホもOK！シネマティックな映像に一歩近づく おすすめの撮影テクニック5選" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画3</span>スマホもOK！シネマティックな映像に一歩近づく おすすめの撮影テクニック5選（JEMMA's style.）。被写体やカメラの動き方を、撮る前に決めておく例として。<a class="yt" href="https://www.youtube.com/watch?v=myEGCd7r3OM" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
 </template>
 
 <template id="body-motion-2">
-  <h2>イーズイン、イーズアウト</h2>
-  <p>現実の物は、急に最高速度で動き出したり、急に止まったりしない。動き出しはゆっくり加速し、止まる前は減速する。この加速と減速を付けることをイージングと呼ぶ。止まった状態からゆっくり動き出すことをイーズイン、ゆっくり止まることをイーズアウトと呼ぶことが多い（ソフトによって呼び方が逆になる場合があるので注意）。</p>
-  <p>加速も減速もない等速の動きは、機械的で硬く見えやすい。逆に、機械らしさを出したいときは、あえて等速を選ぶこともある。</p>
+  <h2>等速の動きは、機械に見えやすい</h2>
+  <p>現実の物は、急に最高速度で動き出したり、急に止まったりしない。机の上のコップを押せば、ゆっくり動き出して速くなり、摩擦で遅くなって止まる。動き出しの加速と、止まる前の減速を付けることを、イージングと呼ぶ。</p>
+  <p>加速も減速もない等速の動きは、コマごとに同じ距離だけ進む。図1の上の段のように、玉の間隔がすべて同じになる。この動きは、ベルトコンベアやエスカレーターのような、機械的で硬い印象になりやすい。</p>
+  <figure class="fig" aria-label="上の段は玉が等しい間隔で並び、下の段は両端で間隔が詰まり、真ん中で間隔が広い図">
+    <svg viewBox="0 0 720 200" role="img">
+      <g fill="#00BF00">
+        <circle cx="60" cy="50" r="10"/><circle cx="135" cy="50" r="10"/><circle cx="210" cy="50" r="10"/><circle cx="285" cy="50" r="10"/><circle cx="360" cy="50" r="10"/><circle cx="435" cy="50" r="10"/><circle cx="510" cy="50" r="10"/><circle cx="585" cy="50" r="10"/><circle cx="660" cy="50" r="10"/>
+        <circle cx="60" cy="130" r="10"/><circle cx="74" cy="130" r="10"/><circle cx="116" cy="130" r="10"/><circle cx="196" cy="130" r="10"/><circle cx="360" cy="130" r="10"/><circle cx="524" cy="130" r="10"/><circle cx="604" cy="130" r="10"/><circle cx="646" cy="130" r="10"/><circle cx="660" cy="130" r="10"/>
+      </g>
+      <g font-size="15"><text x="60" y="84">等速：どのコマでも同じ距離だけ進む</text><text x="60" y="168">加速と減速：両端で間隔が詰まり、真ん中で開く</text></g>
+    </svg>
+    <figcaption><span class="no">図1</span>どちらも9コマで同じ距離を進む。玉の間隔が広い所ほど、1コマで大きく進む、つまり速い。下の段は、ゆっくり動き出し、真ん中で一番速くなり、ゆっくり止まる。</figcaption>
+  </figure>
+  <p>機械らしさを魅せたいときは、あえて等速を選べばいい。時計の秒針、流れ続けるテロップ、一定の速さで回る地球儀。等速も、イージングの選び方の一つである。</p>
 
-  <h2>グラフで速度を読む</h2>
-  <p>After EffectsやBlenderには、動きの値や速度をグラフで表示する機能がある。横軸が時間、縦軸が位置（または速度）のグラフで、線の傾きが急な所ほど速く動いている。</p>
-  <p>イージングを数値のプリセットだけで付けていると、どの動きも似た感触になりがちだ。グラフを見て、どこで一番速くなっているか、どれだけ長く減速しているかを読めるようになると、動きを意図どおりに作り込める。</p>
+  <h2>加速と減速の呼び方</h2>
+  <p>ゆっくり加速して動き出すことと、ゆっくり減速して止まることには、イーズイン、イーズアウトという呼び名がある。ただし、どちらをインと呼ぶかは、ソフトや本によって逆になっていることがある。ある所では「イーズイン」が動き出しのことで、別の所では止まり際のことを指す。</p>
+  <p>このサイトでは、混乱を避けるために、なるべく「加速」「減速」と書く。人と話すときや、ソフトの設定を見るときは、どちらの意味で使われているかを、実際の動きで確かめるのが確実だ。</p>
 
-  <h2>重さと勢いの表現</h2>
-  <p>同じ距離を同じ時間で動いても、イージングの付け方で、物の重さや勢いの感じ方が変わる。ゆっくり動き出して強く止まると重く見え、素早く飛び出してふわっと止まると軽く見える。止まる位置を一度少し行き過ぎてから戻すと、弾むような勢いが出る。</p>
-  <p>何を魅せたいかによって、同じ図形にも違うイージングを選ぶ。画面に出てくる要素ごとに、どんな重さの物として見せたいかを決めてから動かすと、迷いにくい。</p>
+  <h2>グラフで速さを読む</h2>
+  <p>動きを作るソフトの多くには、動きをグラフで表示する画面がある。グラフには主に2種類ある。1つは、横軸を時間、縦軸を位置にした「値のグラフ」。もう1つは、横軸を時間、縦軸を速さにした「速度のグラフ」だ。</p>
+  <figure class="fig" aria-label="左に値のグラフ、右に速度のグラフ。等速は値のグラフで斜めの直線、速度のグラフで水平な線。加速と減速を付けた動きは、値のグラフでS字、速度のグラフで山の形になる">
+    <svg viewBox="0 0 720 260" role="img">
+      <g stroke="#000" stroke-width="2" fill="none"><path d="M50 30 L50 200 L330 200"/><path d="M400 30 L400 200 L680 200"/></g>
+      <g fill="none" stroke-width="4">
+        <line x1="50" y1="200" x2="320" y2="40" stroke="#D9D9D9"/>
+        <path d="M50 200 C160 200 210 40 320 40" stroke="#00BF00"/>
+        <line x1="400" y1="120" x2="670" y2="120" stroke="#D9D9D9"/>
+        <path d="M400 200 C470 200 480 50 535 50 C590 50 600 200 670 200" stroke="#00BF00"/>
+      </g>
+      <g font-size="15"><text x="58" y="24">位置</text><text x="300" y="222">時間</text><text x="408" y="24">速さ</text><text x="650" y="222">時間</text></g>
+      <g font-size="16" text-anchor="middle"><text x="190" y="252">値のグラフ</text><text x="540" y="252">速度のグラフ</text></g>
+    </svg>
+    <figcaption><span class="no">図2</span>灰色が等速、緑が加速と減速を付けた動き。値のグラフでは、線の傾きが急な所ほど速い。速度のグラフでは、線が高い所ほど速い。緑の動きは、真ん中で一番速くなる。</figcaption>
+  </figure>
+  <p>値のグラフは、どこからどこへ動くかが読みやすい。速度のグラフは、どこで一番速くなり、どれだけ長く減速しているかが読みやすい。どちらのグラフでも、読むことは同じで、速さがどう変わっているかである。</p>
+  <p>イージングを、ソフトに用意された設定だけで付けていると、どの動きも似た感触になりがちだ。グラフを見て、速さの山がどこにあるか、山の形がとがっているかなだらかかを読めるようになると、動きを意図どおりに作り込める。</p>
+
+  <h2>重い、軽い、弾む</h2>
+  <p>同じ距離を同じ時間で動いても、イージングの付け方で、物の重さや勢いの感じ方が変わる。図3は、4つの玉が同じ距離を同じ時間で動いている。違うのはイージングだけだ。</p>
+  <figure class="fig" aria-label="4つの玉が同じ距離を同じ時間で右へ動く動く図。上から等速、ゆっくり動き出して急に止まる、素早く出てゆっくり止まる、止まる位置を行き過ぎて戻る">
+    <svg viewBox="0 0 720 300" role="img">
+      <g stroke="#D9D9D9" stroke-width="2"><line x1="120" y1="50" x2="660" y2="50"/><line x1="120" y1="120" x2="660" y2="120"/><line x1="120" y1="190" x2="660" y2="190"/><line x1="120" y1="260" x2="660" y2="260"/><line x1="630" y1="30" x2="630" y2="280" stroke-dasharray="4 4"/></g>
+      <g fill="#00BF00">
+        <circle class="mv-ez mv-lin" cx="150" cy="50" r="16"/>
+        <circle class="mv-ez mv-heavy" cx="150" cy="120" r="16"/>
+        <circle class="mv-ez mv-light" cx="150" cy="190" r="16"/>
+        <circle class="mv-ez mv-bounce" cx="150" cy="260" r="16"/>
+      </g>
+      <g font-size="15"><text x="10" y="55">等速</text><text x="10" y="125">重い</text><text x="10" y="195">軽い</text><text x="10" y="265">弾む</text></g>
+    </svg>
+    <figcaption><span class="no">図3</span>点線が止まる位置。「重い」はゆっくり動き出して、勢いのまま急に止まる。「軽い」は素早く飛び出して、ふわっと止まる。「弾む」は止まる位置を一度行き過ぎてから戻る。動きを減らす設定にしている場合は、止まった後の位置だけを表示している。</figcaption>
+  </figure>
+  <p>重い物は、動かすのに力が要るので、動き出しがゆっくりになる。軽い物は、少しの力で飛び出し、空気に押されてふわっと止まる。止まる位置を行き過ぎて戻る動きはオーバーシュートと呼ばれ、ばねのような弾みや、元気のよさが出る。何度か行き来してから収まるようにすると、さらに弾んで見える。</p>
+  <p>何を魅せたいかによって、同じ図形にも違うイージングを選ぶ。重みのあるタイトルを置きたいのか、軽やかなアイコンを出したいのか。画面に出てくる要素ごとに、どんな重さの物として見せたいかを決めてから動かすと、迷いにくい。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/QqLvyUQieQM?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="Animating Bouncing Balls: Timing and Spacing" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画1</span>Animating Bouncing Balls: Timing and Spacing（ProfessorParks）。弾むボールで、コマ数と、コマごとの間隔が、重さの感じ方をどう変えるかを見せる（英語）。<a class="yt" href="https://www.youtube.com/watch?v=QqLvyUQieQM" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/X_1CEdQ-M_s?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="アニメーションに緩急をつけよう①イージング" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画2</span>アニメーションに緩急をつけよう①イージング（できるネット）。動きに緩急を付ける操作を、画面を見せながら解説する。<a class="yt" href="https://www.youtube.com/watch?v=X_1CEdQ-M_s" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/wOddn8FZj8A?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="動画から素人感を消す！かっこいい加減速をマスター！" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画3</span>動画から素人感を消す！かっこいい加減速をマスター！（トニラボ）。グラフを見ながら加速と減速を作り込む手順の解説。<a class="yt" href="https://www.youtube.com/watch?v=wOddn8FZj8A" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>長さと配分は、別のつまみ</h2>
+  <p>動きの印象を決めるつまみは2つある。1つは、動きに何コマかけるかという長さ。もう1つは、その時間の中で速さをどう配分するかというイージングだ。</p>
+  <p>同じイージングでも、12コマで動けばきびきびと、48コマで動けばゆったりと見える。逆に、同じ24コマでも、イージングを変えれば重さが変わる。動きがしっくりこないときは、どちらのつまみがずれているのかを分けて考えると、直しやすい。長すぎるのにイージングだけをいじっても、もたつきは消えにくい。</p>
+
+  <h2>実写のイージング</h2>
+  <p>イージングは、モーショングラフィックスやアニメだけの話ではない。実写でカメラを動かすときも、動き出しと止まり際の速さが、映像の印象を決める。三脚の上でパンするとき、いきなり振り始めていきなり止めると、画面がガクッと揺れる。ゆっくり振り始め、ゆっくり止めると、滑らかに見える。カメラの動きについては<a href="#motion-3">3.3</a>で扱う。</p>
+  <p>編集で再生の速さを変えることもできる。1つのカットの中で、速い再生からスローへ、スローから速い再生へと速さを変える手法を、スピードランプと呼ぶ。Vlogやスポーツの映像で、跳んだ瞬間だけゆっくりにして、前後を速く見せるような使い方がある。これも、時間の中で速さをどう配分するかという、イージングの考え方そのものだ。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/KNFHcXoSIlE?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="速度の調整！スピードランプのやり方" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画4</span>速度の調整！スピードランプのやり方（PowerDirector Japan）。実写の動画の中で再生の速さを変える作例と手順。<a class="yt" href="https://www.youtube.com/watch?v=KNFHcXoSIlE" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>設定に頼りきると、どれも同じになる</h2>
+  <p>ソフトには、ボタン1つで加速と減速を付ける機能や、名前の付いたイージングの一覧が用意されていることが多い。手早く動きを付けるには便利だが、全部の動きに同じものをかけると、どの要素も同じ重さ、同じ性格に見えてしまう。</p>
+  <p>用意された設定は出発点として使い、要素ごとに「これはどんな重さの物か」を考えて、グラフで山の位置と形を変えていく。名前の付いたイージングが、どんな計算で、どこから広まったかは、「<a href="#motion-4">歴史：動きの原則</a>」で触れる。</p>
 </template>
 
 <template id="body-motion-3">
   <h2>固定で見せる強さ</h2>
-  <p>カメラを動かさない固定のショットは、画面の中の動きをそのまま見せる。被写体の小さな表情や仕草が際立ち、見る人は画面の中を落ち着いて見回せる。カメラが動かないことは、何もしていないことと同じではない。カメラが動かないこと自体が、「この画面をじっと見てほしい」という合図になる。</p>
+  <p>カメラを動かさない固定のショットは、画面の中の動きをそのまま見せる。被写体の小さな表情や仕草が際立ち、見る人は画面の中を落ち着いて見回せる。<a href="#motion-1">3.1</a>で、大事な動きの前後に止まった時間を置くと書いた。カメラにとっての止まった時間が、固定のショットだ。</p>
+  <p>カメラが動かないことは、何もしていないことと同じではない。動かないこと自体が、「この画面をじっと見てほしい」という合図になる。カメラを動かすかどうか迷ったら、まず固定で撮れないかを考えると、動かす理由がはっきりする。</p>
 
-  <h2>パン・チルト・ズームの意味</h2>
-  <p>カメラを左右に振るのがパン、上下に振るのがチルトだ。どちらも、見る人の視線を画面の外へ導き、隠れていたものを見せる。ズームはレンズで画角を変えて寄ったり引いたりすることで、カメラ自体を前後に動かすドリー（トラックとも）とは見え方が違う。ドリーでは被写体と背景の位置関係が変わるが、ズームでは変わらない。</p>
-  <p>カメラの動きには理由が要る。被写体を追う、新しい情報を見せる、緊張を高める。理由がないまま動かすと、見る人は何を見ればいいか分からなくなる。</p>
+  <h2>カメラの動きの種類</h2>
+  <p>カメラの動きは、大きく2つに分けられる。カメラの位置はそのままで向きだけを変える動きと、カメラごと場所を移す動きだ。</p>
+  <ul>
+    <li>パン：カメラの位置はそのままで、左右に首を振る。</li>
+    <li>チルト：カメラの位置はそのままで、上下に首を振る。</li>
+    <li>ドリー：カメラごと、被写体に向かって前後に動く（寄るのをドリーイン、離れるのをドリーアウトと呼ぶ）。</li>
+    <li>トラック：カメラごと、横に動く。横移動とも言う。呼び方は現場によって違い、前後の動きをトラックと呼ぶこともある。</li>
+    <li>クレーン（ペデスタル）：カメラごと、上下に動く。</li>
+    <li>ズーム：カメラは動かさず、レンズで写る範囲を狭めたり広げたりする。</li>
+  </ul>
+  <figure class="fig" aria-label="カメラを真上から見た図。パンはその場で向きを変え、ドリーは前後に、トラックは横に動く">
+    <svg viewBox="0 0 720 250" role="img">
+      <g fill="#000">
+        <rect x="95" y="110" width="40" height="28"/><path d="M135 116 L152 106 L152 142 L135 132Z"/>
+        <rect x="335" y="150" width="40" height="28" transform="rotate(-90 355 164)"/><path d="M345 144 L335 127 L375 127 L365 144Z"/>
+        <rect x="575" y="150" width="40" height="28" transform="rotate(-90 595 164)"/><path d="M585 144 L575 127 L615 127 L605 144Z"/>
+      </g>
+      <g fill="none" stroke="#00BF00" stroke-width="4">
+        <path d="M170 70 A70 70 0 0 1 170 178"/><path d="M170 70 L160 80 M170 70 L182 76"/><path d="M170 178 L160 168 M170 178 L182 172"/>
+        <path d="M355 110 L355 40"/><path d="M345 52 L355 40 L365 52"/>
+        <path d="M530 200 L660 200"/><path d="M540 190 L530 200 L540 210"/><path d="M650 190 L660 200 L650 210"/>
+      </g>
+      <g font-size="16" text-anchor="middle"><text x="120" y="236">パン：その場で向きを変える</text><text x="355" y="236">ドリー：前後に動く</text><text x="595" y="236">トラック：横に動く</text></g>
+    </svg>
+    <figcaption><span class="no">図1</span>真上から見たカメラの動き。黒い台形の広がった側がレンズの向き。チルトとクレーンは、それぞれパンとトラックを縦にしたものと考えればいい。</figcaption>
+  </figure>
+  <p>向きだけを変える動きは、見る人がその場で首を回して見渡す感覚に近い。カメラごと移る動きは、見る人がその場を歩いて回り込む感覚に近い。どちらの感覚を渡したいかで、動きを選ぶ。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/4eRfohZrXNo?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="テレビカメラマンが教えるカメラワークの基礎【フィックス・パン・チルト・ズーム・ドリー】" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画1</span>テレビカメラマンが教えるカメラワークの基礎【フィックス・パン・チルト・ズーム・ドリー】（テレビ朝日映像撮影部）。基本の動きを、実際の撮影で見せる。<a class="yt" href="https://www.youtube.com/watch?v=4eRfohZrXNo" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/OwFlj6Tktgg?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="【名作映画の映像技法】vol.9「パン」とは" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画2</span>【名作映画の映像技法】vol.9「パン」とは（HALEKULANI FIL）。映画の中で、パンがどんな理由で使われているかの解説。<a class="yt" href="https://www.youtube.com/watch?v=OwFlj6Tktgg" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
 
-  <h2>3DCGの自由なカメラの落とし穴</h2>
-  <p>3DCGでは、カメラを空中のどこにでも置け、どんな速さでも動かせる。自由な分、現実のカメラでは起こりえない動きを付けると、重さのない、浮いた映像になりやすい。</p>
-  <p>現実のカメラが持つ制約、たとえば重さによる動き出しの遅れや、手持ちの揺れを、あえて真似る作り方がある。3DCGでのカメラの決め方は、応用編Gの「ライティングとカメラ」で扱う。</p>
+  <h2>ズームとドリーは、見え方が違う</h2>
+  <p>ズームもドリーも、被写体を大きく写すという点では同じだ。違うのは、背景の写り方である。ドリーで近づくと、手前の被写体は大きくなるが、遠くの背景はあまり大きくならない。被写体と背景の距離の関係が変わり、空間の中を進んでいく感覚が出る。ズームで寄ると、被写体も背景も同じ割合で大きくなる。写真の一部を切り抜いて拡大したのと同じで、空間の中を進む感覚は出ない。</p>
+  <figure class="fig" aria-label="人物の大きさをそろえて比べた図。カメラが遠くからズームで寄った左の画では、背景の山が大きく迫って見える。カメラが近づいた右の画では、背景の山が小さく遠くに見える">
+    <svg viewBox="0 0 720 250" role="img">
+      <rect x="30" y="20" width="300" height="180" fill="#F2F2F2"/>
+      <path d="M30 200 L30 120 L110 40 L190 90 L250 50 L330 130 L330 200Z" fill="#9FE09F"/>
+      <rect x="390" y="20" width="300" height="180" fill="#F2F2F2"/>
+      <path d="M390 200 L390 170 L460 140 L520 160 L580 135 L690 170 L690 200Z" fill="#9FE09F"/>
+      <g fill="#00BF00"><circle cx="180" cy="110" r="20"/><rect x="155" y="132" width="50" height="68"/><circle cx="540" cy="110" r="20"/><rect x="515" y="132" width="50" height="68"/></g>
+      <g font-size="16" text-anchor="middle"><text x="180" y="226">遠くからズームで寄る：背景が迫る</text><text x="540" y="226">カメラが近づく：背景が遠のく</text></g>
+    </svg>
+    <figcaption><span class="no">図2</span>人物の大きさは同じ。カメラが人物から遠く、狭い範囲を写していると、背景の山は大きく迫って見える。カメラが人物に近く、広い範囲を写していると、山は小さく遠くに見える。</figcaption>
+  </figure>
+  <p>この違いを使った手法に、ドリーズームがある。カメラを被写体から遠ざけながら、同時にズームで寄って、被写体の大きさを変えずに背景だけを伸び縮みさせる。被写体は止まっているのに、周りの空間だけがゆがむので、めまいや衝撃、足元が崩れるような感覚を表せる。ヒッチコックの『めまい』（1958年）のために、パラマウントの撮影技師アーミン・ロバーツが考案したとされ、「めまいショット」とも呼ばれる。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/9uwp-xksCAc?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="Ultimate Guide to the Dolly Zoom" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画3</span>Ultimate Guide to the Dolly Zoom（StudioBinder）。ドリーズームの仕組みと、映画の中での使われ方（英語）。<a class="yt" href="https://www.youtube.com/watch?v=9uwp-xksCAc" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>カメラが動く理由</h2>
+  <p>カメラが動くとき、見る人の視点も一緒に動く。そのため、カメラの動きには、見る人が納得できる理由があるといい。このサイトでは、カメラが動く理由を主に3つに分けて考える。</p>
+  <ol>
+    <li>追う：動く被写体を、画面の中にとどめ続ける。走る人の横を一緒に走るトラックや、飛ぶ鳥を追うパン。</li>
+    <li>見せる：画面の外にあったものを、順番に見せる。部屋を見渡すパンで、最後に人物が現れる。上から下へのチルトで、建物の高さを伝える。</li>
+    <li>近づく、離れる：見る人と被写体の距離を変える。ゆっくりドリーインすると、人物の気持ちに入り込んでいく感覚が出る。ドリーアウトで離れると、人物が周りの中で小さく、孤独に見える。</li>
+  </ol>
+  <p>理由のないまま動かすと、見る人は、何を見ればいいのか、どこへ連れて行かれるのかが分からなくなる。動き出す前に、動いた先に何を見せるのかを決めておくと、動きが迷わない。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/eECgr_IN4d4?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="6 Factors that MOTIVATE Camera Movement" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画4</span>6 Factors that MOTIVATE Camera Movement（Shawn Dolinski）。カメラを動かすきっかけになる6つの理由を、作例で解説する（英語）。<a class="yt" href="https://www.youtube.com/watch?v=eECgr_IN4d4" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/PunnhAjpvvI?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="Camera Moves (a video essay)" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画5</span>Camera Moves (a video essay)（Michael DeFranco）。映画のカメラの動きが、それぞれ何を伝えているかを読む映像エッセイ（英語）。<a class="yt" href="https://www.youtube.com/watch?v=PunnhAjpvvI" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>揺れも設計できる</h2>
+  <p>カメラを手で持って撮ると、どうしても画面が揺れる。揺れは失敗のように思えるが、揺れにも伝わるものがある。手持ちの揺れは、その場に撮っている人がいる感覚、つまり臨場感や生々しさ、慌ただしさを渡す。三脚や、揺れを打ち消す台（ジンバル）を使った揺れのない映像は、落ち着きや、整った印象を渡す。</p>
+  <p>Vlogなら、出来事の真ん中にいる場面は手持ちで、街の様子を見せる場面はジンバルや三脚で、というように、場面ごとに揺れの量を選べる。揺らすか止めるかも、何を魅せたいかから決めることの一つだ。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/x_VqWmcQoVE?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="ジンバルと手持ち撮影の併用で表現がグッと広がる！" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画6</span>さらなる表現へ！ジンバルと手持ち撮影の併用で表現がグッと広がる！（Yuichi Ishida）。揺れのない映像と手持ちの映像を、場面によって使い分ける例。<a class="yt" href="https://www.youtube.com/watch?v=x_VqWmcQoVE" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/5a-a-BL81HE?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="【スマホ版】手持ちでも手ブレを回避する撮影テクニックはこれ！" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画7</span>【スマホ版】手持ちでも手ブレを回避する撮影テクニックはこれ！（JEMMA's style.）。機材がなくても、持ち方と歩き方で揺れを減らす方法。<a class="yt" href="https://www.youtube.com/watch?v=5a-a-BL81HE" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>カメラの動きにもイージングがある</h2>
+  <p><a href="#motion-2">3.2</a>で扱ったイージングは、カメラの動きにもそのまま当てはまる。パンでもドリーでも、ゆっくり動き出してゆっくり止まると滑らかに見え、いきなり動き出していきなり止まると、画面がガクッと揺れる。速く振って急に止めるパンは、勢いや驚きを出したいときに、あえて使うこともある。</p>
+  <p>カメラが動く長さも、3.2の「長さと配分は別のつまみ」と同じように考えられる。ゆっくり長く動くと、見る人は動きの途中の景色も味わう。短く速く動くと、動いた先の画が強く印象に残る。</p>
+
+  <h2>仮想のカメラは自由すぎる</h2>
+  <p>3DCGやモーショングラフィックスのカメラは、空中のどこにでも置け、どんな速さでも、どんな軌道でも動かせる。自由な分、何も考えずに動かすと、現実のカメラでは起こりえない動きになる。重さのないカメラが、一定の速さでするすると滑り、ぴたりと止まる。見る人は、どこか浮いた、作り物の映像として受け取りやすい。</p>
+  <p>現実のカメラには、重さがあり、人が持ったり台に載せたりして動かしている。そのため、動き出しが少し遅れ、止まるときも少し行き過ぎ、手持ちなら細かく揺れる。仮想のカメラにも、こうした制約をあえて足すと、そこにカメラがあるという実在感が出る。逆に、現実ではできない動きをはっきり魅せたいときは、制約を外せばいい。3DCGでのカメラの決め方は、応用編Gの「<a href="#cg-6">ライティングとカメラ</a>」で扱う。</p>
+  <p>なお、カメラの向きを変えながらカットをつなぐときに、見る人が向きを見失わないようにする考え方（180度ルールなど）は、<a href="#intro-3">0.3</a>で紹介し、<a href="#edit-1">編集編</a>で扱う。</p>
 </template>
 
 <template id="body-motion-4">
-  <p class="tk">この章は叩き台。人物や年の裏付けは、まだ取りきれていない所に「要確認」と書いている。</p>
-  <h2>初期アニメと音同期の工夫</h2>
-  <p>1920年代から30年代にかけて、ディズニーやフライシャー兄弟のスタジオは、短編アニメを大量に作りながら、動きを気持ちよく見せる工夫を積み重ねた。1928年の『蒸気船ウィリー』以降、音楽の拍に合わせて動きを作ることも、その工夫の一つになった（音と同期の歴史は音編で扱う）。</p>
+  <p>この章は、動きを気持ちよく見せる工夫が、いつ、誰によって言葉にされてきたかを年表でたどる。年や人物は調べて裏付けを取り、出典を各節に書いた。取りきれていない所には「要確認」と書いている。</p>
+  <figure class="fig" aria-label="1878年から2002年までの年表。マイブリッジの連続写真、恐竜ガーティ、ディズニーの社内講座、鉄腕アトム、The Illusion of Life、ラセターの論文、ペナーのイージング式">
+    <svg viewBox="0 0 720 220" role="img">
+      <line x1="30" y1="110" x2="690" y2="110" stroke="#000" stroke-width="2"/>
+      <g fill="#00BF00"><circle cx="40" cy="110" r="7"/><circle cx="150" cy="110" r="7"/><circle cx="250" cy="110" r="7"/><circle cx="370" cy="110" r="7"/><circle cx="470" cy="110" r="7"/><circle cx="570" cy="110" r="7"/><circle cx="670" cy="110" r="7"/></g>
+      <g font-size="15" text-anchor="middle">
+        <text x="40" y="92">1878</text><text x="40" y="70">連続写真</text>
+        <text x="150" y="140">1914</text><text x="150" y="162">恐竜ガーティ</text>
+        <text x="250" y="92">1932</text><text x="250" y="70">社内講座</text>
+        <text x="370" y="140">1963</text><text x="370" y="162">鉄腕アトム</text>
+        <text x="470" y="92">1981</text><text x="470" y="70">12原則の本</text>
+        <text x="570" y="140">1987</text><text x="570" y="162">3DCGへ</text>
+        <text x="670" y="92">2002</text><text x="670" y="70">イージング式</text>
+      </g>
+      <text x="360" y="208" font-size="14" text-anchor="middle" fill="#5C5C5C">間隔は年の長さに比例していない</text>
+    </svg>
+    <figcaption><span class="no">図1</span>この章で扱う出来事。動きを観察する時代から、現場の工夫が言葉になり、コンピュータの中の計算になるまで。</figcaption>
+  </figure>
 
-  <h2>動きの原則が生まれた背景</h2>
-  <p>ディズニーのアニメーターたちが現場で使っていた動きのコツは、後にフランク・トーマスとオーリー・ジョンストンの著書『The Illusion of Life』（1981年）で、12の原則としてまとめられた。日本では「アニメーションの12原則」として知られている。</p>
-  <p>12原則には、物が潰れて伸びる「スクワッシュ＆ストレッチ」、動きの前の溜め「予備動作」、加速と減速「スローイン・スローアウト」、動きの余韻「フォロースルー」などが含まれる（訳語は本によって違う）。どれも、現実の物理を少し誇張して、見る人に動きをはっきり伝えるための工夫だ。</p>
+  <h2>動きを分解して見る（1878年）</h2>
+  <p>1878年、エドワード・マイブリッジは、走る馬を何台ものカメラで連続して撮り、脚の動きを1枚ずつの写真に分けて見せた。<a href="#intro-1">0.1</a>の最初の動画で見た、あの馬だ。人の目では速すぎて見えなかった動きが、コマに分けて並べられた。</p>
+  <p>マイブリッジはその後も、人や動物のさまざまな動きを連続写真に撮った。動きを分解して観察するという姿勢は、後のアニメーターたちにも引き継がれていく。</p>
 
-  <h2>原則は今のモーション制作にどう生きるか</h2>
-  <p>12原則は手描きのキャラクターアニメのためにまとめられたものだが、モーショングラフィックスの図形の動きや、3DCGのキャラクターにもそのまま応用されている。動き編の「イージング」は、12原則のスローイン・スローアウトとほぼ同じ考え方である。</p>
-  <p>このサイトでは、12原則を守るべき決まりとしてではなく、気持ちいい動きの理由を説明する言葉として扱う。具体的な使い方は、応用編の文字PV・モーショングラフィックス・3DCGの動きの章で扱う。</p>
+  <h2>絵を動かす工夫が始まる（1914年）</h2>
+  <p>1914年2月8日、漫画家ウィンザー・マッケイの『恐竜ガーティ』が公開された。恐竜のガーティが、マッケイの指示に合わせて踊ったり、水を飲んだりする短編アニメだ。</p>
+  <p>この作品では、先に動きの要になる絵を描いてから間の絵を埋める描き方、紙の位置を合わせる目印、同じ動きを繰り返し使うループなど、後のアニメ制作で当たり前になる技法が早い時期に使われた（英語版ウィキペディア「Gertie the Dinosaur」による）。要の絵を先に決めて間を埋める考え方は、今のソフトで要の時点の値を置き、間をソフトに計算させるキーフレームの考え方と同じだ。</p>
+
+  <h2>現場で動きを学ぶ（1930年代）</h2>
+  <p>1928年の『蒸気船ウィリー』で音と動きを同期させたディズニーは（<a href="#sound-5">音編</a>で扱う）、1930年代に、短編アニメを大量に作りながら、絵描きたちに動きの描き方を教える仕組みを作った。1932年11月15日、画家のドン・グラハムが、ディズニーのスタジオで夜のデッサン講座を始めた。グラハムは1940年まで、スタジオの社内講座を率いた（D23「This Day」、英語版ウィキペディア「Donald W. Graham」による）。</p>
+  <p>講座の中身は、人や動物の実際の動きを観察し、それを絵でどう伝えるかを学ぶものだったとされる（要確認）。現場で使われていた動きのコツが、少しずつ共通の言葉になっていった時期だ。</p>
+
+  <h2>省くことも設計になる（1963年）</h2>
+  <p>1963年1月1日、手塚治虫の『鉄腕アトム』が、フジテレビ系で放送を始めた。テレビで毎週放送するアニメを作るために、コマ数を減らし、同じ絵を使い回し、口など一部分だけを動かす、徹底して省力化したリミテッドアニメーションが採られた（nippon.com、中野晴行の記事による）。歩く、飛ぶといった動画をストックしておき、何度も使い回す方法は「バンクシステム」と呼ばれた（PRESIDENT Online、津堅信之の記事による）。</p>
+  <p>動かす枚数を減らすと、どこを動かし、どこを止めるかを選ぶことになる。止め絵や少ない枚数でも気持ちよく見せる工夫が、その後の日本のテレビアニメにどう受け継がれたかは、このサイトではまだ調べきれていない（要確認）。<a href="#prep-1">1.1</a>で扱ったコマ打ちの話ともつながる。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/vpk_GfngimI?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="【公式】鉄腕アトム(1963) 第1話『アトム誕生』" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画1</span>【公式】鉄腕アトム(1963) 第1話『アトム誕生』（手塚プロダクション公式チャンネル）。どこが動き、どこが止まっているかに注目して見てほしい。<a class="yt" href="https://www.youtube.com/watch?v=vpk_GfngimI" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>12の原則として本になる（1981年）</h2>
+  <p>1981年、ディズニーのアニメーターだったフランク・トーマスとオーリー・ジョンストンが、『Disney Animation: The Illusion of Life』を出版した。2人が現場で積み重ねてきた動きのコツが、12の基本原則としてまとめられた（英語版ウィキペディア「The Illusion of Life」による）。日本では「アニメーションの12原則」として知られている。</p>
+  <p>12の原則は次の通りだ。訳語は本や解説によって違う。</p>
+  <ol>
+    <li>スクワッシュ＆ストレッチ：物が潰れたり伸びたりする変形で、柔らかさや勢いを出す。</li>
+    <li>予備動作：動きの前の溜め。次の動きを見る人に知らせる（3.1）。</li>
+    <li>ステージング：見せたいことが一目で伝わるように、ポーズや配置を整える。</li>
+    <li>ストレートアヘッドとポーズ・トゥ・ポーズ：最初から順に描いていくか、要の絵を先に決めて間を埋めるか、の2つの描き方。</li>
+    <li>フォロースルーとオーバーラッピング：止まった後の余韻と、部分ごとに遅れて動くこと（3.1）。</li>
+    <li>スローイン・スローアウト：動き出しと止まり際の加速と減速（3.2のイージング）。</li>
+    <li>弧（アーク）：生き物の動きは弧を描く（3.1）。</li>
+    <li>副次的な動き：主な動きを支える、別の小さな動き。歩きながら腕を振る、など。</li>
+    <li>タイミング：何コマかけて動くかで、重さや性格を表す（3.2）。</li>
+    <li>誇張：現実の動きを少し大げさにして、はっきり伝える。</li>
+    <li>しっかりした絵：形、重さ、立体感のある絵を描くこと。</li>
+    <li>魅力：見る人が見ていたくなるキャラクターや動きにすること。</li>
+  </ol>
+  <p>どの原則も、現実の物理を観察し、それを少し誇張して、見る人に動きをはっきり伝えるための工夫だ。それぞれを文字、図形、3DCGの動きでどう使うかは、応用編の<a href="#moji-5">文字PV「文字を動かす」</a>、<a href="#mg-4">モーショングラフィックス「動きを付ける」</a>、<a href="#cg-5">3DCG「アニメーション」</a>で扱う。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/uDqjIdI4bF4?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="12 Principles of Animation (Official Full Series)" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画2</span>12 Principles of Animation (Official Full Series)（AlanBeckerTutorials）。12の原則を、1つずつ短いアニメで見せる（英語）。<a class="yt" href="https://www.youtube.com/watch?v=uDqjIdI4bF4" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/5CGKVZaofwI?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="魅力ある動きを作るための「アニメーションの12の原則」" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画3</span>魅力ある動きを作るための「アニメーションの12の原則」（Putti Monkey Wrench）。12の原則の日本語での解説。<a class="yt" href="https://www.youtube.com/watch?v=5CGKVZaofwI" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>コンピュータの中へ（1987年）</h2>
+  <p>1987年、ピクサーのジョン・ラセターは、SIGGRAPH（コンピュータグラフィックスの国際会議）で、論文「Principles of Traditional Animation Applied to 3D Computer Animation」を発表した。手描きアニメの原則を、3DCGのアニメーションに当てはめて説明したものだ。参考文献には、前の年にピクサーが作った短編『ルクソーJr.』（1986年）が挙げられている（SIGGRAPHの歴史アーカイブによる）。</p>
+  <p>コンピュータは、要の絵の間を自動で埋めてくれる。しかし、そのまま埋めさせると、動きは等速で、まっすぐになりやすい。手描きの時代の原則は、コンピュータに任せた動きに、重さや気持ちよさを取り戻すための言葉として使われるようになった。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/SM0Q_MBLIbU?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="Pixar - Luxo Jr. Pencil Test" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画4</span>Pixar - Luxo Jr. Pencil Test（Cooper Hewitt）。『ルクソーJr.』の動きを確かめるための試作の映像。電気スタンドの親子が、予備動作や弾みで生き物のように見える。<a class="yt" href="https://www.youtube.com/watch?v=SM0Q_MBLIbU" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>イージングに名前が付く（2000年代）</h2>
+  <p>今、多くのソフトやWebの世界で使われている「easeInQuad」のような、名前の付いたイージングの多くは、ロバート・ペナーがまとめたイージングの計算式がもとになっている。ペナーは、当時Webで動きを作るのに広く使われていたFlashのプログラム向けに、加速と減速、ばねのような弾み、跳ね返りなどを式にして公開した。2002年の著書『Robert Penner's Programming Macromedia Flash MX』の第7章では、「イージングとは加速、つまり速さの変化である」と書いている（同書第7章、josh.earth「Improved Easing Functions」による）。</p>
+  <p>手描きのアニメーターが紙の上で調整していた速さの変化が、名前の付いた式になり、誰でもボタン1つで使えるようになった。<a href="#motion-2">3.2</a>の最後に書いた「設定に頼りきると、どれも同じになる」は、この便利さの裏返しでもある。</p>
+
+  <h2>原則は、決まりではなく言葉</h2>
+  <p>この章で見てきた原則は、どれも、気持ちいい動きを見て、その理由を言葉にしたものだ。<a href="#intro-3">0.3</a>で書いた通り、このサイトでは、こうした原則を守るべき決まりとしては扱わない。気持ちいい動きを見たときに理由を読み取り、自分の動きに足りないものを探すための物差しとして使う。</p>
+  <p>原則を全部守った動きが、必ず良い動きになるわけでもない。何を魅せたいかによっては、あえて弧を描かず、あえて等速で動かすほうがいい場面もある。原則を知っていれば、それを外したときにも、なぜ外したのかを説明できる。</p>
 </template>
 
 <template id="body-sound-1">
@@ -1799,7 +2117,7 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
   <p>同じスライドでも、イージングの付け方で、軽やかにも重くも見える。勢いよく出てふわっと止まる、ゆっくり出て強く止まる。動きの速さの設計は、動き編の「イージング」で扱っている。</p>
 
   <h2>アニメーションの12原則から使えるもの</h2>
-  <p>アニメーションの12原則は、文字の動きにも応用できる。動く前に少し逆へ引く「予備動作」、止まった後に少し揺れる「フォロースルー」、着地の瞬間に少し潰れる「スクワッシュ＆ストレッチ」。どれも、文字に重さや弾みを感じさせる。12原則については、動き編の「歴史：動きの原則」で扱っている。</p>
+  <p>アニメーションの12原則は、文字の動きにも応用できる。動く前に少し逆へ引く「予備動作」、止まった後に少し揺れる「フォロースルー」、着地の瞬間に少し潰れる「スクワッシュ＆ストレッチ」。どれも、文字に重さや弾みを感じさせる。12原則の一覧と成り立ちは、動き編の「<a href="#motion-4">歴史：動きの原則</a>」にまとめている。</p>
 
   <h2>詰まりやすい所</h2>
   <p>動きの種類を増やしすぎると、画面が騒がしくなり、文字が読みにくくなる。読ませたい言葉の所では動きを控えめにして、読ませる時間を優先する。</p>
@@ -1866,7 +2184,7 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
   <p>複数の要素を同時に動かすと、機械的に見えやすい。動き出しを数フレームずつずらすと、波のような流れが生まれる。どの順番でずらすかで、見る人の視線の流れを作れる。</p>
 
   <h2>アニメーションの12原則から使えるもの</h2>
-  <p>図形の動きにも、アニメーションの12原則は応用できる。動く前の「予備動作」、止まった後の「フォロースルー」、加速と減速の「スローイン・スローアウト」、潰れて伸びる「スクワッシュ＆ストレッチ」。どれも図形に重さや弾みを与える。12原則については、動き編の「歴史：動きの原則」で扱っている。</p>
+  <p>図形の動きにも、アニメーションの12原則は応用できる。動く前の「予備動作」、止まった後の「フォロースルー」、加速と減速の「スローイン・スローアウト」、潰れて伸びる「スクワッシュ＆ストレッチ」。どれも図形に重さや弾みを与える。12原則の一覧と成り立ちは、動き編の「<a href="#motion-4">歴史：動きの原則</a>」にまとめている。</p>
 
   <h2>詰まりやすい所</h2>
   <p>イージングのプリセットを全部の動きに同じようにかけると、どの動きも同じ感触になる。要素ごとに、どんな重さの物として見せたいかを決めてから調整する。</p>
@@ -2229,7 +2547,7 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
   <p>3DCGの動きは、補間に任せると、重さのない、ふわふわした動きになりやすい。重い物はゆっくり動き出して強く止まる、着地の瞬間に少し沈み込む、といった工夫で、物の重さを感じさせる。</p>
 
   <h2>アニメーションの12原則から使えるもの</h2>
-  <p>アニメーションの12原則は、3DCGのアニメーションでも使われている。動く前の「予備動作」、止まった後の「フォロースルー」、体の部位が少しずつ遅れて動く「オーバーラッピング」、ポーズとポーズの間を弧を描くように動かす「アーク」。12原則については、動き編の「歴史：動きの原則」で扱っている。</p>
+  <p>アニメーションの12原則は、3DCGのアニメーションでも使われている。動く前の「予備動作」、止まった後の「フォロースルー」、体の部位が少しずつ遅れて動く「オーバーラッピング」、ポーズとポーズの間を弧を描くように動かす「アーク」。12原則の一覧と成り立ちは、動き編の「<a href="#motion-4">歴史：動きの原則</a>」にまとめている。</p>
 
   <h2>詰まりやすい所</h2>
   <p>体の全ての部位が同時に動き出して、同時に止まると、ロボットのように見える。部位ごとに動き出しと止まりを少しずらすと、生き物らしくなる。</p>
@@ -2329,10 +2647,10 @@ var PARTS = [
   {id:"visual-5",pub:true,body:"body-visual-5",mins:3,title:"光とライティング",sub:"立体感と空気を作る",summary:"光は、目の行き先と、立体感と、空気を決める。硬い光と柔らかい光、三点照明とハイキー・ローキー、機材なしでできること、3DCGでの考え方、光の色で作る時間と気分。",outline:["一番明るい所に目が行く","硬い光と柔らかい光","三点照明と、明暗の比","機材がなくてもできること","3DCGでも考え方は同じ","光の色で、時間と気分を作る"],further:["prep-3","visual-3","cg-6"]}
  ]},
  {id:"motion",name:"動き編",desc:"モーション・イージング・カメラワーク。映像でしか味わえない快感を扱う。",articles:[
-  {id:"motion-1",pub:true,tk:true,body:"body-motion-1",mins:1,title:"動きの設計",sub:"止めると崩れるのに、なぜ気持ちいいのか",summary:"序論1で置いた物差しの、その先。ブレや歪みも含めて、動きそのものを設計する考え方。",outline:["動きの気持ちよさは何で決まるか","予備動作とフォロースルー","止めると崩れるコマの役割"]},
-  {id:"motion-2",pub:true,tk:true,body:"body-motion-2",mins:1,title:"イージング",sub:"速度の設計",summary:"等速の動きは機械に見える。加速と減速の付け方が、重さ・勢い・感情を左右する。",outline:["イーズイン、イーズアウト","グラフで速度を読む","重さと勢いの表現"]},
-  {id:"motion-3",pub:true,tk:true,body:"body-motion-3",mins:1,title:"カメラワーク",sub:"カメラが動く理由",summary:"パン、ズーム、ドリー、固定。カメラの動き自体が見る人に情報を渡す。実写でも3DCGでも、意図を持って選ぶ。",outline:["固定で見せる強さ","パン・チルト・ズームの意味","3DCGの自由なカメラの落とし穴"]},
-  {id:"motion-4",pub:true,tk:true,body:"body-motion-4",mins:1,title:"歴史：動きの原則",sub:"初期アニメから",summary:"初期アニメの時代に、動きを気持ちよく見せる原則がどう言語化されたか。",outline:["初期アニメと音同期の工夫","動きの原則が生まれた背景","原則は今のモーション制作にどう生きるか"]}
+  {id:"motion-1",pub:true,body:"body-motion-1",mins:4,title:"動きの設計",sub:"止めると崩れるのに、なぜ気持ちいいのか",summary:"動きの気持ちよさは、コマとコマの間の変化から生まれる。速さの変化・方向と軌道・タイミングの3つで動きを考え、弧、予備動作とフォロースルー、動きの主役、止めると崩れるコマ、実写で撮る前に決める動きまで。",outline:["動きは、コマとコマの間で生まれる","動きを3つに分けて考える","軌道は弧を描く","予備動作とフォロースルー","動きの主役を1つにする","止めると崩れるコマの役割","実写では、撮る前に動きを決める"],further:["intro-1","prep-1","visual-1"]},
+  {id:"motion-2",pub:true,body:"body-motion-2",mins:4,title:"イージング",sub:"速度の設計",summary:"等速の動きは機械に見えやすい。加速と減速の付け方、値と速度のグラフの読み方、重い・軽い・弾むの違い、長さと配分の2つのつまみ、実写でのイージングとスピードランプ。",outline:["等速の動きは、機械に見えやすい","加速と減速の呼び方","グラフで速さを読む","重い、軽い、弾む","長さと配分は、別のつまみ","実写のイージング","設定に頼りきると、どれも同じになる"],further:["mg-4","moji-5","cg-5"]},
+  {id:"motion-3",pub:true,body:"body-motion-3",mins:5,title:"カメラワーク",sub:"カメラが動く理由",summary:"固定で見せる強さから、パン・ドリー・トラックなどの動きの種類、ズームとドリーの違いとドリーズーム、カメラが動く3つの理由、揺れの設計、カメラのイージング、仮想カメラの落とし穴まで。",outline:["固定で見せる強さ","カメラの動きの種類","ズームとドリーは、見え方が違う","カメラが動く理由","揺れも設計できる","カメラの動きにもイージングがある","仮想のカメラは自由すぎる"],further:["visual-1","edit-1","cg-6"]},
+  {id:"motion-4",pub:true,body:"body-motion-4",mins:6,title:"歴史：動きの原則",sub:"初期アニメから",summary:"マイブリッジの連続写真から、恐竜ガーティ、ディズニーの社内講座、鉄腕アトムのリミテッドアニメ、12原則の本、3DCGへの応用、イージングの式まで。アニメーションの12原則の一覧つき。",outline:["動きを分解して見る（1878年）","絵を動かす工夫が始まる（1914年）","現場で動きを学ぶ（1930年代）","省くことも設計になる（1963年）","12の原則として本になる（1981年）","コンピュータの中へ（1987年）","イージングに名前が付く（2000年代）","原則は、決まりではなく言葉"],further:["intro-2a","intro-3","sound-5"]}
  ]},
  {id:"sound",name:"音編",desc:"タイミング・情報量・雰囲気。音は映像のジャンルまで書き換える。",articles:[
   {id:"sound-1",pub:true,tk:true,body:"body-sound-1",mins:1,title:"音が映像の読み方を変える",sub:"隕石×ドリフの実験",summary:"隕石衝突の映像にドリフのBGMを付けると、恐怖がコメディに反転する。画が同じでも、音が雰囲気、情報の読み方、タイミングの感じ方を変える。",outline:["同じ画、違う音","雰囲気の反転","情報の読み方：笑っていい場面の合図","タイミングの感じ方"]},
@@ -2512,6 +2830,17 @@ var GLOSSARY=[
  {t:"チルト",d:"カメラを上下に振る動き。",l:"motion-3"},
  {t:"ドリー",d:"カメラ自体を前後に動かすこと。ズームと違い、被写体と背景の位置関係が変わる。",l:"motion-3"},
  {t:"アニメーションの12原則",a:["12原則"],d:"ディズニーのアニメーターたちの動きのコツを、12の原則としてまとめたもの。『The Illusion of Life』（1981年）で紹介された。",l:"motion-4"},
+ {t:"弧（アーク）",d:"生き物の動きや投げた物の動きが描く曲線の軌道。まっすぐ結ぶより自然に見える。12原則の一つ。",l:"motion-1"},
+ {t:"オーバーシュート",d:"止まる位置を一度行き過ぎてから戻る動き。ばねのような弾みや元気のよさが出る。",l:"motion-2"},
+ {t:"スピードランプ",d:"1つのカットの中で再生の速さを変える手法。速い再生からスローへ、など。",l:"motion-2"},
+ {t:"ズーム",d:"カメラを動かさず、レンズで写る範囲を狭めたり広げたりすること。背景も同じ割合で大きくなる。",l:"motion-3"},
+ {t:"横移動",a:["トラック（横移動）"],d:"カメラごと横に動くこと。トラックとも呼ぶが、現場によっては前後の動きをトラックと呼ぶこともある。",l:"motion-3"},
+ {t:"クレーン",d:"カメラごと上下に動くこと。",l:"motion-3"},
+ {t:"ドリーズーム",d:"カメラを前後に動かしながら逆向きにズームし、被写体の大きさを変えずに背景だけを伸び縮みさせる手法。『めまい』（1958年）で知られる。",l:"motion-3"},
+ {t:"ジンバル",d:"手持ちのカメラの揺れを、モーターで打ち消す台。",l:"motion-3"},
+ {t:"リミテッドアニメーション",a:["リミテッドアニメ"],d:"コマ数を減らし、絵を使い回し、一部分だけを動かして省力化したアニメの作り方。日本では『鉄腕アトム』（1963年）で本格的に使われた。",l:"motion-4"},
+ {t:"バンクシステム",d:"歩く、飛ぶなどの動画をストックしておき、何度も使い回す方法。『鉄腕アトム』で使われた。",l:"motion-4"},
+ {t:"ステージング",d:"見せたいことが一目で伝わるように、ポーズや配置を整えること。12原則の一つ。",l:"motion-4"},
  {t:"スクワッシュ＆ストレッチ",d:"物が潰れたり伸びたりする変形で、柔らかさや勢いを表す。12原則の一つ。",l:"motion-4"},
  {t:"BPM",d:"1分間の拍の数。BPM120なら1拍は0.5秒。",l:"sound-2"},
  {t:"ダッキング",d:"声が鳴っている間だけ、BGMの音量を下げること。",l:"sound-3"},
