@@ -2291,6 +2291,7 @@ var IC={play:'<svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg>',pause:
 var VOL={v:100,m:false};
 try{var sv=JSON.parse(localStorage.getItem("mq-vol")||"null");if(sv&&typeof sv.v==="number"){VOL.v=Math.max(0,Math.min(100,sv.v));VOL.m=!!sv.m}}catch(e){}
 function volSave(){try{localStorage.setItem("mq-vol",JSON.stringify(VOL))}catch(e){}}
+addEventListener("storage",function(e){if(e.key!=="mq-vol"||!e.newValue)return;try{var n=JSON.parse(e.newValue);VOL.v=n.v;VOL.m=!!n.m;volAll()}catch(x){}});
 function volApply(f){ytArgs(f,"setVolume",[VOL.v]);ytCmd(f,VOL.m?"mute":"unMute");var ui=f._ui;if(ui&&document.activeElement!==ui.vol)ui.vol.value=VOL.m?0:VOL.v}
 function volAll(){[].forEach.call(document.querySelectorAll('iframe[src*="youtube.com/embed/"]'),function(x){if(x.dataset.ready)volApply(x);else if(x._ui)x._ui.vol.value=VOL.m?0:VOL.v})}
 function fmt(t){t=Math.max(0,Math.floor(t||0));return Math.floor(t/60)+":"+("0"+t%60).slice(-2)}
