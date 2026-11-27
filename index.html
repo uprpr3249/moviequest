@@ -1169,7 +1169,7 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
     <figcaption><span class="no">図3</span>カラースクリプトの例（架空の作品）。暗い夜が続いた後、山場で初めて強い赤とシアンを出し、最後は柔らかい朝の色で終わる。</figcaption>
   </figure>
   <p>個人制作なら、場面ごとに代表の1コマを書き出して横に並べるだけでも、近いことができる。Vlogでも、1本の中の朝、昼、夜の色の移り変わりを意識して並べると、時間の流れが伝わりやすい。</p>
-  <p>色をそろえるだけでなく、あえて大きく変えるのも一つの手だ。回想は色を抜く、山場で初めて強い色を出す。色の変化そのものが、構成の合図になる。撮った素材ごとの色を合わせる作業は、合成編の「仕上げ」で扱う。</p>
+  <p>色をそろえるだけでなく、あえて大きく変えるのも一つの手だ。回想は色を抜く、山場で初めて強い色を出す。色の変化そのものが、構成の合図になる。撮った素材ごとの色を合わせる作業は、合成編の<a href="#composite-5">「仕上げ」</a>で扱う。</p>
   <figure class="ref">
     <div class="frame"><iframe src="https://www.youtube.com/embed/8EZGlUgbEgg?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="映像に統一感を出すカラーグレーディング術" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
     <figcaption><span class="no">動画1</span>映像に統一感を出すカラーグレーディング術（METALZOMBI）。撮った素材の色を合わせて、作品全体に統一感を出す方法。Vlogにも使える。<a class="yt" href="https://www.youtube.com/watch?v=8EZGlUgbEgg" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
@@ -2370,83 +2370,519 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
   <p>その後、パソコンの性能が上がり、編集は個人のパソコンや、今ではスマホでもできるようになった。ネット動画のジャンプカット、切り抜き、音MAD、縦型ショートの速いテンポ。今の個人の映像に当たり前にある編集は、こうした道具の変化の上にある。それでも、どこで切り、何と何を並べ、どれだけの長さで見せるかを決めるのは、100年前と変わらず作り手だ。</p>
 </template>
 <template id="body-composite-1">
-  <h2>レイヤー構造で画を考える</h2>
-  <p>コンポジットとは、複数の素材を重ねて1つの画を作ることだ。背景、被写体、文字、光の効果。それぞれを別の層（レイヤー）として持ち、上から順に重ねる。紙に描いた絵を透明なシートに分けて重ねるのに近い。</p>
-  <p>レイヤーに分けておくと、後から1つの要素だけを動かしたり、色を変えたりできる。画を1枚の絵として見るだけでなく、何層でできているかで考える習慣が、合成の入口になる。</p>
+  <p>合成と聞くと、グリーンバックや映画のVFXを思い浮かべるかもしれない。でも、映像の上に字幕を載せるのも、写真に光の素材を重ねるのも、立ち絵をゲーム画面の隅に置くのも合成だ。複数の素材を重ねて1つの画を作ることを、コンポジットと呼ぶ。この章では、どのジャンルでも使う重ね方の基本と、合成した物が浮いて見えるときに何が起きているかを見ていく。</p>
 
-  <h2>描画モードの基礎</h2>
-  <p>上のレイヤーを下のレイヤーにどう混ぜるかを、描画モード（ブレンドモード）と呼ぶ。基本の「通常」は上の画で下を覆う。「スクリーン」は明るい所だけを足すので、光や炎の素材を重ねるのに向く。「乗算」は暗い所だけを残すので、影や汚れを重ねるのに向く。</p>
-  <p>描画モードは多くの種類があるが、まず「明るくする系」と「暗くする系」があると押さえれば、どれを選ぶか当たりを付けやすい。</p>
+  <h2>レイヤーは奥から手前に重ねる</h2>
+  <p>合成では、素材を1枚ずつ別のレイヤー（層）として持ち、奥から手前の順に重ねる。手前のレイヤーは、奥のレイヤーを覆い隠す。どの素材をどの順番に置くかで、何が何の前にあるかが決まる。</p>
+  <figure class="fig" aria-label="背景、人物、光、文字の4枚のレイヤーを斜めに離して並べた図。右に、4枚を重ねた完成の画がある">
+    <svg viewBox="0 0 720 260" role="img">
+      <g stroke="#000" stroke-width="2">
+        <polygon points="40,60 200,30 200,170 40,200" fill="#D9D9D9"/>
+        <polygon points="100,70 260,40 260,180 100,210" fill="none"/>
+        <polygon points="160,80 320,50 320,190 160,220" fill="none"/>
+        <polygon points="220,90 380,60 380,200 220,230" fill="none"/>
+      </g>
+      <circle cx="185" cy="105" r="13" fill="#000"/><rect x="172" y="120" width="26" height="55" fill="#000"/>
+      <circle cx="285" cy="95" r="22" fill="#0000BF" opacity=".35"/>
+      <rect x="250" y="175" width="100" height="14" fill="#0000BF"/>
+      <g font-size="13" style="fill:#5C5C5C" text-anchor="middle"><text x="120" y="245">背景</text><text x="180" y="245">人物</text><text x="240" y="245">光</text><text x="300" y="245">文字</text></g>
+      <text x="200" y="20" font-size="13" style="fill:#5C5C5C" text-anchor="middle">奥 ←――――→ 手前</text>
+      <g stroke="#0000BF" stroke-width="3" fill="#0000BF"><line x1="400" y1="130" x2="450" y2="130"/><polygon points="450,122 464,130 450,138"/></g>
+      <rect x="480" y="50" width="220" height="150" fill="#D9D9D9" stroke="#000" stroke-width="2"/>
+      <circle cx="590" cy="95" r="15" fill="#000"/><rect x="575" y="112" width="30" height="88" fill="#000"/>
+      <circle cx="635" cy="85" r="26" fill="#0000BF" opacity=".35"/>
+      <rect x="520" y="170" width="140" height="16" fill="#0000BF"/>
+      <text x="590" y="225" font-size="14" text-anchor="middle">重ねた画</text>
+    </svg>
+    <figcaption><span class="no">図1</span>1つの画を、背景・人物・光・文字の4枚に分けて持つ。分けておけば、文字だけ動かす、光だけ弱める、といった直しが後からできる。</figcaption>
+  </figure>
+  <p>好きな映像を止めて、この画は何枚のレイヤーでできていそうかを考えてみると、合成の目が育つ。背景の上に人物、その上に光、一番手前に文字。分けて見えるようになると、自分で作るときにも、どこまでを1枚にし、どこから分けるかを決められる。</p>
 
-  <h2>合成が浮くとき何が起きているか</h2>
-  <p>合成した素材が浮いて見えるとき、原因はたいてい、素材と背景の何かがそろっていないことにある。光の向き、色味、明るさの幅、ピントやボケ、ノイズの量、動き方。どれか1つがずれるだけで、目は違和感を拾う。</p>
-  <p>浮いていると感じたら、この項目を1つずつ見比べて、ずれている所を探す。光と色の言葉は準備編の「色と光の最低限」、切り抜きの境目は次の章「マスクとキーイング」で扱う。</p>
+  <h2>透明な所を持つ素材：アルファチャンネル</h2>
+  <p>画像の1つ1つの点（ピクセル）は、ふつう赤・緑・青の3つの値で色を表す。合成で使う素材には、4つ目の値として「どれだけ不透明か」を持たせることがある。これがアルファチャンネルだ。白は不透明、黒は透明、灰色は半透明と考えると分かりやすい。背景が透明な画像や、透明部分付きの動画素材は、この4つ目の値を持っている。</p>
+  <figure class="fig" aria-label="左に色の画、中央に白黒のアルファ、右に背景の上に重ねた結果。アルファの白い所だけが残り、縁の灰色の所は半透明になる">
+    <svg viewBox="0 0 720 220" role="img">
+      <rect x="20" y="30" width="180" height="140" fill="#0000BF"/>
+      <circle cx="110" cy="100" r="45" fill="#BFBF00"/>
+      <rect x="270" y="30" width="180" height="140" fill="#000"/>
+      <defs><radialGradient id="c1a"><stop offset=".75" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient></defs>
+      <circle cx="360" cy="100" r="52" fill="url(#c1a)"/>
+      <rect x="520" y="30" width="180" height="140" fill="#D9D9D9"/>
+      <g fill="#fff"><rect x="520" y="30" width="45" height="35"/><rect x="610" y="30" width="45" height="35"/><rect x="565" y="65" width="45" height="35"/><rect x="655" y="65" width="45" height="35"/><rect x="520" y="100" width="45" height="35"/><rect x="610" y="100" width="45" height="35"/><rect x="565" y="135" width="45" height="35"/><rect x="655" y="135" width="45" height="35"/></g>
+      <defs><radialGradient id="c1b"><stop offset=".75" stop-color="#BFBF00"/><stop offset="1" stop-color="#BFBF00" stop-opacity="0"/></radialGradient></defs>
+      <circle cx="610" cy="100" r="52" fill="url(#c1b)"/>
+      <g font-size="22" text-anchor="middle"><text x="235" y="108">＋</text><text x="485" y="108">＝</text></g>
+      <g font-size="14" text-anchor="middle"><text x="110" y="200">色（赤・緑・青）</text><text x="360" y="200">アルファ（白＝見える）</text><text x="610" y="200">重ねた結果</text></g>
+    </svg>
+    <figcaption><span class="no">図2</span>色の情報とは別に、どこを見せるかの白黒の情報を持つ。右の結果では、アルファが白い円の中だけが残り、縁の灰色の所は下が少し透けて見える。</figcaption>
+  </figure>
+  <p>アルファの考え方は、次の章で扱うマスクと同じだ。違いは、素材の中に最初から入っているか、合成するときに後から作るかである。注意したいのは書き出しだ。よく使われる動画の形式の中には、透明な所を持てないものがある。透明のつもりで書き出した素材が、黒や白の背景付きになっていたら、形式を確かめる。</p>
+
+  <h2>描画モード：明るくする系と暗くする系</h2>
+  <p>上のレイヤーを下のレイヤーにどう混ぜるかを決めるのが、描画モードだ。基本の「通常」は、上の画で下を覆う。ほかのモードは、上と下の明るさを計算して混ぜる。</p>
+  <p>明るさを0（黒）から1（白）の数で表すと、仕組みがつかみやすい。「乗算」は掛け算で、0.5と0.5を混ぜると0.25になり、暗くなる。白（1）を掛けても変わらず、黒（0）を掛けると黒になる。「スクリーン」はその逆向きの計算で、0.5と0.5なら0.75になり、明るくなる。黒を重ねても変わらず、白を重ねると白になる。「加算」は単純な足し算で、0.5と0.5で1、つまり真っ白になる。</p>
+  <figure class="fig" aria-label="下の明るさ0.5に上の明るさ0.5を重ねたときの結果を棒で比べた図。通常は0.5、乗算は0.25、スクリーンは0.75、加算は1.0">
+    <svg viewBox="0 0 720 250" role="img">
+      <line x1="60" y1="200" x2="690" y2="200" stroke="#000" stroke-width="2"/>
+      <line x1="60" y1="40" x2="690" y2="40" stroke="#D9D9D9" stroke-dasharray="4 4"/>
+      <line x1="60" y1="120" x2="690" y2="120" stroke="#D9D9D9" stroke-dasharray="4 4"/>
+      <g font-size="13" style="fill:#5C5C5C" text-anchor="end"><text x="52" y="44">1（白）</text><text x="52" y="124">0.5</text><text x="52" y="204">0（黒）</text></g>
+      <rect x="100" y="120" width="90" height="80" fill="#5C5C5C"/>
+      <rect x="250" y="160" width="90" height="40" fill="#0000BF"/>
+      <rect x="400" y="80" width="90" height="120" fill="#0000BF" opacity=".55"/>
+      <rect x="550" y="40" width="90" height="160" fill="#0000BF" opacity=".3"/>
+      <g font-size="15" text-anchor="middle"><text x="145" y="225">通常</text><text x="295" y="225">乗算</text><text x="445" y="225">スクリーン</text><text x="595" y="225">加算</text></g>
+      <g font-size="14" text-anchor="middle"><text x="145" y="112">0.5</text><text x="295" y="152">0.25</text><text x="445" y="72">0.75</text><text x="595" y="32">1.0</text></g>
+    </svg>
+    <figcaption><span class="no">図3</span>下0.5の上に0.5を重ねたとき。乗算は暗くする系、スクリーンと加算は明るくする系だ。加算はすぐに白く飛ぶので、強い光に使うことが多い。</figcaption>
+  </figure>
+  <p>この計算から、使いどころが分かる。黒い背景に炎や光の粒が写った素材は、スクリーンや加算で重ねると黒い所が消えて光だけが残る。白い紙の質感や、紙に描いてスキャンした線画は、乗算で重ねると白い所が消えて線や汚れだけが残る。「オーバーレイ」などは、明るい所をより明るく、暗い所をより暗くする系で、質感を載せたいときによく使われる。</p>
+  <p>描画モードの名前はたくさんあり、ソフトによって少しずつ違う。名前を全部覚えるより、そのモードで白と黒がどうなるかを確かめるといい。白が消えるのか、黒が消えるのか。それが分かれば、どの素材に使えばいいかの当たりが付く。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/ft1qRy8hTe0?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="レイヤー結合 加算とか乗算とかスクリーンとかって何？" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画1</span>AviUtl講座 52 レイヤー結合 加算とか乗算とかスクリーンとかって何？。動画編集ソフトでの描画モードの違いを、実際に重ねて見せている。<a class="yt" href="https://www.youtube.com/watch?v=ft1qRy8hTe0" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>合成が浮いて見える6つの原因</h2>
+  <p>合成した物が浮いて見えるとき、たいていは素材と背景の間で何かがそろっていない。このサイトでは、見比べる所を次の6つにまとめておく。</p>
+  <figure class="fig" aria-label="合成が浮いて見える6つの原因を並べた表。光の向きと影、明るさの幅、色味、ボケ、粒子、動き">
+    <svg viewBox="0 0 720 270" role="img">
+      <g stroke="#000" stroke-width="1.5" fill="none">
+        <rect x="20" y="20" width="220" height="110"/><rect x="250" y="20" width="220" height="110"/><rect x="480" y="20" width="220" height="110"/>
+        <rect x="20" y="140" width="220" height="110"/><rect x="250" y="140" width="220" height="110"/><rect x="480" y="140" width="220" height="110"/>
+      </g>
+      <g font-size="17" style="fill:#0000BF"><text x="36" y="52">1 光の向きと影</text><text x="266" y="52">2 明るさの幅</text><text x="496" y="52">3 色味</text><text x="36" y="172">4 ボケ</text><text x="266" y="172">5 粒子</text><text x="496" y="172">6 動き</text></g>
+      <g font-size="13">
+        <text x="36" y="80">光が同じ側から来ているか</text><text x="36" y="102">足元に影があるか</text>
+        <text x="266" y="80">一番暗い所と一番明るい所が</text><text x="266" y="102">背景と同じくらいか</text>
+        <text x="496" y="80">白い物が同じ色に</text><text x="496" y="102">写っているか</text>
+        <text x="36" y="200">ピントの合い方、</text><text x="36" y="222">輪郭のくっきり具合が同じか</text>
+        <text x="266" y="200">ざらつき（ノイズ）が</text><text x="266" y="222">同じくらいか</text>
+        <text x="496" y="200">揺れ方とブレ方が</text><text x="496" y="222">背景と同じか</text>
+      </g>
+    </svg>
+    <figcaption><span class="no">図4</span>浮いて見えたら、この6つを1つずつ見比べる。どれか1つずれているだけでも、目は違和感を拾う。</figcaption>
+  </figure>
+  <p>1つ目は、光の向きと影だ。背景では左から日が差しているのに、置いた人物は右から照らされている。机に置いたはずの物の下に影がない。光と影の向きは、後から直すのが難しいので、撮影や素材選びの段階で合わせておく。光の言葉は<a href="#prep-3">1.3</a>と<a href="#visual-5">2.5</a>で扱った。</p>
+  <p>2つ目は、明るさの幅だ。背景の一番暗い所はほぼ黒なのに、置いた素材の一番暗い所は灰色に浮いている。こういうとき、素材だけが白っぽく、霧の中にいるように見える。素材の一番暗い所と一番明るい所を、背景のそれに合わせると、ぐっとなじむ。画面を一度白黒にして見比べると、色に惑わされずに明るさのずれが分かる。</p>
+  <p>3つ目は色味だ。夕方の背景なら、白いシャツも少しオレンジがかって写る。素材だけが昼の白さのままだと、そこだけ別の場所に見える。白や灰色の物が、背景と同じ色に転んでいるかを見る。</p>
+  <p>4つ目はボケだ。背景がぼけているのに、手前に置いた素材だけ輪郭がくっきりしていると、切り抜いた紙のように見える。逆に、くっきりした背景に、ぼけた素材を置いても浮く。ピントの合い方を、置く位置の奥行きに合わせる。</p>
+  <p>5つ目は粒子だ。スマホで暗い所を撮ると画面がざらつくが、3DCGや画像素材はつるつるしている。ざらついた背景につるつるの素材を置くと、そこだけ質が違って見える。素材に背景と同じくらいのノイズを足すと、同じカメラで撮ったように見えやすい。</p>
+  <p>6つ目は動きだ。手持ちで揺れている映像に、ぴたりと止まった文字を置くと、文字が画面に貼ってあるように見える。背景の揺れに合わせて動かすには、<a href="#composite-3">6.3</a>で扱うトラッキングを使う。速く動く物にはブレ（モーションブラー）も付ける。</p>
+  <p>直す順番は、明るさの幅、色味、ボケと粒子、動き、の順に進めるのがこのサイトの勧めだ。明るさがずれたままだと、色をどれだけ合わせても浮いて見えるからである。光の向きと影は、なるべく合成の前に合わせておく。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/XIKYUzlR9-E?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="How to Blend Images Seamlessly: Professional Compositing Workflow Explained" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画2</span>How to Blend Images Seamlessly: Professional Compositing Workflow Explained。切り抜いた素材を背景になじませる手順を、明るさ・色・光の順に見せている。英語。<a class="yt" href="https://www.youtube.com/watch?v=XIKYUzlR9-E" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>なじませる合成と、見せる合成</h2>
+  <p>ここまでの話は、合成した物を本当にそこにあるように見せたいときの話だ。実写のVFXや、3DCGを実写に置く場面では、合成したことに気付かれないのがゴールになる。</p>
+  <p>一方で、合成したことをわざと見せる作り方もある。文字PVやモーショングラフィックスのコラージュ、白いフチを付けた切り抜き、紙のざらつきをあえて残した画面、ゆっくり実況の立ち絵。ここでは、素材が浮いていることそのものが見た目の味になっている。6つの項目も、そろえる所と、わざとずらす所を選ぶための物差しとして使える。たとえば、光の向きはばらばらでも、粒子だけは全部の素材にそろえてかけると、ばらばらの素材が1つの作品としてまとまって見える。</p>
+  <p>大事なのは、どちらを狙っているかを先に決めることだ。なじませたいのか、見せたいのか。そこが決まっていないと、見る人には、狙って浮かせたのか、なじませ損ねたのかが区別できない。ここでも出発点は、その画で何を魅せたいかである。</p>
+
+  <h2>やってみよう：1枚の写真に別の写真の物を置く</h2>
+  <p>机の上をスマホで撮る。別の場所で撮った写真から、マグカップなどの物を1つ切り抜き、机の写真に置く。最初は、ほぼ確実に浮いて見えるはずだ。そこで6つの項目を上から1つずつ確かめ、1つ直すたびに画面を保存しておく。最後に、最初の1枚と並べて見比べると、どの項目がずれていたかがはっきりする。次からは、撮る段階でそこをそろえておけばいい。</p>
 </template>
 
 <template id="body-composite-2">
-  <h2>マスクの考え方</h2>
-  <p>マスクは、レイヤーのどこを見せて、どこを隠すかを決める型紙だ。白い所が見え、黒い所が隠れ、灰色の所は半透明になる、と考えると分かりやすい。手で形を描いて切り抜くマスクは、動く被写体に合わせて形を少しずつ変えていく作業（ロトスコープ）になることもある。</p>
+  <p>合成の多くは、素材のいらない所を取り除くことから始まる。人物だけを残して背景を消す、文字の形の中にだけ映像を見せる、空だけを別の空に差し替える。どこを残し、どこを消すかを決める技術が、マスクとキーイングだ。この章では、形で切る方法、色や明るさで抜く方法、そして切った境目を自然に見せる方法を見ていく。</p>
 
-  <h2>クロマキーとルミナンスキー</h2>
-  <p>色や明るさを手がかりに、自動で切り抜く方法をキーイングと呼ぶ。グリーンバックやブルーバックの前で撮り、その色だけを抜くのがクロマキーだ。緑や青が使われるのは、人の肌の色から遠く、分けやすいからである。明るさで抜くのがルミナンスキーで、黒い背景の炎や煙の素材を抜くときなどに使う。</p>
-  <p>キーイングのきれいさは、撮影の段階でほぼ決まる。背景にむらなく光が当たっていること、被写体と背景の距離が離れていること、被写体に背景と同じ色が入っていないこと。後からの調整で取り返せる量には限りがある。</p>
+  <h2>マスクは白黒の型紙</h2>
+  <p>マスクは、レイヤーのどこを見せて、どこを隠すかを決める型紙だ。<a href="#composite-1">6.1</a>のアルファチャンネルと同じく、白い所が見え、黒い所が隠れ、灰色の所は半透明になる。</p>
+  <figure class="fig" aria-label="左に素材の画、中央に白黒のマスク、右にマスクで切り抜いた結果。マスクの縁をぼかすと、結果の縁もやわらかくなる">
+    <svg viewBox="0 0 720 230" role="img">
+      <rect x="20" y="30" width="180" height="140" fill="#0000BF"/>
+      <g fill="#BFBF00"><circle cx="80" cy="80" r="16"/><circle cx="150" cy="120" r="22"/><circle cx="60" cy="145" r="10"/><circle cx="170" cy="55" r="9"/></g>
+      <rect x="270" y="30" width="180" height="140" fill="#000"/>
+      <defs><filter id="c2f"><feGaussianBlur stdDeviation="5"/></filter></defs>
+      <polygon points="320,150 360,55 400,150" fill="#fff" filter="url(#c2f)"/>
+      <rect x="520" y="30" width="180" height="140" fill="#fff" stroke="#000" stroke-width="1.5"/>
+      <defs><clipPath id="c2c"><polygon points="570,150 610,55 650,150"/></clipPath></defs>
+      <g clip-path="url(#c2c)"><rect x="520" y="30" width="180" height="140" fill="#0000BF"/><circle cx="630" cy="120" r="22" fill="#BFBF00"/></g>
+      <g font-size="22" text-anchor="middle"><text x="235" y="108">＋</text><text x="485" y="108">＝</text></g>
+      <g font-size="14" text-anchor="middle"><text x="110" y="200">素材</text><text x="360" y="200">マスク（縁をぼかした）</text><text x="610" y="200">見える所だけ残る</text></g>
+    </svg>
+    <figcaption><span class="no">図1</span>マスクの白い所だけ、素材が見える。マスクの縁をぼかす（フェザーをかける）と、切り抜いた縁もやわらかくなる。</figcaption>
+  </figure>
+  <p>マスクの形は、四角や円、自分で点を打って描いた線で作れる。別のレイヤーの形をそのままマスクにすることもできる。文字の形をマスクにすれば、文字の中にだけ映像が見える。文字PVやモーショングラフィックスでよく見る、文字が窓になって奥の映像がのぞく見せ方は、この仕組みでできている。</p>
+  <p>マスクの縁をどれだけぼかすかを、フェザーと呼ぶ。ぼかしが0だと縁はくっきりし、大きくするとふわっと溶ける。空を差し替えるときのように、境目を目立たせたくない所では大きめにし、文字の窓のように形を見せたい所では小さくする。</p>
+
+  <h2>描いて切る：ロトスコープ</h2>
+  <p>動く人物をマスクで切り抜くには、人物の動きに合わせてマスクの形を変えていく必要がある。何コマかおきに形を描き直し、その間はソフトに補ってもらい、ずれた所を直す。この作業をロトスコープ（ロト）と呼ぶ。</p>
+  <p>ロトスコープという言葉は、もともとアニメの技法の名前だ。1915年にアニメーターのマックス・フライシャーが、撮影した人の動きを1コマずつなぞって絵にする方法として考え出した。のちにVFXでは、実写の素材に手でマスクを作る作業を指すようにもなった。『スター・ウォーズ』の最初の3部作では、役者が持つ棒の位置を1コマずつなぞって線を引き、そこに光を足して、光る剣を作った（英語版ウィキペディア「Rotoscoping」による）。</p>
+  <p>人物を1つの形で追うと、腕が動くたびに全体を描き直すことになる。頭、胴、腕のように、動き方の違う部分ごとにマスクを分けると、直す所が少なくて済む。このサイトでは、動きの大きい部分から分けていくのを勧める。</p>
+  <p>最近は、人物などを自動で切り抜く機能を持つ編集ソフトやアプリも多い。手早く切り抜けて便利だが、髪の毛、透ける物、速い動きでブレた所は崩れやすい。自動で切った後も、1コマずつ見て、崩れた所は手で直す。</p>
+
+  <h2>色や明るさで抜く：キーイング</h2>
+  <p>形を描くかわりに、色や明るさを手がかりに自動で切り抜く方法がある。これがキーイングだ。緑や青の幕の前で撮り、その色の所だけを抜くのがクロマキー。明るさを手がかりに、暗い所（または明るい所）だけを抜くのがルミナンスキーで、黒い背景で撮った炎、煙、水しぶきの素材を抜くときなどに使う。</p>
+  <figure class="fig" aria-label="左はクロマキー。緑の幕の前の人物から緑だけを抜く。右はルミナンスキー。黒い背景の炎から黒い所だけを抜く">
+    <svg viewBox="0 0 720 230" role="img">
+      <rect x="20" y="30" width="150" height="130" fill="#00BF00"/>
+      <circle cx="95" cy="75" r="16" fill="#000"/><rect x="78" y="93" width="34" height="67" fill="#000"/>
+      <g stroke="#0000BF" stroke-width="3" fill="#0000BF"><line x1="180" y1="95" x2="210" y2="95"/><polygon points="210,88 222,95 210,102"/></g>
+      <rect x="230" y="30" width="150" height="130" fill="#D9D9D9"/>
+      <circle cx="305" cy="75" r="16" fill="#000"/><rect x="288" y="93" width="34" height="67" fill="#000"/>
+      <rect x="390" y="30" width="150" height="130" fill="#000"/>
+      <path d="M465 150 C440 120 450 95 465 60 C470 85 490 100 480 150 Z" fill="#BFBF00"/>
+      <path d="M465 150 C455 130 460 115 468 95 C472 115 480 125 474 150 Z" fill="#fff"/>
+      <g stroke="#0000BF" stroke-width="3" fill="#0000BF"><line x1="545" y1="95" x2="560" y2="95"/><polygon points="560,88 572,95 560,102"/></g>
+      <rect x="580" y="30" width="130" height="130" fill="#D9D9D9"/>
+      <path d="M645 150 C620 120 630 95 645 60 C650 85 670 100 660 150 Z" fill="#BFBF00"/>
+      <path d="M645 150 C635 130 640 115 648 95 C652 115 660 125 654 150 Z" fill="#fff"/>
+      <g font-size="14" text-anchor="middle"><text x="200" y="190">クロマキー：緑だけを抜く</text><text x="550" y="190">ルミナンスキー：暗い所を抜く</text></g>
+      <g font-size="12" style="fill:#5C5C5C" text-anchor="middle"><text x="200" y="212">灰色＝差し替えた背景</text><text x="550" y="212">（明るい所ほど濃く残る）</text></g>
+    </svg>
+    <figcaption><span class="no">図2</span>クロマキーは決まった色で、ルミナンスキーは明るさで抜く。炎や煙は縁が半透明なので、明るさで抜くと薄い所が薄いまま残り、自然に重なる。</figcaption>
+  </figure>
+
+  <h2>緑と青の使い分け</h2>
+  <p>背景の幕に緑や青が使われるのは、人の肌の色から遠く、分けやすいからだ。フィルムの時代には青が主に使われた。肌の色から最も遠く、当時のカラーフィルムの方式では青の層が最も粒子が細かかったからである。デジタルのカメラが広まると、緑が多く使われるようになった。多くのカメラの撮像素子は、緑を受け取る点が赤や青の2倍あるので、緑は少ない光でも明るく、きれいに写る。衣装や小道具に緑が少ないことも理由に挙げられている（Lensrentals「A Brief History of Chromakeying」による）。</p>
+  <figure class="fig" aria-label="カメラの撮像素子の色の並びを4行4列で表した図。16マスのうち8マスが緑、赤と青は4マスずつ">
+    <svg viewBox="0 0 720 220" role="img">
+      <g stroke="#fff" stroke-width="2">
+        <rect x="240" y="20" width="40" height="40" fill="#00BF00"/><rect x="280" y="20" width="40" height="40" fill="#BF0000"/><rect x="320" y="20" width="40" height="40" fill="#00BF00"/><rect x="360" y="20" width="40" height="40" fill="#BF0000"/>
+        <rect x="240" y="60" width="40" height="40" fill="#0000BF"/><rect x="280" y="60" width="40" height="40" fill="#00BF00"/><rect x="320" y="60" width="40" height="40" fill="#0000BF"/><rect x="360" y="60" width="40" height="40" fill="#00BF00"/>
+        <rect x="240" y="100" width="40" height="40" fill="#00BF00"/><rect x="280" y="100" width="40" height="40" fill="#BF0000"/><rect x="320" y="100" width="40" height="40" fill="#00BF00"/><rect x="360" y="100" width="40" height="40" fill="#BF0000"/>
+        <rect x="240" y="140" width="40" height="40" fill="#0000BF"/><rect x="280" y="140" width="40" height="40" fill="#00BF00"/><rect x="320" y="140" width="40" height="40" fill="#0000BF"/><rect x="360" y="140" width="40" height="40" fill="#00BF00"/>
+      </g>
+      <g font-size="15"><text x="430" y="70">緑 8マス</text><text x="430" y="100">赤 4マス</text><text x="430" y="130">青 4マス</text></g>
+      <text x="320" y="208" font-size="13" style="fill:#5C5C5C" text-anchor="middle">多くのデジタルカメラの撮像素子の色の並び（ベイヤー配列）</text>
+    </svg>
+    <figcaption><span class="no">図3</span>緑を受け取る点が、赤や青の2倍ある。緑の幕は少ない光でも明るく写り、抜きやすい。</figcaption>
+  </figure>
+  <p>どちらを選ぶかは、写す物で決める。服や小道具に緑が入るなら青、青いジーンズや青い物を写すなら緑。植物のように緑の物を残したい場面も青が向く。ただ、学校や家で手に入る布や紙の色で決まることも多い。大事なのは、写す物に背景と同じ色が入っていないことだ。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/PkrWAZsHO4Q?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="Blue Screen vs Green Screen - Is one better than the other?" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画1</span>Blue Screen vs Green Screen - Is one better than the other?。青と緑の幕の違いと、どんな場面でどちらを選ぶかを解説している。英語。<a class="yt" href="https://www.youtube.com/watch?v=PkrWAZsHO4Q" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>きれいに抜けるかは、撮影でほぼ決まる</h2>
+  <p>キーイングのきれいさは、撮影の段階でほぼ決まる。後からの調整で取り返せる量には限りがあるので、撮る前に次のことを確かめておきたい。</p>
+  <figure class="fig" aria-label="上から見た撮影の配置図。奥に緑の幕、幕の左右に幕を照らすライト。人物は幕から離れて立ち、人物用のライトが前にある。カメラは手前">
+    <svg viewBox="0 0 720 280" role="img">
+      <rect x="160" y="20" width="400" height="16" fill="#00BF00"/>
+      <text x="160" y="58" font-size="13" style="fill:#5C5C5C">緑の幕</text>
+      <g fill="#BFBF00" stroke="#000" stroke-width="1.5"><polygon points="120,70 150,60 150,90"/><polygon points="600,70 570,60 570,90"/></g>
+      <g stroke="#BFBF00" stroke-width="2" stroke-dasharray="5 4"><line x1="150" y1="72" x2="260" y2="36"/><line x1="570" y1="72" x2="460" y2="36"/></g>
+      <g font-size="13"><text x="40" y="110">幕用のライト</text><text x="580" y="110">幕用のライト</text></g>
+      <circle cx="360" cy="150" r="18" fill="#000"/>
+      <line x1="360" y1="40" x2="360" y2="130" stroke="#0000BF" stroke-width="2"/>
+      <g fill="#0000BF"><polygon points="352,48 360,38 368,48"/><polygon points="352,122 360,132 368,122"/></g>
+      <text x="372" y="90" font-size="13" style="fill:#0000BF">離す</text>
+      <g fill="#BFBF00" stroke="#000" stroke-width="1.5"><polygon points="250,200 270,180 285,205"/></g>
+      <line x1="272" y1="192" x2="342" y2="158" stroke="#BFBF00" stroke-width="2" stroke-dasharray="5 4"/>
+      <text x="170" y="228" font-size="13">人物用のライト</text>
+      <rect x="345" y="235" width="30" height="20" fill="#000"/><polygon points="352,235 360,222 368,235" fill="#000"/>
+      <text x="390" y="252" font-size="13">カメラ</text>
+    </svg>
+    <figcaption><span class="no">図4</span>幕と人物を別々のライトで照らし、人物は幕から離して立たせる。幕にむらがなく、人物の影や緑の照り返しが幕に落ちないほど、抜きやすい。</figcaption>
+  </figure>
+  <p>1つ目は、幕にむらなく光を当てることだ。しわや影で明るさがまだらになると、暗い所だけ抜け残る。布はなるべくぴんと張る。2つ目は、人物を幕から離すことだ。近いと人物の影が幕に落ち、幕の緑が人物に照り返して、髪や肩が緑っぽくなる。3つ目は、写す物に背景の色を入れないこと。緑の服はもちろん、眼鏡や光る物に幕が映り込むと、その部分が抜けてしまう。4つ目は、動きのブレを減らすことだ。ブレた所は背景の色と混ざって半透明になり、抜きにくい。</p>
+  <p>もう1つ、人物に当てる光の向きを、合成先の背景に合わせておく。<a href="#composite-1">6.1</a>の「光の向きと影」は、後から直すのが一番難しい項目だからだ。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/LNvof0GZd8E?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="グリーンバックで大切なのは人物ライティング【クロマキー合成】" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画2</span>グリーンバックで大切なのは人物ライティング【クロマキー合成】。幕の照らし方だけでなく、人物の照らし方を合成先に合わせる話。<a class="yt" href="https://www.youtube.com/watch?v=LNvof0GZd8E" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/kiNWGwS3wyA?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="グリーンバックを自宅で綺麗にクロマキーするための撮影方法" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画3</span>【保存版】グリーンバックを自宅で綺麗にクロマキーするための撮影方法。家で幕を張って撮るときの、張り方と照明の工夫。<a class="yt" href="https://www.youtube.com/watch?v=kiNWGwS3wyA" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
 
   <h2>境界の処理で自然さが決まる</h2>
-  <p>切り抜いた素材が自然に見えるかどうかは、境界、つまり輪郭の扱いで大きく変わる。境界がくっきりしすぎると切り紙のように見え、ぼかしすぎると被写体が溶けて見える。髪の毛のような細かい部分や、動きでブレた部分は特に難しい。</p>
-  <p>グリーンバックの緑が被写体の縁に映り込む「色かぶり」を消す処理（スピル除去）も、境界の自然さに関わる。</p>
+  <p>切り抜いた素材が自然に見えるかどうかは、輪郭の扱いで大きく変わる。境界がくっきりしすぎると切り紙のように見え、ぼかしすぎると被写体が溶けて見える。髪の毛や、動きでブレた所は特に難しい。</p>
+  <p>難しい所を1つのマスクで済ませようとすると、どこかが崩れる。体の芯はかっちり抜くマスク、髪の毛の縁だけはやわらかく抜くマスク、と分けて作り、重ねるやり方がある。</p>
+  <p>幕の緑が被写体の縁に照り返した色かぶりを、スピルと呼ぶ。キーイングの後、縁に残った緑みを消す処理（スピル除去）をすると、輪郭の色が自然になる。</p>
+  <p>最後の仕上げに、ライトラップという処理がある。現実では、明るい背景の前に立つ人の輪郭には、背景の光が少し回り込んで見える。合成先の背景の明るさを、切り抜いた素材の縁にほんの少しにじませると、背景の光の中に立っているように見える。どれも、かけすぎると縁が光ったり溶けたりするので、元の素材と見比べながら少しずつ足す。</p>
+
+  <h2>やってみよう：黒い紙で素材を作る</h2>
+  <p>幕がなくても、ルミナンスキーなら試せる。黒い紙や布の前で、スマホのライトを当てた白い物（紙を切った形、湯気、こぼした粉など）を撮る。明るさで抜いて別の映像に重ねると、自分だけの光や煙の素材になる。抜いた素材を<a href="#composite-1">6.1</a>のスクリーンや加算で重ねたときと見比べて、違いを確かめてみよう。</p>
 </template>
 
 <template id="body-composite-3">
-  <h2>ポイントトラッキング</h2>
-  <p>トラッキングは、映像の中の動きを読み取り、別の素材をその動きに追従させる技術だ。ポイントトラッキングでは、画面の中のはっきりした点（模様の角や小さな印）を選び、その点がコマごとにどこへ動いたかをソフトに追わせる。読み取った動きを文字や画像に当てると、映像の中に貼り付いたように動く。</p>
+  <p>手持ちで撮った映像に文字を置くと、映像は揺れているのに文字だけが止まっていて、画面に貼ったシールのように見える。文字が地面や壁にくっついて見えるのは、文字が映像の中の物と同じように動いているときだ。映像の中の動きを読み取って、別の素材をその動きに追従させる技術を、トラッキングと呼ぶ。この章では、何点を追うと何が分かるか、カメラの動きを空間ごと読む方法、そして追いやすい映像の撮り方を見ていく。</p>
 
-  <h2>カメラトラッキング</h2>
-  <p>カメラトラッキングは、たくさんの点の動きから、撮影したカメラがどう動いたかを空間ごと計算する技術だ。カメラの動きが分かれば、3DCGの物体を実写の空間に置いたように合成できる。マッチムーブとも呼ばれる。</p>
+  <h2>貼り付いて見えるのは、動きが同じだから</h2>
+  <p>トラッキングの基本は、映像の中のはっきりした点（模様の角、小さな印、文字の端など）を選び、その点がコマごとにどこへ動いたかをソフトに追わせることだ。読み取った動きを文字や画像に当てると、その点に貼り付いたように動く。</p>
+  <p>何点を追うかで、読み取れる動きが変わる。</p>
+  <figure class="fig" aria-label="1点、2点、4点のトラッキングを比べた図。1点では位置だけ、2点では位置と回転と大きさ、4点では斜めに傾いた面の形まで追える">
+    <svg viewBox="0 0 720 250" role="img">
+      <g stroke="#000" stroke-width="1.5" fill="none"><rect x="20" y="20" width="210" height="170"/><rect x="255" y="20" width="210" height="170"/><rect x="490" y="20" width="210" height="170"/></g>
+      <rect x="60" y="80" width="60" height="40" fill="#0000BF" opacity=".25"/>
+      <rect x="130" y="110" width="60" height="40" fill="#0000BF"/>
+      <circle cx="90" cy="100" r="5" fill="#BF0000"/><circle cx="160" cy="130" r="5" fill="#BF0000"/>
+      <line x1="95" y1="103" x2="154" y2="127" stroke="#BF0000" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <rect x="290" y="85" width="70" height="30" fill="#0000BF" opacity=".25"/>
+      <g transform="rotate(-20 385 125)"><rect x="345" y="105" width="90" height="40" fill="#0000BF"/></g>
+      <circle cx="290" cy="85" r="5" fill="#BF0000"/><circle cx="360" cy="115" r="5" fill="#BF0000"/>
+      <circle cx="341" cy="122" r="5" fill="#BF0000"/><circle cx="425" cy="98" r="5" fill="#BF0000"/>
+      <polygon points="530,70 660,50 670,160 520,150" fill="#0000BF"/>
+      <g fill="#BF0000"><circle cx="530" cy="70" r="5"/><circle cx="660" cy="50" r="5"/><circle cx="670" cy="160" r="5"/><circle cx="520" cy="150" r="5"/></g>
+      <g font-size="16" text-anchor="middle"><text x="125" y="215">1点：位置</text><text x="360" y="215">2点：＋回転・大きさ</text><text x="595" y="215">4点：＋傾いた面の形</text></g>
+      <g font-size="12" style="fill:#5C5C5C" text-anchor="middle"><text x="125" y="238">薄い四角＝最初のコマ</text><text x="595" y="238">画面のはめ込み、看板の差し替え</text></g>
+    </svg>
+    <figcaption><span class="no">図1</span>1点を追えば位置が、2点を追えば回転と大きさも分かる。4点を追うと、斜めに傾いた板の形まで分かるので、スマホの画面や看板に別の映像をはめ込める。</figcaption>
+  </figure>
+  <p>文字を人物の頭の上に浮かせておくだけなら、1点で足りる。カメラが寄ったり傾いたりする映像なら、2点追って大きさと回転も合わせる。壁のポスターやスマホの画面に別の映像をはめ込むなら、4つの角を追う。4点で追うことを、コーナーピンと呼ぶこともある。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/TJD8rYOXs6s?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="2Dモーショントラッキングとスタビライズ入門｜実写に文字を貼り付ける方法" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画1</span>【Ae】2Dモーショントラッキングとスタビライズ入門｜実写に文字を貼り付ける方法。点を追って実写に文字を貼る手順と、同じ仕組みで揺れを止める方法。<a class="yt" href="https://www.youtube.com/watch?v=TJD8rYOXs6s" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
 
-  <h2>ずれる原因と直し方</h2>
-  <p>トラッキングがずれる原因には、追う点がはっきりしない、点が画面の外に出る・何かに隠れる、動きが速くてブレている、といったものがある。撮影の段階で、追いやすい印を置いておく、シャッタースピードを上げてブレを減らす、といった準備が効果を持つ。</p>
-  <p>自動で追えなかった所は、ずれたコマだけ手で位置を直す。全部を自動に任せず、最後は目で確かめる。</p>
+  <h2>面ごと追う：平面トラッキング</h2>
+  <p>4つの角が画面の外に出たり、指で隠れたりすると、点のトラッキングは途切れてしまう。そこで、点のかわりに、平らな面の模様全体を追う方法がある。これが平面トラッキングだ。面の一部が見えていれば追い続けられるので、画面や看板、机の天板、床のように、平らな物への差し替えに向いている。</p>
+  <p>面の手前を手や人が横切るときは、その部分をマスク（<a href="#composite-2">6.2</a>）で外して、追う対象から除く。差し替えた映像も、手前の手より奥に見えるよう、手の形で切り抜いて重ねる。</p>
+
+  <h2>カメラの動きを空間ごと読む</h2>
+  <p>たくさんの点の動きから、撮影したカメラがどう動いたかを、空間ごと計算する方法もある。これがカメラトラッキング（マッチムーブ）だ。カメラの位置と向きがコマごとに分かれば、3DCGの仮想カメラを同じように動かせる。すると、3DCGの物や立体の文字を、実写の空間に置いたように合成できる。地面に立つ文字、机の上に乗るキャラクター、街に浮かぶ看板。</p>
+  <p>カメラトラッキングが空間を読み取れるのは、視差があるからだ。カメラが横に動くと、手前の物は大きく、奥の物は小さく動いて見える。この動き方の差から、それぞれの点がどれだけ離れているかを計算する。</p>
+  <figure class="fig" aria-label="カメラが横に動いたとき、手前の点は大きく、奥の点は小さく動いて見えることを表した図">
+    <svg viewBox="0 0 720 260" role="img">
+      <g fill="#000"><rect x="220" y="215" width="30" height="20"/><rect x="450" y="215" width="30" height="20"/></g>
+      <g stroke="#0000BF" stroke-width="3" fill="#0000BF"><line x1="260" y1="225" x2="430" y2="225"/><polygon points="430,218 442,225 430,232"/></g>
+      <text x="350" y="252" font-size="13" text-anchor="middle">カメラが横に動く</text>
+      <circle cx="350" cy="150" r="10" fill="#BF0000"/>
+      <circle cx="350" cy="40" r="10" fill="#5C5C5C"/>
+      <g stroke="#D9D9D9" stroke-width="1.5"><line x1="235" y1="215" x2="350" y2="150"/><line x1="465" y1="215" x2="350" y2="150"/><line x1="235" y1="215" x2="350" y2="40"/><line x1="465" y1="215" x2="350" y2="40"/></g>
+      <g font-size="14"><text x="368" y="155" style="fill:#BF0000">手前の点：画面の中で大きく動く</text><text x="368" y="45" style="fill:#5C5C5C">奥の点：画面の中で少ししか動かない</text></g>
+    </svg>
+    <figcaption><span class="no">図2</span>カメラの位置が変わると、近い物と遠い物の見える方向の変わり方に差が出る。この差が視差で、カメラトラッキングは視差から奥行きを計算する。</figcaption>
+  </figure>
+  <p>このため、三脚の上でカメラを左右に振っただけの映像からは、物までの距離は計算できない。カメラの位置が変わらないので、手前も奥も同じように動いて見えるからだ。トラッキングの道具の説明書にも、パンやチルト、ズームだけでは空間を読み取れず、カメラが実際に場所を移動する必要がある、と書かれている（SynthEyesのマニュアル「Shooting Requirements」による）。3DCGを置くつもりの場面は、歩きながら撮るなど、カメラ自体を動かして撮っておく。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/6_lXv1_XZWw?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="What Is Matchmove? Tracking in VFX" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画2</span>What Is Matchmove? Tracking in VFX。マッチムーブがVFXの中でどんな役割を持つかを、作例とともに説明している。英語。<a class="yt" href="https://www.youtube.com/watch?v=6_lXv1_XZWw" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/EtdXy7kDW04?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="初めてのVFX【モーショントラッキング篇】" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画3</span>【Blender】初めてのVFX【モーショントラッキング篇】【初心者OK】。実写のカメラの動きを読み取り、3DCGを置くまでの流れ。<a class="yt" href="https://www.youtube.com/watch?v=EtdXy7kDW04" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>追いやすい映像を撮る</h2>
+  <p>トラッキングがうまくいくかは、撮る段階でかなり決まる。先ほどのマニュアルは、追いやすい特徴がはっきり写っていること、その特徴が全部同じ平面上に並んでいないこと、ライトの照り返しは追う点に使わないことを挙げている。照り返しは、カメラが動くと物の表面を滑るように動くので、物に貼り付いた点にならないからだ。</p>
+  <p>真っ白な壁や青空のように模様のない所は、追う点がない。そういう場所に合成したいときは、小さく切ったテープで×印を貼っておくと、追う手がかりになる。この印をトラッキングマーカーと呼ぶ。印は後で消す手間がかかるので、小さく、消しやすい場所に貼る。</p>
+  <p>ほかに、このサイトでは次のことを勧める。動きのブレが少ないほど点がはっきりするので、明るい場所で撮る。撮影中はズームを動かさない。レンズの変化とカメラの動きが混ざり、計算がずれやすくなるからだ。3DCGを合わせるつもりなら、撮ったときの焦点距離をメモしておく。</p>
+
+  <h2>揺れを消す、揺れを足す</h2>
+  <p>トラッキングで読み取った動きを、逆向きに映像にかけると、揺れが止まる。これがスタビライズ（手ぶれ補正）だ。画面の中の点を止めるように映像全体をずらすので、画面の端が欠ける。そのぶん少し拡大して隠すことになり、画質が少し落ちる。揺れが大きい映像ほど、大きく拡大することになる。</p>
+  <p>反対に、揺れを足すこともある。モーショングラフィックスや3DCGの画面に、手持ちカメラのような小さな揺れを足すと、撮影した映像のような生っぽさが出る。実写の映像からトラッキングで読み取った揺れを、そのまま当てる方法もある。揺れ方の設計は<a href="#motion-3">3.3</a>で扱った。</p>
+
+  <h2>ずれたら、目で確かめて直す</h2>
+  <p>トラッキングのずれには、2つの見え方がある。1つは、素材が少しずつ滑っていくずれ。もう1つは、素材が細かく震えるずれだ。どちらも、1コマずつ送りながら、追った点が正しい位置にあるかを確かめると原因が見つかる。追う点が画面の外に出た、何かに隠れた、ブレで見えなくなった、といったコマで崩れていることが多い。</p>
+  <p>崩れたコマは、手で位置を直す。自動で追える所は自動に任せ、崩れた所だけ人が直す。最後は再生して、貼った素材が背景と一緒に動いて見えるかを目で確かめる。</p>
+
+  <h2>やってみよう：机の上に文字を立てる</h2>
+  <p>机の上にノートを置き、スマホを持ってゆっくり横に歩きながら、ノートを撮る。ノートの角を追って、自分の名前の文字をノートの上に貼り付けてみよう。カメラトラッキングを試せる人は、同じ机を三脚の上で左右に振っただけの映像でも空間を読み取らせてみよう。歩いて撮った映像と比べると、視差の役割がよく分かる。</p>
 </template>
 
 <template id="body-composite-4">
-  <h2>レンダーパスとは何か</h2>
-  <p>3DCGの画は、1枚の完成画像として書き出すこともできるが、色、影、反射、光の当たり方などの要素ごとに分けて書き出すこともできる。この要素ごとの画像をレンダーパスと呼ぶ。Blenderではビューレイヤーのパス設定、ほかのソフトではAOVなどの名前で扱われる（呼び方はソフトで違う）。</p>
+  <p>3DCGの画は、完成した1枚として書き出すこともできるし、光の種類や情報ごとに何枚にも分けて書き出すこともできる。分けて書き出した1枚1枚をレンダーパスと呼ぶ。この章では、パスに分けると何ができるのか、どう重ねると元の画に戻るのか、そして3DCGを実写に置くときの考え方を見ていく。3DCGの作業の流れの中での具体的な進め方は、応用編の<a href="#cg-8">3DCGのコンポジット</a>で扱う。</p>
 
-  <h2>パス合成で調整できること</h2>
-  <p>パスに分けておくと、合成の段階で要素ごとに調整できる。反射だけを強める、影だけを薄くする、特定の物体だけ色を変える。3DCGソフトでやり直すと何分も何時間もかかるレンダリングを、合成ソフトの中なら数秒で試せる。</p>
-  <p>物体ごとや素材ごとに色分けした画像（IDマスク、クリプトマットなど）を書き出しておくと、合成の段階で特定の物だけを選んで調整しやすくなる。</p>
+  <h2>1枚の画を、光の種類ごとに分ける</h2>
+  <p>3DCGの物に当たった光は、いくつかの種類に分けて考えられる。物の表面の色として広く散る光（拡散）、つやのある所に光る反射、物そのものが光る発光、物に跳ね返って周りを照らす間接の光。レンダラーは、これを別々の画像として書き出せる。</p>
+  <figure class="fig" aria-label="拡散、反射、発光の3枚のパスを足すと完成の画になり、そこに影のパスを掛けると陰影が付く、という流れの図">
+    <svg viewBox="0 0 720 230" role="img">
+      <rect x="10" y="40" width="120" height="100" fill="#000"/><circle cx="70" cy="95" r="34" fill="#0000BF"/>
+      <rect x="160" y="40" width="120" height="100" fill="#000"/><ellipse cx="208" cy="80" rx="12" ry="8" fill="#fff"/>
+      <rect x="310" y="40" width="120" height="100" fill="#000"/><rect x="355" y="60" width="30" height="8" fill="#BFBF00"/>
+      <rect x="470" y="40" width="120" height="100" fill="#fff" stroke="#000"/><defs><radialGradient id="c4a" cx=".5" cy=".9" r=".6"><stop offset="0" stop-color="#5C5C5C"/><stop offset="1" stop-color="#fff"/></radialGradient></defs><rect x="471" y="41" width="118" height="98" fill="url(#c4a)"/>
+      <g font-size="22" text-anchor="middle"><text x="145" y="98">＋</text><text x="295" y="98">＋</text><text x="450" y="98">×</text></g>
+      <g font-size="14" text-anchor="middle"><text x="70" y="165">拡散</text><text x="220" y="165">反射</text><text x="370" y="165">発光</text><text x="530" y="165">影（遮蔽）</text></g>
+      <g font-size="12" style="fill:#5C5C5C" text-anchor="middle"><text x="220" y="185">光のパスは足す</text><text x="530" y="185">暗くするパスは掛ける</text></g>
+      <g stroke="#0000BF" stroke-width="3" fill="#0000BF"><line x1="600" y1="90" x2="618" y2="90"/><polygon points="618,83 630,90 618,97"/></g>
+      <rect x="635" y="50" width="80" height="80" fill="#000"/><circle cx="675" cy="92" r="26" fill="#0000BF"/><ellipse cx="667" cy="80" rx="8" ry="5" fill="#fff"/><rect x="660" y="64" width="20" height="5" fill="#BFBF00"/>
+      <text x="675" y="165" font-size="14" text-anchor="middle">完成</text>
+    </svg>
+    <figcaption><span class="no">図1</span>光のパスを足し合わせると完成の画に近づき、暗くするパスは掛け合わせる。どのパスをどう分けるか、何という名前で呼ぶかは、ソフトによって違う。</figcaption>
+  </figure>
+  <p>多くのレンダラーでは、光のパスを全部足すと、完成の画にほぼ戻るように作られている。足して戻るなら、足す前にどれか1枚だけを強めたり、色を変えたりできる。反射だけを少し強めて、金属のつやを出す。発光だけを明るくして、看板のネオンを目立たせる。レンダリングをやり直すと何分も何時間もかかる調整が、合成の段階なら数秒で試せる。</p>
 
-  <h2>仕上げとしてのコンポジット</h2>
-  <p>3DCGでは、レンダリングで100％の画を作ろうとするより、80％を3DCGで作り、残りを合成で仕上げる作り方がある。光のにじみ、被写界深度、色の最終調整を合成でやると、全体の調子を見ながら素早く決められる。</p>
-  <p>3DCGの作業の流れの中での具体的な進め方は、応用編Gの「コンポジット」で扱う。</p>
+  <h2>光は足し、影は掛ける</h2>
+  <p>光のパスを足すのは、現実の光が足し算だからだ。2つのライトで照らせば、明るさは2つ分になる。<a href="#composite-1">6.1</a>の描画モードで言えば「加算」にあたる。一方、隅や物の接する所が暗くなる遮蔽（アンビエントオクルージョン）のような、光を減らすパスは、掛け算（乗算）で重ねる。白い所は変わらず、暗い所だけが暗くなる。</p>
+  <p>この足し算が正しく働くには、画像の数値が光の量に比例している必要がある。値が2倍なら光も2倍、という状態だ。これをリニア（線形）な値と呼ぶ。ふだん見ている画像の多くは、人の目に合わせて暗い所に細かさを多く割り振る形で記録されていて、光の量とは比例していない。そのまま足し算すると、明るさが合わない（OpenEXRの解説「Scene-Linear Image Representation」による）。</p>
+  <p>そのため、パスはリニアな値のまま、細かい数値を記録できる形式で書き出すことが多い。ILMが1999年に作り、2003年に公開したOpenEXRという形式は、明るさの幅の広い数値を記録でき、反射や拡散、透明度など多くのパスを1つのファイルにまとめて入れられる（英語版ウィキペディア「OpenEXR」による）。</p>
+
+  <h2>色ではないパス：深度、法線、ID</h2>
+  <p>パスには、光のかわりに情報を記録するものもある。</p>
+  <figure class="fig" aria-label="左は深度パス。手前が白く、奥ほど黒い。右はIDのパス。物ごとに別の色で塗り分けてある">
+    <svg viewBox="0 0 720 220" role="img">
+      <rect x="40" y="20" width="280" height="150" fill="#000"/>
+      <rect x="70" y="70" width="60" height="80" fill="#5C5C5C"/>
+      <circle cx="210" cy="115" r="40" fill="#fff"/>
+      <rect x="250" y="50" width="40" height="40" fill="#262626"/>
+      <rect x="400" y="20" width="280" height="150" fill="#000"/>
+      <rect x="430" y="70" width="60" height="80" fill="#BF0000"/>
+      <circle cx="570" cy="115" r="40" fill="#00BFBF"/>
+      <rect x="610" y="50" width="40" height="40" fill="#BFBF00"/>
+      <g font-size="14" text-anchor="middle"><text x="180" y="195">深度：手前ほど白い</text><text x="540" y="195">ID：物ごとに色分け</text></g>
+    </svg>
+    <figcaption><span class="no">図2</span>深度のパスは、カメラからの距離を明るさで記録する。IDのパスは、物や素材ごとに塗り分けて、合成で1つだけ選べるようにする。</figcaption>
+  </figure>
+  <p>深度のパスは、カメラからの距離を明るさで記録したものだ。これを使うと、奥ほど霧を濃くする、ピントの合う距離を後から決めてボケを付ける、といったことが合成でできる。法線のパスは、物の表面がどの方向を向いているかを色で記録したもので、合成の段階で光の当たり方を少し変えたいときに使える。</p>
+  <p>IDのパスは、物ごとや素材ごとに色を塗り分けたものだ。合成の段階で「この車だけ」「この壁の材質だけ」を選んで、色や明るさを調整できる。クリプトマットという、物の名前から自動で選べる仕組みもある。選ぶ手間が減るので、IDのパスは最初から出しておくと便利だ。</p>
+
+  <h2>パスで直せること、直せないこと</h2>
+  <p>パスで直せるのは、明るさ、色、つやの強さ、光のにじみ、ボケ、霧のように、すでに描かれている物の見え方だ。直せないのは、物の形、カメラの位置、影の落ちる方向のように、画そのものの組み立てである。これらを変えたいときは、3DCGに戻ってレンダリングし直す。</p>
+  <p>パスに分けておくと、全体の調子を見ながら素早く決められる。そのぶん、完璧な画をレンダリングで作ることにこだわらず、合成で詰める余地を残しておく作り方もある。どこまでを3DCGで決め、どこからを合成で決めるかは、作品とかけられる時間で選ぶ。</p>
+
+  <h2>実写に3DCGを置く</h2>
+  <p>3DCGを実写の映像に置く場合も、<a href="#composite-1">6.1</a>の6つの項目がそのまま当てはまる。光の向き、明るさの幅、色味、ボケ、粒子、動き。動きはカメラトラッキング（<a href="#composite-3">6.3</a>）で実写のカメラに合わせる。光は、撮影場所で撮った全方向の写真（HDRI）を3DCGの照明に使うと、実写と同じ向きと色の光を当てやすい。</p>
+  <p>見落としやすいのが、3DCGの物が実写の床や机に落とす影だ。影がないと、物が宙に浮いて見える。3DCGの側で、床の形だけを持った見えない板を置き、そこに落ちる影だけを別のパスとして書き出す。その影のパスを実写の床に掛け合わせると、物が床に乗って見える。</p>
+
+  <h2>どこまで分けるか</h2>
+  <p>パスは細かく分けるほど調整の自由が増えるが、ファイルが増えて管理が大変になり、重ね方を間違える所も増える。このサイトでは、最初は完成の画、物ごとのID、深度の3つから始めるのを勧める。調整したいのに手が届かない所が出てきたら、そのとき必要なパスを足せばいい。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/xeRemYp48Xo?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="Compositing for 3D artists - 02 - AOVs (render passes)" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画1</span>Compositing for 3D artists - 02 - AOVs (render passes)。3DCGを作る人向けに、パスの種類と重ね方を説明している。英語。<a class="yt" href="https://www.youtube.com/watch?v=xeRemYp48Xo" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/UCUXhXKDnWQ?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="CG Compositing Series - 1.2 Categories of Passes" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画2</span>CG Compositing Series - 1.2 Categories of Passes。パスを、光のパス、情報のパス、選ぶためのパスなどに分類して整理している。英語。<a class="yt" href="https://www.youtube.com/watch?v=UCUXhXKDnWQ" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>やってみよう：反射だけを強めてみる</h2>
+  <p>3DCGを作っている人は、つやのある物を1つ置いた場面を、完成の画と反射のパスの2つで書き出してみよう。合成で反射のパスだけを明るくしたり、色を付けたりすると、レンダリングし直さずに見え方がどこまで変わるかが分かる。3DCGを作っていない人は、応用編の3DCGの章で、作例の見方として読んでおくといい。</p>
 </template>
 
 <template id="body-composite-5">
-  <h2>グローとブラーの役割</h2>
-  <p>グローは、明るい所の周りに光のにじみを足す効果だ。ネオンや画面の光、強い光源を、実際に光っているように見せる。ブラーは画をぼかす効果で、ピントの外れた奥行きを作る、動きの速さを表す、背景を落として主役を目立たせる、といった役割がある。</p>
-  <p>どちらも、見せたい所に視線を集めるための道具として使うと、理由のある仕上げになる。</p>
+  <p>素材を重ね、切り抜き、動きを合わせたら、最後に画面全体に手を入れる。色をそろえ、光のにじみやボケ、粒子を足して、ばらばらだった素材を1枚の画にまとめる。この最後の工程を、このサイトでは仕上げと呼ぶ。仕上げの効果はかけるほど映像が良くなったように感じやすいので、この章では、何のためにかけるのかと、やりすぎの見分け方もあわせて見ていく。</p>
 
-  <h2>全体の色をそろえる</h2>
-  <p>素材ごとに色を整えた後、最後に画面全体の色を調整する。明るい所と暗い所の幅（コントラスト）、全体の色味、彩度を、作品の空気に合わせてそろえる。全体に同じ色の調整をかけると、合成した素材同士がなじみやすくなる。</p>
-  <p>実写の色の調整では、まず色を正しく戻す「カラーコレクション」と、作品の雰囲気を作る「カラーグレーディング」を分けて考えることが多い。</p>
+  <h2>色をそろえる順番</h2>
+  <p>色の調整は、3つの段階に分けて考えると迷いにくい。</p>
+  <figure class="fig" aria-label="色の調整の3段階。1は素材ごとに正しい色に戻すカラーコレクション、2はカットや素材の間で色を合わせる、3は作品の雰囲気を作るカラーグレーディング">
+    <svg viewBox="0 0 720 200" role="img">
+      <g stroke="#000" stroke-width="1.5" fill="none"><rect x="20" y="40" width="200" height="100"/><rect x="260" y="40" width="200" height="100"/><rect x="500" y="40" width="200" height="100"/></g>
+      <g stroke="#0000BF" stroke-width="3" fill="#0000BF"><line x1="225" y1="90" x2="245" y2="90"/><polygon points="245,83 256,90 245,97"/><line x1="465" y1="90" x2="485" y2="90"/><polygon points="485,83 496,90 485,97"/></g>
+      <g font-size="16" style="fill:#0000BF"><text x="36" y="72">1 正しく戻す</text><text x="276" y="72">2 そろえる</text><text x="516" y="72">3 雰囲気を作る</text></g>
+      <g font-size="13"><text x="36" y="100">白を白に、黒を黒に</text><text x="36" y="122">（カラーコレクション）</text><text x="276" y="100">カットや素材の間で</text><text x="276" y="122">明るさと色を合わせる</text><text x="516" y="100">作品の色の方向を決める</text><text x="516" y="122">（カラーグレーディング）</text></g>
+      <text x="360" y="175" font-size="13" style="fill:#5C5C5C" text-anchor="middle">左から順に進める。3を先にやると、1と2のずれが見えにくくなる</text>
+    </svg>
+    <figcaption><span class="no">図1</span>色の調整の3段階。まずそれぞれの素材を正しい状態に戻し、次に素材同士を合わせ、最後に全体の色の方向を決める。</figcaption>
+  </figure>
+  <p>1つ目は、素材ごとに色を正しい状態に戻すカラーコレクションだ。白い物が白く、黒い物が黒く写るように、明るさと色の偏りを直す。ホワイトバランスの考え方は<a href="#prep-3">1.3</a>で扱った。2つ目は、カットや素材の間で明るさと色をそろえることだ。同じ場面なのに、カットが変わるたびに肌の色が変わると、見る人は場面が変わったように感じてしまう。合成した素材と背景を合わせる<a href="#composite-1">6.1</a>の作業も、ここに入る。</p>
+  <p>3つ目が、作品の雰囲気を作るカラーグレーディングだ。夏の思い出なら暖かく明るく、緊張した場面なら色を抜いて冷たく。どんな色にするかは、<a href="#visual-3">2.3</a>の色の役割の話とつながる。この順番を逆にして、最初から雰囲気の色をかけてしまうと、素材ごとのずれが色の中に隠れて、後から合わせにくくなる。</p>
+
+  <h2>光のにじみ：グロー</h2>
+  <p>グローは、明るい所の周りに光のにじみを足す効果だ。ネオン、画面の光、強い光源を、実際に光っているように見せる。現実のカメラのレンズでも、強い光の周りはにじんで写る。</p>
+  <figure class="fig" aria-label="グローの作り方。元の画から明るい所だけを取り出し、ぼかし、元の画に加算で足す">
+    <svg viewBox="0 0 720 210" role="img">
+      <rect x="20" y="40" width="140" height="100" fill="#262626"/><rect x="60" y="80" width="60" height="12" fill="#fff"/>
+      <rect x="200" y="40" width="140" height="100" fill="#000"/><rect x="240" y="80" width="60" height="12" fill="#fff"/>
+      <defs><filter id="c5f" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+      <rect x="380" y="40" width="140" height="100" fill="#000"/><rect x="420" y="80" width="60" height="12" fill="#0000BF" filter="url(#c5f)"/><rect x="420" y="80" width="60" height="12" fill="#00BFBF" opacity=".6" filter="url(#c5f)"/>
+      <rect x="560" y="40" width="140" height="100" fill="#262626"/><rect x="600" y="80" width="60" height="12" fill="#00BFBF" filter="url(#c5f)"/><rect x="600" y="80" width="60" height="12" fill="#fff"/>
+      <g stroke="#0000BF" stroke-width="2.5" fill="#0000BF"><line x1="165" y1="90" x2="185" y2="90"/><polygon points="185,84 195,90 185,96"/><line x1="345" y1="90" x2="365" y2="90"/><polygon points="365,84 375,90 365,96"/><line x1="525" y1="90" x2="545" y2="90"/><polygon points="545,84 555,90 545,96"/></g>
+      <g font-size="14" text-anchor="middle"><text x="90" y="168">元の画</text><text x="270" y="168">明るい所だけ</text><text x="450" y="168">ぼかす</text><text x="630" y="168">元の画に足す</text></g>
+    </svg>
+    <figcaption><span class="no">図2</span>グローの仕組み。明るい所だけを取り出してぼかし、元の画に加算やスクリーンで足す。ぼかした光に色を付けると、光の色を作れる。</figcaption>
+  </figure>
+  <p>仕組みが分かると、調整のつまみの意味も分かる。どの明るさから上を光とみなすか、どれだけ広くぼかすか、どれだけ強く足すか。画面全体にうっすらかかると、映像が白っぽくぼやけるので、光らせたい所だけに効果が出るよう、取り出す明るさを高めに決める。</p>
+
+  <h2>ぼかし：ブラー</h2>
+  <p>ブラーは、画をぼかす効果だ。役割は大きく3つある。1つ目は奥行きを作ること。背景をぼかすと、ピントの合った主役との距離が感じられ、目が主役に向かう（<a href="#visual-1">2.1</a>の視線の話）。2つ目は速さを表すこと。速く動く物にモーションブラー（動きの方向のブレ）を付けると、動きがなめらかに見え、速さが伝わる。3つ目は情報を減らすこと。文字を読ませたい場面で背景をぼかすと、文字が読みやすくなる。</p>
+  <p>ボケは、置く物の奥行きに合わせる。ピントの合う位置から手前や奥に離れるほど、物は大きくぼける。<a href="#composite-4">6.4</a>の深度のパスを使えば、3DCGでも距離に合わせたボケを後から付けられる。</p>
+
+  <h2>粒子、周辺の暗さ、レンズの癖</h2>
+  <p>グレイン（粒子）は、フィルムやカメラのざらつきを足す効果だ。画面全体に同じ粒子をかけると、別々に作った素材が、同じカメラで撮ったようにまとまって見える。<a href="#composite-1">6.1</a>の「粒子」の項目を、最後に全体でそろえる作業とも言える。</p>
+  <p>ビネットは、画面の周りを少し暗くする効果だ。古いレンズで撮ったような雰囲気が出るうえ、明るい中心に目が向きやすくなる。</p>
+  <p>ほかに、画面の端で色が少しずれる色収差、強い光が画面に入ったときの光の筋（レンズフレア）など、現実のレンズの癖をまねる効果がある。3DCGの画はレンズを通っていないので、つるつるで完璧すぎて見えることがある。レンズの癖を少しだけ足すと、カメラで撮った映像のような手触りが出る。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/tJ49Pa4ocJ0?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="How to Professionally Match Grain in VFX" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画1</span>How to Professionally Match Grain in VFX。合成した素材の粒子を、撮影した映像の粒子に合わせる方法。英語。<a class="yt" href="https://www.youtube.com/watch?v=tJ49Pa4ocJ0" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/iddqgKIsg38?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="LENS IMPERFECTIONS FOR REALISM IN COMPOSITING" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画2</span>LENS IMPERFECTIONS FOR REALISM IN COMPOSITING。色収差や周辺の暗さなど、レンズの癖を合成で足して、撮った映像らしさを出す話。英語。<a class="yt" href="https://www.youtube.com/watch?v=iddqgKIsg38" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>何のためにかけるか</h2>
+  <p>仕上げの効果は、どれも理由を言えるとぶれにくい。このサイトでは、理由を3つにまとめておく。</p>
+  <p>1つ目は、視線を集めるため。主役の周りを明るくし、背景をぼかし、周辺を暗くすると、目は自然に主役へ向かう。2つ目は、質感をそろえるため。粒子や色を全体にかけて、別々の素材を1つの作品にまとめる。3つ目は、空気を作るため。光のにじみ、色の方向、粒子の荒さで、作品の時代や温度、気分を決める。</p>
+  <p>この3つのどれにも当てはまらない効果は、かける理由がまだ決まっていない効果だ。外して見比べて、なくても困らなければ外す。</p>
 
   <h2>やりすぎの見分け方</h2>
-  <p>仕上げの効果は、かけるほど映像が良くなるように感じやすい。しばらく作業した後で効果をオフにして見比べると、かけすぎに気づきやすい。効果をかける前と比べて、魅せたいものがより見やすくなっているかを確かめる。</p>
-  <p>作業していた画面と、スマホなど見る人が使う画面で見え方が違うこともある。書き出した後に、別の画面でも確認する。</p>
+  <p>仕上げの効果は、作業している間に目が慣れて、どんどん強くしたくなる。見分ける方法をいくつか持っておくといい。</p>
+  <p>1つ目は、効果を全部オフにして見比べること。オンにしたときに、魅せたいものがより見やすくなっているかを確かめる。見やすくなっていなければ、効果が主役になってしまっている。2つ目は、時間を置くこと。一晩たってから見ると、慣れた目がリセットされて、かけすぎに気付きやすい。3つ目は、別の画面で見ること。作業していた画面と、スマホなど見る人が使う画面では、明るさも色も違って見える。書き出した後、スマホで一度見ておく。</p>
+  <p>もう1つ、投稿した後の画質も気にしておきたい。動画サイトに上げると、映像は小さなデータ量に圧縮される。細かい粒子や、なだらかな暗いグラデーションは、圧縮で崩れてブロック状のノイズになりやすい。粒子を強くかけた作品は、一度テストで上げて、崩れ方を確かめておくと安心だ。</p>
+
+  <h2>ジャンルごとの仕上げ</h2>
+  <p>何を仕上げの中心にするかは、ジャンルで変わる。Vlogでは、場面ごとの色をそろえ、旅や日常の空気を色で作ることが中心になる（<a href="#vlog-6">8A.6</a>）。文字PVやモーショングラフィックスでは、紙やノイズの質感を全体にかけて、文字と図形と背景を1つの画面にまとめることが多い（<a href="#moji-6">8B.6</a>、<a href="#mg-6">8C.6</a>）。3DCGでは、ボケ、光のにじみ、レンズの癖を足して、カメラで撮ったような手触りを出すことが多い（<a href="#cg-8">8G.8</a>）。</p>
+
+  <h2>やってみよう：効果を1つずつ外す</h2>
+  <p>仕上げの効果をかけた自分の作品の1場面を用意する。かけている効果を1つずつオフにして、それぞれが視線、質感、空気のどれのためにかかっているかを書き出してみよう。どれにも当てはまらない効果が見つかったら、外した方が良くなるかを確かめる。</p>
 </template>
 
 <template id="body-composite-6">
-  <p class="tk">この章は叩き台。人物や作品の年、技法の起源には、まだ裏付けを取りきれていないものがあり、そうした所に「要確認」と書いている。</p>
-  <h2>トリック撮影の発明</h2>
-  <p>フランスのジョルジュ・メリエスは、もともと奇術師で、1896年頃から映画を作り始めた。撮影中にカメラが止まり、再開したら馬車が霊柩車に変わって見えた、という出来事から、カメラを止めて物を入れ替える「ストップトリック」を思いついたという話が伝わっている（逸話の真偽は要確認）。</p>
-  <p>メリエスの『月世界旅行』（1902年）は、ロケットが月の顔に刺さる場面で知られ、セット、絵、トリックを組み合わせて、現実にない世界を画面に作り出した。</p>
+  <p>合成は、コンピューターが生まれるずっと前、映画が生まれた直後から始まっている。カメラを止めて物を入れ替える、1本のフィルムに何度も写す、画面の一部を隠して後から別の画を入れる。この章では、そうした工夫がどう積み重なって、今の合成につながったのかを年表でたどる。</p>
+  <figure class="fig" aria-label="1895年から2019年までの年表。メアリー女王の処刑、一人オーケストラ、グラスショット、キング・コング、バグダッドの盗賊、ゴジラ、デジタル合成の式、LEDの壁が並ぶ">
+    <svg viewBox="0 0 720 230" role="img">
+      <line x1="30" y1="110" x2="700" y2="110" stroke="#000" stroke-width="2"/>
+      <g fill="#0000BF"><circle cx="50" cy="110" r="7"/><circle cx="120" cy="110" r="7"/><circle cx="190" cy="110" r="7"/><circle cx="270" cy="110" r="7"/><circle cx="350" cy="110" r="7"/><circle cx="430" cy="110" r="7"/><circle cx="560" cy="110" r="7"/><circle cx="670" cy="110" r="7"/></g>
+      <g stroke="#0000BF" stroke-width="1.5"><line x1="50" y1="103" x2="50" y2="78"/><line x1="190" y1="103" x2="190" y2="78"/><line x1="350" y1="103" x2="350" y2="78"/><line x1="560" y1="103" x2="560" y2="78"/><line x1="120" y1="117" x2="120" y2="142"/><line x1="270" y1="117" x2="270" y2="142"/><line x1="430" y1="117" x2="430" y2="142"/><line x1="670" y1="117" x2="670" y2="142"/></g>
+      <g font-size="14" text-anchor="middle">
+        <text x="50" y="50">1895</text><text x="30" y="70" text-anchor="start">止めて入れ替え</text>
+        <text x="190" y="50">1907</text><text x="190" y="70">ガラスに描く</text>
+        <text x="350" y="50">1940</text><text x="350" y="70">青い幕で抜く</text>
+        <text x="560" y="50">1984</text><text x="560" y="70">デジタル合成の式</text>
+        <text x="120" y="162">1900</text><text x="120" y="182">7回重ねて写す</text>
+        <text x="270" y="162">1933</text><text x="270" y="182">キング・コング</text>
+        <text x="430" y="162">1954</text><text x="430" y="182">ゴジラ</text>
+        <text x="670" y="162">2019</text><text x="700" y="182" text-anchor="end">LEDの壁で撮る</text>
+      </g>
+    </svg>
+    <figcaption><span class="no">図1</span>止める、重ねる、隠す、抜く。今の合成の基本の考え方は、フィルムの時代に一通り出そろっている。後半は、それがコンピューターの中に移り、また撮影の場に戻ってくる歴史になる。</figcaption>
+  </figure>
 
-  <h2>二重露光とコマ撮りの工夫</h2>
-  <p>同じフィルムに2回撮影して像を重ねる二重露光や、画面の一部を隠して別々に撮って合わせる方法も、初期の映画から使われていた。人形を1コマずつ動かして撮るコマ撮り（ストップモーション）は、『キング・コング』（1933年）などで発展した（作品例は要確認）。</p>
-  <p>その後、複数のフィルムを光学的に重ねるオプチカル・プリンターや、ブルーバックでの合成が、映画の特撮を支えた。</p>
+  <h2>止めて入れ替える（1895年〜）</h2>
+  <p>合成の歴史の始まりとしてよく語られるのは、フランスのジョルジュ・メリエスだ。もともと奇術師で、劇場を経営していたメリエスは、1896年5月に映画を撮り始めた。本人の回想によれば、街で撮影していたときにカメラが一瞬止まり、続きを撮ったフィルムを見ると、乗合バスが霊柩車に、女性が男性に変わって見えた。ここから、カメラを止めて物を入れ替えるストップトリックを思いついたという（英語版ウィキペディア「Georges Méliès」による）。ただ、この話は本人の語りしか証拠がなく、作り話かもしれないとも言われている（Senses of Cinema「Georges Méliès」による）。</p>
+  <p>しかも、同じトリックはメリエスより1年早く使われていた。1895年8月、アメリカのエジソン社が公開した18秒の映画『メアリー女王の処刑』では、首を切られる直前に撮影を止め、役者を人形に入れ替えて続きを撮っている。特殊効果を使った、知られている中で最初の映画とされる（英語版ウィキペディア「The Execution of Mary, Queen of Scots (film)」による）。</p>
 
-  <h2>現代のコンポジットへの系譜</h2>
-  <p>1990年代以降、フィルムの合成はコンピュータの上のデジタル合成に置き換わった。それでも、レイヤーを重ねる、マスクで隠す、色や明るさで抜くという考え方は、メリエスやオプチカル合成の時代の延長にある。After Effectsのレイヤーも、二重露光と型紙の考え方を、誰でも扱える形にしたものだと言える。</p>
+  <h2>1本のフィルムに何度も写す（1896年〜1902年）</h2>
+  <p>メリエスが合成の歴史で大きいのは、トリックを発明したかどうかより、それを次々に組み合わせて作品にしたことだ。1896年から1897年にかけて、パリ郊外のモントルイユに、壁も天井もガラス張りのスタジオを建て、そこで数多くのトリック映画を撮った。</p>
+  <p>1898年の『四つの頭』では、黒い背景の前で撮ったフィルムを巻き戻して何度も写し、メリエスの頭が机の上に並ぶ画を作った。黒い所はフィルムに写らないので、そこに別の像を重ねられる。このように1本のフィルムに何度も写すことを多重露光（2回なら二重露光）と呼ぶ。1900年の『一人オーケストラ』では、フィルムをカメラの中で6回巻き戻し、7人のメリエスが並んで演奏する画を作った。このとき、まだ写していない椅子の部分は、レンズの前を覆って光が当たらないようにしていた（英語版ウィキペディア「The Four Troublesome Heads」「The One-Man Band」による）。画面の一部を隠しておき、後でそこに別の像を写す。これは<a href="#composite-2">6.2</a>のマスクの考え方そのものだ。</p>
+  <p>1902年5月には、セット、背景画、トリックを組み合わせて、ロケットが月の顔に刺さる場面で知られる『月世界旅行』を作った。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/_b0hd62OnSs?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="A Trip to the Moon, Georges Méliès, 1902 / HD restored image" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画1</span>A Trip to the Moon, Georges Méliès, 1902 / HD restored image。『月世界旅行』。人が煙のように消える場面など、ストップトリックがあちこちで使われている。<a class="yt" href="https://www.youtube.com/watch?v=_b0hd62OnSs" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>隠した所に、別の画を入れる（1903年〜1910年代）</h2>
+  <p>1903年の『大列車強盗』（<a href="#edit-4">5.4</a>）では、駅舎の中の場面の窓に、別に撮った列車の映像がはめ込まれている。画面の一部を隠して撮り、隠した所に別の映像を写す、マット合成と呼ばれる方法だ（PBS NOVAの特殊効果の年表による）。</p>
+  <p>1907年には、ノーマン・ドーンが『カリフォルニアの伝道所』で、グラスショットを使った。カメラと実際の景色の間にガラス板を立て、景色の一部をガラスに描き足して、1回の撮影で写す方法だ。実際にはない建物や景色の一部を、描き足して見せることができた。ドーンはのちに、ガラスの一部を黒く塗って隠しておき、後から別のカメラで描いた絵を写し込む方法を工夫し、1918年に特許を取った（英語版ウィキペディア「Norman Dawn」による）。後で描き足せるので、撮影の現場で絵を仕上げなくて済む。</p>
+
+  <h2>動く物を切り抜く（1920年代〜1930年代）</h2>
+  <p>止まった景色の一部を隠すだけなら、隠す形は1つで済む。難しいのは、動く人物を別の背景に重ねることだ。人物の形はコマごとに変わるので、隠す形もコマごとに変えなければならない。こうした動く型紙を、トラベリング・マットと呼ぶ。</p>
+  <p>1933年の『キング・コング』は、当時の技法を総動員した作品だ。コングはウィリス・オブライエンたちが人形を1コマずつ動かして撮ったストップモーションで、ジャングルの景色はガラスに描いた絵を何枚も重ねて作った。後ろのスクリーンに映像を映し、その前で役者が演じるリアプロジェクションを、小さなセットの中でも使った。人物と別撮りの映像を重ねる最も難しいカットには、トラベリング・マットを作るダニング・プロセスとウィリアムズ・プロセスという2つの方法が使われた（英語版ウィキペディア「King Kong (1933 film)」による）。ダニング・プロセスは、手前の人物を黄色い光で、背景を強い青い光で照らして分ける方法だった（Lensrentals「A Brief History of Chromakeying」による）。</p>
+  <p>何本ものフィルムを重ねて1本に焼き付けるには、映写機とカメラを組み合わせたオプチカル・プリンターが使われた。初めて商品として売られたものは1927年に登場し、第二次世界大戦中には、リンウッド・ダンが軍の撮影部隊のために、注文すればすぐ届く量産型を設計した（英語版ウィキペディア「Optical printer」「Linwood G. Dunn」による）。デジタル合成に置き換わるまで、映画の合成の多くはこの機械の中で行われた。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/PI86SGgOqlc?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="VFX History: Optical Printers" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画2</span>VFX History: Optical Printers。オプチカル・プリンターの仕組みと、フィルムの時代の合成の手順。英語。<a class="yt" href="https://www.youtube.com/watch?v=PI86SGgOqlc" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>色の幕で抜く（1940年〜1960年代）</h2>
+  <p>1940年の『バグダッドの盗賊』で、ラリー・バトラーは、青い背景の前で撮った人物を色の違いで切り分ける方法を作り、合成に使った。それまでのトラベリング・マットを発展させたもので、最初の本格的なクロマキーとされる。この作品はアカデミー賞の特殊効果賞を受けた（英語版ウィキペディア「The Thief of Bagdad (1940 film)」「Lawrence W. Butler」による）。</p>
+  <p>その後、ペトロ・ヴラホスが、1959年の『ベン・ハー』のために、青い幕の合成を色の差を使って改良した。ヴラホスは、黄色いナトリウムランプで照らした幕を使う方法でもディズニーの作品に関わり、1964年の『メリー・ポピンズ』では、実写の人物とアニメを同じ画面に合成した（英語版ウィキペディア「Petro Vlahos」による）。ナトリウムの黄色い光は、カラーフィルムの色の層のすき間にあたる狭い色なので、人物の写るフィルムには写らず、もう1本の専用のフィルムにだけ写る。この方法は1950年代末のイギリスで始まり、青い幕のような縁の色かぶりが少なかった（英語版ウィキペディア「Sodium vapor process」による）。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/M0SrjccY95U?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="Sodium Vapor Process Explained" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画3</span>Sodium Vapor Process Explained {Camera Tuesday Ep274}。ナトリウムランプの黄色い幕で、どうやって人物を切り分けたのかの解説。英語。<a class="yt" href="https://www.youtube.com/watch?v=M0SrjccY95U" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>日本の特撮（1954年）</h2>
+  <p>日本では、1954年の『ゴジラ』（監督・本多猪四郎）で、円谷英二が特殊技術を担当した。円谷は当初ストップモーションを考えていたが、人が着ぐるみに入ってミニチュアのセットの中で演じる方法を選んだ。この作り方は、のちにスーツメーションと呼ばれるようになる。本編の撮影が51日だったのに対し、特撮の撮影は71日かかった（英語版ウィキペディア「Godzilla (1954 film)」による）。ミニチュア、着ぐるみ、合成を組み合わせる日本の特撮は、ここから怪獣映画やテレビの特撮番組へと受け継がれていく。</p>
+
+  <h2>コンピューターの中の合成（1970年代末〜1990年代）</h2>
+  <p>1970年代の終わり、ニューヨーク工科大学のアルヴィ・レイ・スミスとエド・キャットムルが、画像に透明度を記録するアルファチャンネルの考え方を取り入れた（<a href="#composite-1">6.1</a>）。1984年には、トーマス・ポーターとトム・ダフが論文「Compositing Digital Images」で、アルファを持つ画像同士を重ねる計算を整理した（英語版ウィキペディア「Alpha compositing」による）。今の合成ソフトの「重ねる」は、この計算の上にある。</p>
+  <p>映画で最初にデジタル合成が使われた作品はどれかには、はっきりした答えがない。1985年の『ヤング・シャーロック ピラミッドの謎』で、ステンドグラスの騎士が窓から抜け出してくる場面がよく挙げられるが、ほかの作品を挙げる人もいる（befores &amp; afters「VFX firsts: what was the first film to use a digital composite?」による）。1980年代の終わりから、デジタル合成がオプチカル合成に取って代わり始めた。1988年の『ロジャー・ラビット』でも、まだ1000を超えるカットでオプチカル・プリンターが必要だったが、1990年代の半ばには、コンピューターの画がそれを上回るようになった（英語版ウィキペディア「Optical printer」による）。</p>
+
+  <h2>撮影の場で合成する今（2019年〜）</h2>
+  <p>デジタル合成が当たり前になると、撮影は緑や青の幕の前で行い、背景は後から合成する作り方が広まった。役者は何もない幕の前で、見えない景色を想像して演じることになる。</p>
+  <p>2019年に始まったドラマ『マンダロリアン』では、撮影スタジオの壁と天井を大きなLEDの画面で囲み、そこに3DCGの背景を映して撮影した。背景はゲームエンジンでその場で描かれ、カメラの位置に合わせて見え方が変わる（英語版ウィキペディア「StageCraft」による）。役者は、幕の前で想像するかわりに、景色を見ながら演じられる。『キング・コング』のリアプロジェクションと同じく、背景をカメラの前に映して一緒に撮る考え方が、形を変えて戻ってきたとも言える。</p>
+  <figure class="ref">
+    <div class="frame"><iframe src="https://www.youtube.com/embed/gUnxzVOs3rk?rel=0&amp;enablejsapi=1&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;iv_load_policy=3&amp;fs=0" title="The Virtual Production of The Mandalorian Season One" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <figcaption><span class="no">動画4</span>The Virtual Production of The Mandalorian Season One。LEDの壁に囲まれたスタジオでの撮影の様子。英語。<a class="yt" href="https://www.youtube.com/watch?v=gUnxzVOs3rk" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+  </figure>
+
+  <h2>変わらない考え方</h2>
+  <p>フィルムからコンピューターへ、そしてLEDの壁へ。道具は大きく変わったが、合成の考え方はメリエスの時代からほとんど変わっていない。画面の一部を隠し、そこに別の画を重ねる。色や明るさの違いで切り分ける。前の素材と後ろの素材の光や動きを合わせる。この編で見てきたレイヤー、マスク、キーイング、トラッキングは、どれもこの130年の工夫を、誰でも扱える形にしたものだ。</p>
 </template>
 
 <template id="body-structure-1">
@@ -2590,7 +3026,7 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
   <p>文字PVは、歌詞などの文字を主役にして、曲に合わせて動かすジャンルだ。文字は読まれる情報であると同時に、画面を作る絵でもある。曲の言葉と気分を、文字の形と動きで見せることが中心になる。</p>
 
   <h2>重要な軸：文字、タイミング、合成</h2>
-  <p>特に比重が大きいのは、文字のデザイン（画編の「文字とタイポグラフィ」）、曲へのタイミング（音編の「タイミングと音ハメ」）、背景や質感を重ねる合成（合成編の「コンポジット」）だ。</p>
+  <p>特に比重が大きいのは、文字のデザイン（画編の「文字とタイポグラフィ」）、曲へのタイミング（音編の「タイミングと音ハメ」）、背景や質感を重ねる合成（合成編の<a href="#composite-1">「コンポジット」</a>）だ。</p>
 
   <h2>作り方の流れ</h2>
   <p>この編では、曲を聴き込んで構成を決める → 書体とレイアウト → 歌詞のタイミング → 文字を動かす → 背景と仕上げ、の順に章を立てている。</p>
@@ -2660,7 +3096,7 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
   <p>文字PVの背景は、文字を引き立てながら、曲の世界観を伝える役割を持つ。単色、写真やイラスト、抽象的な模様など、何を使うかは曲の印象で決める。背景が主張しすぎると、文字が埋もれる。</p>
 
   <h2>質感とエフェクト</h2>
-  <p>紙のざらつき、ノイズ、光のにじみ、色ずれなどの質感を重ねると、画面に味が出る。質感は作品全体で統一すると、まとまりが出やすい。仕上げの効果の考え方は、合成編の「仕上げ」で扱っている。</p>
+  <p>紙のざらつき、ノイズ、光のにじみ、色ずれなどの質感を重ねると、画面に味が出る。質感は作品全体で統一すると、まとまりが出やすい。仕上げの効果の考え方は、合成編の<a href="#composite-5">「仕上げ」</a>で扱っている。</p>
 
   <h2>文字を読みやすく保つ</h2>
   <p>背景と質感を足した後も、文字が読めるかを確かめる。背景を暗く落とす、文字に影を付ける、文字の後ろだけ背景をぼかす、などの方法で、文字と背景の差を保つ。</p>
@@ -2738,7 +3174,7 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
   <p>図形が出る、弾む、消える瞬間に小さな効果音を付けると、動きの質感がはっきりする。BGMの拍に動きの区切りを合わせると、画と音が一体に感じられる。合わせる所と外す所の考え方は、音編の「タイミングと音ハメ」で扱っている。</p>
 
   <h2>色と質感の仕上げ</h2>
-  <p>最後に、全体の色味やコントラストを整え、ノイズ、グロー、モーションブラーなどの質感を加える。モーションブラーは、速い動きに軌跡を残し、動きを滑らかに見せる。仕上げの考え方は合成編の「仕上げ」で扱っている。</p>
+  <p>最後に、全体の色味やコントラストを整え、ノイズ、グロー、モーションブラーなどの質感を加える。モーションブラーは、速い動きに軌跡を残し、動きを滑らかに見せる。仕上げの考え方は合成編の<a href="#composite-5">「仕上げ」</a>で扱っている。</p>
 
   <h2>書き出しの設定</h2>
   <p>投稿先の推奨する解像度とfpsに合わせて書き出す。細い線や細かいグラデーションは、圧縮で崩れやすいので、書き出した後に確認する。</p>
@@ -2983,7 +3419,7 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
   <p>3DCGは、仮想の空間に形を作り、質感、光、カメラ、動きをすべて自分で決めて映像にするジャンルだ。現実にない物も、撮れない角度も作れる。自由度が高い分、何を魅せたいかを決めないと、どこを見ればいいか分からない映像になりやすい。</p>
 
   <h2>重要な軸：構図、光、カメラ</h2>
-  <p>特に比重が大きいのは、構図（画編の「構図」）、光（画編の「光とライティング」）、カメラ（動き編の「カメラワーク」）だ。仕上げでは、合成編の「レンダーパス合成」の考え方も使う。</p>
+  <p>特に比重が大きいのは、構図（画編の「構図」）、光（画編の「光とライティング」）、カメラ（動き編の「カメラワーク」）だ。仕上げでは、合成編の<a href="#composite-4">「レンダーパス合成」</a>の考え方も使う。</p>
 
   <h2>作り方の流れ</h2>
   <p>この編では、モデリング → マテリアルとテクスチャ → リギング → アニメーション → ライティングとカメラ → レンダリング → コンポジット、の順に章を立てている。動かない静止画や、キャラクターの出てこない作品なら、リギングやアニメーションは飛ばしてよい。</p>
@@ -3106,7 +3542,7 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
   <p>Blenderでは、速く書き出せるEeveeと、光を正確に計算するCyclesを使い分けることができる。</p>
 
   <h2>パスに分けて書き出す</h2>
-  <p>後の合成で調整できるよう、色、影、反射、光などの要素ごとに分けて書き出すことがある。これがレンダーパスだ。物体ごとの選択用の画像も書き出しておくと、合成で特定の物だけを調整しやすい。考え方は合成編の「レンダーパス合成」で扱っている。</p>
+  <p>後の合成で調整できるよう、色、影、反射、光などの要素ごとに分けて書き出すことがある。これがレンダーパスだ。物体ごとの選択用の画像も書き出しておくと、合成で特定の物だけを調整しやすい。考え方は合成編の<a href="#composite-4">「レンダーパス合成」</a>で扱っている。</p>
 
   <h2>詰まりやすい所</h2>
   <p>長いレンダリングの途中で失敗すると、やり直しの時間が大きい。動画ファイルで直接書き出すより、連番の画像で書き出す方が、途中で止まっても続きから再開できる。本番の前に、低い画質で全体を書き出して確かめておく。</p>
@@ -3114,13 +3550,13 @@ footer{margin-top:96px;padding:20px 0 48px;border-top:1px solid var(--line);colo
 
 <template id="body-cg-8">
   <h2>パスを重ねる流れ</h2>
-  <p>書き出したレンダーパスを、合成ソフトで重ねて画を仕上げる。BlenderのコンポジターやAfter Effects、DaVinci ResolveのFusionなどを使う。基本の色のパスに、光や反射のパスを足し、影のパスを掛け合わせる、という順に重ねていく。考え方は合成編の「レンダーパス合成」で扱っている。</p>
+  <p>書き出したレンダーパスを、合成ソフトで重ねて画を仕上げる。BlenderのコンポジターやAfter Effects、DaVinci ResolveのFusionなどを使う。基本の色のパスに、光や反射のパスを足し、影のパスを掛け合わせる、という順に重ねていく。考え方は合成編の<a href="#composite-4">「レンダーパス合成」</a>で扱っている。</p>
 
   <h2>色と光を後から整える</h2>
-  <p>パスに分けておくと、反射だけを強める、特定の物の色だけを変える、といった調整を、レンダリングをやり直さずにできる。光のにじみ（グロー）や被写界深度のボケ、全体の色の調整も、この段階で加えることが多い。仕上げの考え方は合成編の「仕上げ」で扱っている。</p>
+  <p>パスに分けておくと、反射だけを強める、特定の物の色だけを変える、といった調整を、レンダリングをやり直さずにできる。光のにじみ（グロー）や被写界深度のボケ、全体の色の調整も、この段階で加えることが多い。仕上げの考え方は合成編の<a href="#composite-5">「仕上げ」</a>で扱っている。</p>
 
   <h2>実写と合わせる</h2>
-  <p>3DCGの物を実写の映像に合成する場合は、実写の光の向き、色、ボケ、ノイズ、カメラの動きに合わせる。カメラの動きは、合成編の「トラッキング」で扱っているカメラトラッキングで読み取る。</p>
+  <p>3DCGの物を実写の映像に合成する場合は、実写の光の向き、色、ボケ、ノイズ、カメラの動きに合わせる。カメラの動きは、合成編の<a href="#composite-3">「トラッキング」</a>で扱っているカメラトラッキングで読み取る。</p>
 
   <h2>詰まりやすい所</h2>
   <p>合成で調整できるからといって、3DCGの段階の作業を雑にすると、合成で直しきれないことがある。光の向きや形の問題は、3DCGの段階で直しておく。</p>
@@ -3198,12 +3634,12 @@ var PARTS = [
   {id:"edit-4",pub:true,body:"body-edit-4",mins:8,title:"歴史：編集の発見",sub:"ワンショットからモンタージュへ",summary:"1カットの時代から、ブライトン派のカットの切り替え、ポーターの大列車強盗、グリフィスのクロスカッティング、ソ連のモンタージュ、ゴダールのジャンプカット、MTVと速い編集、デジタルのノンリニア編集まで。",outline:["1カットの時代（1895年〜）","カットを切り替える（1900年前後）","カットをつないで物語を語る（1903年〜）","交互に見せて緊張を作る（1909年〜1915年）","並べて意味を作る（1910年代末〜1920年代）","型を崩す（1960年）","速くなる編集（1980年代〜）","デジタルで、誰でも編集できる時代へ（1990年代〜）"],further:["intro-2a","sound-5","motion-4"]}
  ]},
  {id:"composite",name:"合成編",desc:"レイヤーを重ね、素材から画を作り、仕上げる。",articles:[
-  {id:"composite-1",pub:true,tk:true,body:"body-composite-1",mins:1,title:"コンポジット",sub:"レイヤーで画を考える",summary:"素材を重ねて画を作る。文字PV、モーショングラフィックス、3DCG、音MADに共通する中心技術の入口。",outline:["レイヤー構造で画を考える","描画モードの基礎","合成が浮くとき何が起きているか"]},
-  {id:"composite-2",pub:true,tk:true,body:"body-composite-2",mins:1,title:"マスクとキーイング",sub:"切り抜く、はめ込む",summary:"切り抜く、抜く、はめ込む。合成の精度を決める切り分けの技術。",outline:["マスクの考え方","クロマキーとルミナンスキー","境界の処理で自然さが決まる"]},
-  {id:"composite-3",pub:true,tk:true,body:"body-composite-3",mins:1,title:"トラッキング",sub:"動きに追従させる",summary:"動く対象に素材を追従させる。カメラの動きと被写体の動き、両方への付け方。",outline:["ポイントトラッキング","カメラトラッキング","ずれる原因と直し方"]},
-  {id:"composite-4",pub:true,tk:true,body:"body-composite-4",mins:1,title:"レンダーパス合成",sub:"3DCGを合成で仕上げる",summary:"3DCGはパスに分けて出力し、合成で画を仕上げる。その工程の考え方。",outline:["レンダーパスとは何か","パス合成で調整できること","仕上げとしてのコンポジット"]},
-  {id:"composite-5",pub:true,tk:true,body:"body-composite-5",mins:1,title:"仕上げ",sub:"グロー・ブラー・カラー調整",summary:"最後の数パーセントで全体が締まる。エフェクトと色の最終調整に理由を持たせる。",outline:["グローとブラーの役割","全体の色をそろえる","やりすぎの見分け方"]},
-  {id:"composite-6",pub:true,tk:true,body:"body-composite-6",mins:1,title:"歴史：トリック撮影",sub:"メリエスから",summary:"合成の起源は映画の最初期、メリエスのトリック撮影にある。そこから現代のコンポジットまでの系譜。",outline:["トリック撮影の発明","二重露光とコマ撮りの工夫","現代のコンポジットへの系譜"]}
+  {id:"composite-1",pub:true,body:"body-composite-1",mins:7,title:"コンポジット",sub:"レイヤーで画を考える",summary:"レイヤーを奥から重ねる考え方、透明な所を持つアルファチャンネル、描画モードの明るくする系と暗くする系、合成が浮いて見える6つの原因（光の向きと影・明るさの幅・色味・ボケ・粒子・動き）、なじませる合成と見せる合成まで。",outline:["レイヤーは奥から手前に重ねる","透明な所を持つ素材：アルファチャンネル","描画モード：明るくする系と暗くする系","合成が浮いて見える6つの原因","なじませる合成と、見せる合成","やってみよう：1枚の写真に別の写真の物を置く"],further:["prep-3","composite-2","moji-6"]},
+  {id:"composite-2",pub:true,body:"body-composite-2",mins:7,title:"マスクとキーイング",sub:"切り抜く、はめ込む",summary:"白黒の型紙としてのマスクとフェザー、描いて切るロトスコープ、色や明るさで抜くクロマキーとルミナンスキー、緑と青の使い分け、撮影でほぼ決まること、スピル除去やライトラップなど境界の処理まで。",outline:["マスクは白黒の型紙","描いて切る：ロトスコープ","色や明るさで抜く：キーイング","緑と青の使い分け","きれいに抜けるかは、撮影でほぼ決まる","境界の処理で自然さが決まる","やってみよう：黒い紙で素材を作る"],further:["composite-1","visual-5","yukkuri-4"]},
+  {id:"composite-3",pub:true,body:"body-composite-3",mins:7,title:"トラッキング",sub:"動きに追従させる",summary:"1点・2点・4点で追うと分かること、面ごと追う平面トラッキング、視差から空間を読むカメラトラッキング、追いやすい映像の撮り方、スタビライズと揺れを足すこと、ずれの直し方まで。",outline:["貼り付いて見えるのは、動きが同じだから","面ごと追う：平面トラッキング","カメラの動きを空間ごと読む","追いやすい映像を撮る","揺れを消す、揺れを足す","ずれたら、目で確かめて直す","やってみよう：机の上に文字を立てる"],further:["motion-3","composite-4","vlog-3"]},
+  {id:"composite-4",pub:true,body:"body-composite-4",mins:7,title:"レンダーパス合成",sub:"3DCGを合成で仕上げる",summary:"3DCGの画を光の種類ごとに分けるレンダーパス、光は足し影は掛ける理由とリニアな値、深度・法線・IDのパス、パスで直せること直せないこと、実写に3DCGを置くときの影、どこまで分けるかまで。",outline:["1枚の画を、光の種類ごとに分ける","光は足し、影は掛ける","色ではないパス：深度、法線、ID","パスで直せること、直せないこと","実写に3DCGを置く","どこまで分けるか","やってみよう：反射だけを強めてみる"],further:["cg-7","cg-8","composite-3"]},
+  {id:"composite-5",pub:true,body:"body-composite-5",mins:7,title:"仕上げ",sub:"グロー・ブラー・カラー調整",summary:"色をそろえる3つの段階（コレクション、合わせる、グレーディング）、グローの仕組み、ブラーの3つの役割、粒子・周辺の暗さ・レンズの癖、何のためにかけるか、やりすぎの見分け方、ジャンルごとの仕上げまで。",outline:["色をそろえる順番","光のにじみ：グロー","ぼかし：ブラー","粒子、周辺の暗さ、レンズの癖","何のためにかけるか","やりすぎの見分け方","ジャンルごとの仕上げ","やってみよう：効果を1つずつ外す"],further:["visual-3","vlog-6","mg-6"]},
+  {id:"composite-6",pub:true,body:"body-composite-6",mins:8,title:"歴史：トリック撮影",sub:"メリエスから",summary:"メリエスより早いストップトリック、メリエスの多重露光、マット合成とグラスショット、『キング・コング』とオプチカル・プリンター、青い幕とナトリウムの黄色い幕、『ゴジラ』の特撮、デジタル合成、LEDの壁で撮る今まで。",outline:["止めて入れ替える（1895年〜）","1本のフィルムに何度も写す（1896年〜1902年）","隠した所に、別の画を入れる（1903年〜1910年代）","動く物を切り抜く（1920年代〜1930年代）","色の幕で抜く（1940年〜1960年代）","日本の特撮（1954年）","コンピューターの中の合成（1970年代末〜1990年代）","撮影の場で合成する今（2019年〜）","変わらない考え方"],further:["intro-2a","edit-4","motion-4"]}
  ]},
  {id:"structure",name:"構成編",desc:"作品全体の時間設計。何を、どの順番で見せるか。",articles:[
   {id:"structure-1",pub:true,tk:true,body:"body-structure-1",mins:1,title:"何を魅せるか決める",sub:"構成の出発点",summary:"構成は、作品の魅せたいものを1つに決めることから始まる。編集がカット単位の設計なら、構成は全体の設計。",outline:["魅せたいものを1文で言う","盛る要素と捨てる要素","ジャンルごとの魅せ方"]},
@@ -3425,6 +3861,25 @@ var GLOSSARY=[
  {t:"LUT",d:"色の変換をまとめた設定ファイル。かけるだけで決まった色の調子にできる。",l:"vlog-6"},
  {t:"ストップトリック",d:"カメラを止めて物を入れ替え、物が一瞬で変わったように見せるトリック撮影。",l:"composite-6"},
  {t:"二重露光",d:"同じフィルムに2回撮影して、像を重ねる方法。",l:"composite-6"},
+ {t:"アルファチャンネル",d:"画像の各点に持たせる「どれだけ不透明か」の値。白は不透明、黒は透明。",l:"composite-1"},
+ {t:"ルミナンスキー",d:"明るさを手がかりに、暗い所（または明るい所）だけを抜く切り抜き方。",l:"composite-2"},
+ {t:"フェザー",d:"マスクの縁をぼかす量。大きいほど境目がやわらかく溶ける。",l:"composite-2"},
+ {t:"スピル",d:"背景の幕の色が、被写体の縁に照り返して色かぶりすること。",l:"composite-2"},
+ {t:"ライトラップ",d:"合成先の背景の明るさを、切り抜いた素材の縁に少しにじませる処理。",l:"composite-2"},
+ {t:"平面トラッキング",d:"点のかわりに、平らな面の模様全体を追うトラッキング。画面や看板の差し替えに向く。",l:"composite-3"},
+ {t:"視差",d:"カメラの位置が変わったとき、近い物は大きく、遠い物は小さく動いて見えること。",l:"composite-3"},
+ {t:"トラッキングマーカー",d:"追う手がかりにするため、撮影のときに貼っておく小さな印。",l:"composite-3"},
+ {t:"スタビライズ",d:"読み取った揺れを逆向きにかけて、映像の揺れを止めること。",l:"composite-3"},
+ {t:"IDマスク",a:["クリプトマット"],d:"3DCGで、物や素材ごとに色分けして書き出したパス。合成で1つだけ選べる。",l:"composite-4"},
+ {t:"深度パス",d:"カメラからの距離を明るさで記録したパス。後から霧やボケを付けられる。",l:"composite-4"},
+ {t:"グレイン",d:"フィルムやカメラのざらつき（粒子）。全体に足すと素材がなじむ。",l:"composite-5"},
+ {t:"ビネット",d:"画面の周りを少し暗くする効果。中心に目が向きやすくなる。",l:"composite-5"},
+ {t:"色収差",d:"レンズの癖で、画面の端などで色が少しずれて写ること。",l:"composite-5"},
+ {t:"グラスショット",d:"カメラと景色の間にガラス板を立て、景色の一部を描き足して1回で撮る方法。",l:"composite-6"},
+ {t:"トラベリング・マット",d:"動く被写体の形に合わせて、コマごとに変わる型紙。動く人物を別の背景に重ねるのに使う。",l:"composite-6"},
+ {t:"オプチカル・プリンター",d:"映写機とカメラを組み合わせ、何本ものフィルムを重ねて焼き付ける機械。",l:"composite-6"},
+ {t:"多重露光",d:"1本のフィルムに何度も撮影して、像を重ねること。",l:"composite-6"},
+ {t:"バーチャルプロダクション",d:"LEDの画面などに3DCGの背景を映し、カメラの前で一緒に撮る作り方。",l:"composite-6"},
  {t:"三幕構成",d:"話を設定・対立・解決の3つに分けて組み立てる、映画脚本でよく使われる型。",l:"structure-3"},
  {t:"クライマックス",d:"作品の中で一番盛り上がる所。最後の着地であるオチとは分けて考えられる。",l:"structure-4"},
  {t:"撮れ高",d:"作品に使える素材がどれだけ撮れたか。",l:"vlog-2"},
